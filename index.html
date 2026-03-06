@@ -151,6 +151,28 @@ table.succession tr:hover{background:#F5F0E8}
 .gantt-week-card-empty{padding:0.75rem 1rem;color:var(--text-muted);font-size:0.8rem;font-style:italic}
 .gwc-action-label{font-size:0.7rem;color:var(--text-muted)}
 
+/* Checklist section */
+.checklist-details{background:#fff;border-radius:10px;border:1px solid var(--border);margin-bottom:1rem;overflow:hidden;box-shadow:var(--shadow)}
+.checklist-details summary{padding:0.85rem 1.25rem;cursor:pointer;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:1.05rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--leaf) 0%,var(--leaf-mid) 100%);list-style:none;display:flex;align-items:center;gap:0.5rem}
+.checklist-details summary::before{content:'▶';font-size:0.7rem;transition:transform 0.2s;flex-shrink:0}
+.checklist-details[open] summary::before{transform:rotate(90deg)}
+.checklist-details summary::-webkit-details-marker{display:none}
+.checklist-body{padding:1.25rem}
+.checklist-week{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:var(--leaf);margin:1.25rem 0 0.5rem;border-bottom:2px solid var(--border);padding-bottom:0.3rem}
+.checklist-week:first-child{margin-top:0}
+.checklist-list{list-style:none;padding:0;margin:0 0 0.75rem}
+.checklist-list li{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0.6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:0.5rem;background:var(--warm-white);font-size:0.83rem}
+.checklist-list li input[type=checkbox]{margin-top:2px;flex-shrink:0;accent-color:var(--leaf);width:15px;height:15px;cursor:pointer}
+.checklist-list li label{cursor:pointer;line-height:1.5}
+.checklist-sub{padding-left:2rem;margin:0.25rem 0 0;list-style:disc;font-size:0.79rem;color:var(--text-muted)}
+.checklist-sub li{border:none;background:none;padding:0.1rem 0;margin:0;display:list-item}
+.checklist-warning{background:#FFF8E1;border-left:4px solid #F9A825;padding:0.6rem 0.9rem;border-radius:0 6px 6px 0;font-size:0.8rem;margin-bottom:0.75rem;color:var(--earth)}
+.checklist-peak{background:var(--warm-white);border:2px solid var(--leaf);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem}
+.checklist-peak h4{font-family:'Playfair Display',Georgia,'Times New Roman',serif;color:var(--leaf);margin-bottom:0.5rem;font-size:1rem}
+.checklist-peak p,.checklist-peak ul{font-size:0.82rem;color:var(--text-muted)}
+.checklist-peak ul{padding-left:1.2rem}.checklist-peak li{margin-bottom:0.2rem}
+.checklist-tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+
 </style>
 </head>
 <body>
@@ -181,93 +203,94 @@ table.succession tr:hover{background:#F5F0E8}
   <button class="nav-tab" onclick="showSection('gantt',this)">Week-by-Week Gantt</button>
   <button class="nav-tab" onclick="showSection('beds',this)">Bed Layouts</button>
   <button class="nav-tab" onclick="showSection('succession',this)">Succession Detail</button>
+  <button class="nav-tab" onclick="showSection('checklist',this)">Weekly Checklist</button>
   <button class="nav-tab" onclick="showSection('advice',this)">Growing Advice</button>
 </div>
 <div id="calendar" class="section active">
 <div class="month-grid">
 <div class="month-card"><div class="month-card-header mc-feb">February</div><div class="month-card-body">
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">12 Feb</span>Leeks (Musselburgh) &mdash; indoors, root trainers</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">12 Feb</span>Leeks (Musselburgh) &mdash; indoors, root trainers (26 seeds: 13 cells, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge chit">CHIT</span><span class="task-date">16 Feb</span>1st Early potatoes (Casablanca) &mdash; egg boxes, windowsill</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Feb</span>Leeks &mdash; 2nd indoor sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Feb</span>Tomatoes &times;3 varieties &mdash; indoors, 20&deg;C</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Feb</span>Leeks (Musselburgh) &mdash; 2nd indoor sowing (26 seeds: 13 cells, 2/cell, thin to 1)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Feb</span>Tomatoes &times;3 varieties &mdash; indoors, 20&deg;C (30 seeds total: 10 per variety, 5 cells each, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge chit">CHIT</span><span class="task-date">23 Feb</span>2nd Early potatoes (Charlotte)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Feb</span>Strawberries &mdash; plant if ground workable</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">All month</span>Top up beds with 15cm compost layer</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-mar">March</div><div class="month-card-body">
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">2 Mar</span>Lettuce (Little Gem) &mdash; 1st indoor sowing</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">2 Mar</span>Lettuce (Little Gem) &mdash; 1st indoor sowing (8 seeds: 8 cells, 1/cell)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">2 Mar</span>Spinach Bed 4 &mdash; 1st direct sowing</div>
   <div class="task-item"><span class="task-badge chit">CHIT</span><span class="task-date">2 Mar</span>Maincrop potatoes (Setanta)</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">9 Mar</span>Leeks &mdash; 3rd indoor sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">9 Mar</span>Tomatoes &mdash; pot on to 9cm pots</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">9 Mar</span>Leeks (Musselburgh) &mdash; 3rd indoor sowing (26 seeds: 13 cells, 2/cell, thin to 1)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">9 Mar</span>Tomatoes &mdash; pot on to 9cm pots (all plants)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">9 Mar</span>Onion sets (Sturon) &mdash; Bed 1</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">9 Mar</span>Shallot sets (Biztro) &mdash; Bed 2</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar</span>Lettuce &mdash; 2nd indoor sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar</span>Cauliflower &mdash; indoors, module trays</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar</span>Lettuce (Little Gem) &mdash; 2nd indoor sowing (8 seeds: 8 cells, 1/cell)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar</span>Cauliflower (All Year Round) &mdash; indoors, module trays (12 seeds: 6 cells, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">16 Mar</span>Spinach Bed 3 &mdash; 1st direct sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Mar</span>Leeks &mdash; 4th indoor sowing</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Mar</span>Leeks (Musselburgh) &mdash; 4th indoor sowing (26 seeds: 13 cells, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Mar</span>1st Early potatoes &mdash; plant in Bed 3</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Mar</span>Spinach Bed 4 &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">30 Mar</span>Lettuce &mdash; 3rd indoor (last indoor)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">30 Mar</span>Lettuce (Little Gem) &mdash; 3rd indoor (last indoor) (8 seeds: 8 cells, 1/cell)</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-apr">April</div><div class="month-card-body">
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>Radish Bed 3 &mdash; 1st sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">6 Apr</span>Chard (Rainbow) &mdash; indoors</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">6 Apr</span>Chard (Rainbow) &mdash; indoors (10 seeds: 5 cells, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>2nd Early potatoes &mdash; plant in Bed 3</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Carrots &mdash; 1st sowing (pierce cardboard)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Beetroot &mdash; 1st sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Lettuce Bed 4 &mdash; 1st direct sowing</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">13 Apr</span>PSB &mdash; indoors, module trays</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Lettuce Bed 4 &mdash; 1st direct sowing (6&ndash;8 seeds)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">13 Apr</span>PSB (Purple Sprouting) &mdash; indoors, module trays (8 seeds: 4 cells, 2/cell, thin to 1)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Spinach Beds 3 &amp; 4</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Nasturtiums &mdash; indoors</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Marigolds &mdash; indoors</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>Basil (Greek) &mdash; indoors</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Nasturtiums &mdash; indoors (~16 seeds: 8 pots, 2/pot)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Marigolds &mdash; indoors (~12 seeds: 12 cells, 1/cell)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>Basil (Greek) &mdash; indoors (10&ndash;12 seeds: 4&ndash;5 pots, 2&ndash;3/pot, needs 18&ndash;20&deg;C)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Apr</span>Maincrop potatoes &mdash; plant in Bed 3</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Radish Bed 3 &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Lettuce Bed 4 &mdash; 2nd direct sowing</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Lettuce Bed 4 &mdash; 2nd direct sowing (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">Ongoing</span>Earth up all potato shoots with compost + straw</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-may">May</div><div class="month-card-body">
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Beetroot &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach &amp; Lettuce &mdash; Bed 2 inter-crop</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach &amp; Lettuce &mdash; Bed 2 inter-crop (6&ndash;8 lettuce seeds)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach Bed 4</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Cauliflower &rarr; Bed 2 south (net it!)</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Chard &rarr; Bed 4 middle</div>
-  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">11 May</span>PSB &mdash; insurance sowing indoors</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Cauliflower &rarr; Bed 2 south (4&ndash;5 best plants from 6 cells, net it!)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Chard &rarr; Bed 4 middle (4 best plants from 5 cells)</div>
+  <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">11 May</span>PSB &mdash; insurance sowing indoors (6 seeds: 3 cells, 2/cell &ndash; OPTIONAL)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">11 May</span>Carrots &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">11 May</span>Lettuce Bed 4</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Nasturtiums &rarr; bed corners</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Marigolds &rarr; dotted through beds</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">11 May</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Nasturtiums &rarr; bed corners (12&ndash;16 plants)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Marigolds &rarr; dotted through beds (10&ndash;12 plants)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">18 May</span>Radish Bed 3 &mdash; 3rd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Beetroot &mdash; 3rd sowing</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">25 May</span>Tomatoes &times;3 &rarr; Bed 4 north (harden off first!)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">25 May</span>Tomatoes &times;3 &rarr; Bed 4 north (best 7&ndash;8 plants total: 2&ndash;3 per variety, harden off first!)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Radish Bed 4 &mdash; around tomatoes</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Lettuce Bed 4 &amp; Bed 2 inter-crop</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Lettuce Bed 4 &amp; Bed 2 inter-crop (6&ndash;8 seeds)</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-jun">June</div><div class="month-card-body">
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">1 Jun</span>Leeks batch 1 &rarr; Bed 1</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">1 Jun</span>Basil &rarr; between tomatoes</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">1 Jun</span>Leeks batch 1 &rarr; Bed 1 (20 best plants from 26 seeds sown 12 Feb)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">1 Jun</span>Basil &rarr; between tomatoes (6&ndash;8 plants)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Carrots &mdash; 3rd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Radish Bed 3 &mdash; 4th sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Lettuce Bed 4</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>Leeks batch 2 &rarr; Bed 1</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>PSB batch 1 &rarr; Bed 2 north</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>Leeks batch 2 &rarr; Bed 1 (20 best plants from 26 seeds sown 23 Feb)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>PSB batch 1 &rarr; Bed 2 north (3&ndash;4 best plants from 8 seeds sown 13 Apr)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">15 Jun</span>Beetroot &mdash; 4th sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">15 Jun</span>Radish Bed 4 &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">22 Jun</span>Lettuce Bed 4</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">22 Jun</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">Mid-Jun</span>1st Early potatoes begin</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">Ongoing</span>Strawberries, spinach, lettuce, radish</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">Weekly</span>Tomato feed once first truss appears</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-jul">July</div><div class="month-card-body">
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">29 Jun</span>Leeks batch 3 &rarr; Bed 1 (garlic space)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">29 Jun</span>Leeks batch 3 &rarr; Bed 1 garlic space (20 best plants from 26 seeds sown 9 Mar)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Carrots &mdash; 4th (final) sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Beetroot &mdash; 5th (final) sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Lettuce Bed 4</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">6 Jul</span>PSB batch 2 &rarr; Bed 2</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">13 Jul</span>Leeks batch 4 (final) &rarr; Bed 1</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Chard &mdash; 2nd sowing (overwinter)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Lettuce Bed 4</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">6 Jul</span>PSB batch 2 &rarr; Bed 2 (2&ndash;3 plants if insurance batch sown)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">13 Jul</span>Leeks batch 4 (final) &rarr; Bed 1 onion space (20 best plants from 26 seeds sown 23 Mar)</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Chard &mdash; 2nd sowing overwinter (8&ndash;10 seeds station sown, thin to 4 plants)</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">All month</span>Garlic, onions, shallots, 2nd early potatoes</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">All month</span>Beetroot, radish, spinach, lettuce</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">Late Jul</span>First tomatoes begin ripening</div>
@@ -2468,85 +2491,243 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="card"><div class="card-header"><h2>Succession Planting &mdash; Every Sowing Date</h2></div>
 <div class="card-body" style="overflow-x:auto">
 <table class="succession">
-<thead><tr><th>Bed</th><th>Crop</th><th>#</th><th>Action</th><th>Date</th><th>Where</th><th>Spacing</th><th>Notes</th></tr></thead>
+<thead><tr><th>Bed</th><th>Crop</th><th>#</th><th>Action</th><th>Seeds/Qty</th><th>Date</th><th>Where</th><th>Spacing</th><th>Notes</th></tr></thead>
 <tbody>
-<tr class="crop-group-header"><td colspan="8">LEEKS &mdash; 4 indoor sowings &rarr; 4 transplant batches</td></tr>
-<tr><td>1</td><td>Leeks</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>12 Feb</td><td>Root trainers</td><td>Thin rows</td><td>Multi-purpose compost, keep moist</td></tr>
-<tr><td>1</td><td>Leeks</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>23 Feb</td><td>Root trainers</td><td>Thin rows</td><td>Stagger for extended harvest</td></tr>
-<tr><td>1</td><td>Leeks</td><td>Sow 3</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>9 Mar</td><td>Root trainers</td><td>Thin rows</td><td></td></tr>
-<tr><td>1</td><td>Leeks</td><td>Sow 4</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>23 Mar</td><td>Root trainers</td><td>Thin rows</td><td>Insurance sowing</td></tr>
-<tr><td>1</td><td>Leeks</td><td>T/plant 1</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>1 Jun</td><td>Bed 1</td><td>15cm apart, dibber</td><td>Water in well</td></tr>
-<tr><td>1</td><td>Leeks</td><td>T/plant 2</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>15 Jun</td><td>Bed 1</td><td>15cm apart</td><td>Mound compost around stems</td></tr>
-<tr><td>1</td><td>Leeks</td><td>T/plant 3</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>29 Jun</td><td>Bed 1 (garlic space)</td><td>15cm apart</td><td>Use garlic space</td></tr>
-<tr><td>1</td><td>Leeks</td><td>T/plant 4</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>13 Jul</td><td>Bed 1 (onion space)</td><td>15cm apart</td><td>Final transplant</td></tr>
-<tr class="crop-group-header"><td colspan="8">CARROTS &mdash; 4 direct sowings (every 3&ndash;4 weeks, Apr&ndash;Jul)</td></tr>
-<tr><td>1</td><td>Carrots</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>13 Apr</td><td>Bed 1</td><td>60cm row, thin to 5cm</td><td>Pierce cardboard. Compost + sharp sand. Mound 10cm.</td></tr>
-<tr><td>1</td><td>Carrots</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>11 May</td><td>Bed 1</td><td>60cm row</td><td>Keep moist. Marigolds nearby.</td></tr>
-<tr><td>1</td><td>Carrots</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>8 Jun</td><td>Bed 1</td><td>60cm row</td><td>Thin seedlings when large enough</td></tr>
-<tr><td>1</td><td>Carrots</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>6 Jul</td><td>Bed 1</td><td>60cm row</td><td>Final sowing. Harvest into Oct.</td></tr>
-<tr class="crop-group-header"><td colspan="8">BEETROOT &mdash; 5 direct sowings (every 3 weeks, Apr&ndash;Jul)</td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>13 Apr</td><td>Bed 3 (south)</td><td>50cm row, thin to 10cm</td><td>Away from potatoes</td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>4 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>25 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>15 Jun</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>6 Jul</td><td>Bed 3 (south)</td><td>50cm row</td><td>Final sowing</td></tr>
-<tr class="crop-group-header"><td colspan="8">RADISH &mdash; 5 sowings Bed 3 + 2 sowings Bed 4</td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>6 Apr</td><td>Bed 3</td><td>Short row</td><td>Harvest 25 days after sowing</td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>27 Apr</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>18 May</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>8 Jun</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>29 Jun</td><td>Bed 3</td><td>Short row</td><td>Final Bed 3 sowing</td></tr>
-<tr><td>4</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>25 May</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Before tomatoes fill out</td></tr>
-<tr><td>4</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>15 Jun</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Final Bed 4</td></tr>
-<tr class="crop-group-header"><td colspan="8">LETTUCE &mdash; 3 indoor + 9 direct (every 2 weeks, Mar&ndash;Aug)</td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>2 Mar</td><td>Module tray</td><td>Small pinch</td><td>15&ndash;20&deg;C</td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>16 Mar</td><td>Module tray</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 3</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>30 Mar</td><td>Module tray</td><td>Small pinch</td><td>Last indoor</td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>13 Apr</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>27 Apr</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>11 May</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 7</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>25 May</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 8</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>8 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 9</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>22 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 10</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>6 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Also Bed 2 gaps</td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 11</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>20 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 12</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>3 Aug</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Final sowing</td></tr>
-<tr class="crop-group-header"><td colspan="8">SPINACH &mdash; 5 spring sowings + late Aug re-sow (avoid July!)</td></tr>
-<tr><td>4</td><td>Spinach</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>2 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td>Tolerates light frost</td></tr>
-<tr><td>3</td><td>Spinach</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>16 Mar</td><td>Bed 3 (potatoes)</td><td>Between rows</td><td></td></tr>
-<tr><td>4</td><td>Spinach</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>23 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td></td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>13 Apr</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td></td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>4&ndash;11 May</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td>Final spring. Avoid July!</td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>24 Aug</td><td>Beds 3 &amp; 4</td><td>Cleared space</td><td>Late summer re-sow</td></tr>
-<tr class="crop-group-header"><td colspan="8">CHARD &mdash; 1 indoor + 1 late direct</td></tr>
-<tr><td>4</td><td>Chard</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>6 Apr</td><td>Module trays</td><td>1 per module</td><td>Summer/autumn eating</td></tr>
-<tr><td>4</td><td>Chard</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>11 May</td><td>Bed 4 (middle)</td><td>30cm apart</td><td></td></tr>
-<tr><td>4</td><td>Chard</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>20 Jul</td><td>Bed 4 (middle)</td><td>30cm apart</td><td>Overwinters for spring 2027</td></tr>
-<tr class="crop-group-header"><td colspan="8">POTATOES &mdash; Chit then plant (staggered)</td></tr>
-<tr><td>3</td><td>1st Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td>16 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td>Cool, bright. NOT warm.</td></tr>
-<tr><td>3</td><td>1st Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td>23 Mar</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
-<tr><td>3</td><td>2nd Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td>23 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
-<tr><td>3</td><td>2nd Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td>6 Apr</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
-<tr><td>3</td><td>Maincrop</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td>2 Mar</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
-<tr><td>3</td><td>Maincrop</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td>20 Apr</td><td>Bed 3</td><td>40cm apart, 15cm deep</td><td>Larger spacing</td></tr>
-<tr class="crop-group-header"><td colspan="8">TOMATOES &mdash; sow indoors &rarr; pot on &rarr; transplant</td></tr>
-<tr><td>4</td><td>All 3 varieties</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>23 Feb</td><td>Small pots, 20&deg;C</td><td>1 seed per pot</td><td>Moneymaker, Black Opal, Gardeners Delight</td></tr>
-<tr><td>4</td><td>All 3 varieties</td><td>Pot on</td><td><span class="task-badge sow">POT ON</span></td><td>9 Mar</td><td>9cm pots</td><td>2nd true leaves</td><td>Brightest windowsill. Turn daily.</td></tr>
-<tr><td>4</td><td>All 3 varieties</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>25 May</td><td>Bed 4 (north)</td><td>45cm apart, staked</td><td>Harden off 7&ndash;10 days first!</td></tr>
-<tr class="crop-group-header"><td colspan="8">COMPANION PLANTS &mdash; Nasturtiums &amp; Marigolds + Basil</td></tr>
-<tr><td>All</td><td>Nasturtiums</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>20 Apr</td><td>9cm pots</td><td>2 seeds per pot</td><td>All varieties at same time</td></tr>
-<tr><td>All</td><td>Nasturtiums</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>18 May</td><td>All beds, corners</td><td>1 per corner</td><td>Trap crop for aphids</td></tr>
-<tr><td>1,3,4</td><td>Marigolds</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>20 Apr</td><td>Module trays</td><td>1 per module</td><td></td></tr>
-<tr><td>1,3,4</td><td>Marigolds</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>18 May</td><td>Beds 1, 3, 4</td><td>Between crops</td><td>Pest deterrent</td></tr>
-<tr><td>4</td><td>Basil</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>20 Apr</td><td>Surface sow</td><td>Scatter</td><td>NOT before late April</td></tr>
-<tr><td>4</td><td>Basil</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>1 Jun</td><td>Between tomatoes</td><td>Tuck in</td><td>Wait until June!</td></tr>
-<tr class="crop-group-header"><td colspan="8">ONE-TIME PLANTINGS (no succession needed)</td></tr>
-<tr><td>1</td><td>Onion sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td>9 Mar</td><td>Bed 1</td><td>10cm apart, rows 25cm</td><td>Tip just showing</td></tr>
-<tr><td>2</td><td>Shallot sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td>9 Mar</td><td>Bed 2</td><td>15cm, chequerboard</td><td>Push gently</td></tr>
-<tr><td>1</td><td>Strawberries</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td>23 Feb</td><td>Bed 1</td><td>30cm apart</td><td>Mulch with straw when fruiting</td></tr>
-<tr><td>1</td><td>Garlic</td><td>&mdash;</td><td><span class="task-badge general">IN GROUND</span></td><td>Already planted</td><td>Bed 1</td><td>&mdash;</td><td>Harvest Jul</td></tr>
+<tr class="crop-group-header"><td colspan="9">LEEKS &mdash; 4 indoor sowings &rarr; 4 transplant batches</td></tr>
+<tr><td>1</td><td>Leeks</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>26 seeds (13 cells, 2/cell, thin to 1)</td><td>12 Feb</td><td>Root trainers</td><td>Thin rows</td><td>Multi-purpose compost, keep moist</td></tr>
+<tr><td>1</td><td>Leeks</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>26 seeds (13 cells, 2/cell, thin to 1)</td><td>23 Feb</td><td>Root trainers</td><td>Thin rows</td><td>Stagger for extended harvest</td></tr>
+<tr><td>1</td><td>Leeks</td><td>Sow 3</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>26 seeds (13 cells, 2/cell, thin to 1)</td><td>9 Mar</td><td>Root trainers</td><td>Thin rows</td><td></td></tr>
+<tr><td>1</td><td>Leeks</td><td>Sow 4</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>26 seeds (13 cells, 2/cell, thin to 1)</td><td>23 Mar</td><td>Root trainers</td><td>Thin rows</td><td>Insurance sowing</td></tr>
+<tr><td>1</td><td>Leeks</td><td>T/plant 1</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>20 best plants</td><td>1 Jun</td><td>Bed 1</td><td>15cm apart, dibber</td><td>Water in well</td></tr>
+<tr><td>1</td><td>Leeks</td><td>T/plant 2</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>20 best plants</td><td>15 Jun</td><td>Bed 1</td><td>15cm apart</td><td>Mound compost around stems</td></tr>
+<tr><td>1</td><td>Leeks</td><td>T/plant 3</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>20 best plants</td><td>29 Jun</td><td>Bed 1 (garlic space)</td><td>15cm apart</td><td>Use garlic space</td></tr>
+<tr><td>1</td><td>Leeks</td><td>T/plant 4</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>20 best plants</td><td>13 Jul</td><td>Bed 1 (onion space)</td><td>15cm apart</td><td>Final transplant</td></tr>
+<tr class="crop-group-header"><td colspan="9">CARROTS &mdash; 4 direct sowings (every 3&ndash;4 weeks, Apr&ndash;Jul)</td></tr>
+<tr><td>1</td><td>Carrots</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Bed 1</td><td>60cm row, thin to 5cm</td><td>Pierce cardboard. Compost + sharp sand. Mound 10cm.</td></tr>
+<tr><td>1</td><td>Carrots</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>11 May</td><td>Bed 1</td><td>60cm row</td><td>Keep moist. Marigolds nearby.</td></tr>
+<tr><td>1</td><td>Carrots</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>8 Jun</td><td>Bed 1</td><td>60cm row</td><td>Thin seedlings when large enough</td></tr>
+<tr><td>1</td><td>Carrots</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Jul</td><td>Bed 1</td><td>60cm row</td><td>Final sowing. Harvest into Oct.</td></tr>
+<tr class="crop-group-header"><td colspan="9">BEETROOT &mdash; 5 direct sowings (every 3 weeks, Apr&ndash;Jul)</td></tr>
+<tr><td>3</td><td>Beetroot</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Bed 3 (south)</td><td>50cm row, thin to 10cm</td><td>Away from potatoes</td></tr>
+<tr><td>3</td><td>Beetroot</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>3</td><td>Beetroot</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>25 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>3</td><td>Beetroot</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>15 Jun</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>3</td><td>Beetroot</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Jul</td><td>Bed 3 (south)</td><td>50cm row</td><td>Final sowing</td></tr>
+<tr class="crop-group-header"><td colspan="9">RADISH &mdash; 5 sowings Bed 3 + 2 sowings Bed 4</td></tr>
+<tr><td>3</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Apr</td><td>Bed 3</td><td>Short row</td><td>Harvest 25 days after sowing</td></tr>
+<tr><td>3</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>27 Apr</td><td>Bed 3</td><td>Short row</td><td></td></tr>
+<tr><td>3</td><td>Radish</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>18 May</td><td>Bed 3</td><td>Short row</td><td></td></tr>
+<tr><td>3</td><td>Radish</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>8 Jun</td><td>Bed 3</td><td>Short row</td><td></td></tr>
+<tr><td>3</td><td>Radish</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>29 Jun</td><td>Bed 3</td><td>Short row</td><td>Final Bed 3 sowing</td></tr>
+<tr><td>4</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>25 May</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Before tomatoes fill out</td></tr>
+<tr><td>4</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>15 Jun</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Final Bed 4</td></tr>
+<tr class="crop-group-header"><td colspan="9">LETTUCE &mdash; 3 indoor + 9 direct (every 2 weeks, Mar&ndash;Aug)</td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (8 cells, 1/cell)</td><td>2 Mar</td><td>Module tray</td><td>Small pinch</td><td>15&ndash;20&deg;C</td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (8 cells, 1/cell)</td><td>16 Mar</td><td>Module tray</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 3</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (8 cells, 1/cell)</td><td>30 Mar</td><td>Module tray</td><td>Small pinch</td><td>Last indoor</td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>13 Apr</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>27 Apr</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>11 May</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 7</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>25 May</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 8</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>8 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 9</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>22 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 10</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>6 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Also Bed 2 gaps</td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 11</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>20 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 12</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>3 Aug</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Final sowing</td></tr>
+<tr class="crop-group-header"><td colspan="9">SPINACH &mdash; 5 spring sowings + late Aug re-sow (avoid July!)</td></tr>
+<tr><td>4</td><td>Spinach</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>2 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td>Tolerates light frost</td></tr>
+<tr><td>3</td><td>Spinach</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>16 Mar</td><td>Bed 3 (potatoes)</td><td>Between rows</td><td></td></tr>
+<tr><td>4</td><td>Spinach</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>23 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td></td></tr>
+<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td></td></tr>
+<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4&ndash;11 May</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td>Final spring. Avoid July!</td></tr>
+<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>24 Aug</td><td>Beds 3 &amp; 4</td><td>Cleared space</td><td>Late summer re-sow</td></tr>
+<tr class="crop-group-header"><td colspan="9">CHARD &mdash; 1 indoor + 1 late direct</td></tr>
+<tr><td>4</td><td>Chard</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10 seeds (5 cells, 2/cell, thin to 1)</td><td>6 Apr</td><td>Module trays</td><td>1 per module</td><td>Summer/autumn eating</td></tr>
+<tr><td>4</td><td>Chard</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>4 best plants</td><td>11 May</td><td>Bed 4 (middle)</td><td>30cm apart</td><td></td></tr>
+<tr><td>4</td><td>Chard</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>8&ndash;10 seeds (station sow)</td><td>20 Jul</td><td>Bed 4 (middle)</td><td>30cm apart</td><td>Overwinters for spring 2027</td></tr>
+<tr class="crop-group-header"><td colspan="9">POTATOES &mdash; Chit then plant (staggered)</td></tr>
+<tr><td>3</td><td>1st Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>16 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td>Cool, bright. NOT warm.</td></tr>
+<tr><td>3</td><td>1st Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>23 Mar</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
+<tr><td>3</td><td>2nd Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>23 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
+<tr><td>3</td><td>2nd Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>6 Apr</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
+<tr><td>3</td><td>Maincrop</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>2 Mar</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
+<tr><td>3</td><td>Maincrop</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>20 Apr</td><td>Bed 3</td><td>40cm apart, 15cm deep</td><td>Larger spacing</td></tr>
+<tr class="crop-group-header"><td colspan="9">TOMATOES &mdash; sow indoors &rarr; pot on &rarr; transplant</td></tr>
+<tr><td>4</td><td>Tomato (Moneymaker)</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10 seeds (5 cells, 2/cell, thin to 1)</td><td>23 Feb</td><td>Root trainer, 20&deg;C</td><td>2 seeds/cell</td><td>Plant best 2&ndash;3 in bed</td></tr>
+<tr><td>4</td><td>Tomato (Black Opal)</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10 seeds (5 cells, 2/cell, thin to 1)</td><td>23 Feb</td><td>Root trainer, 20&deg;C</td><td>2 seeds/cell</td><td>Plant best 2&ndash;3 in bed</td></tr>
+<tr><td>4</td><td>Tomato (G. Delight)</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10 seeds (5 cells, 2/cell, thin to 1)</td><td>23 Feb</td><td>Root trainer, 20&deg;C</td><td>2 seeds/cell</td><td>Plant best 2&ndash;3 in bed</td></tr>
+<tr><td>4</td><td>All 3 varieties</td><td>Pot on</td><td><span class="task-badge sow">POT ON</span></td><td>All plants to 9cm pots</td><td>9 Mar</td><td>9cm pots</td><td>2nd true leaves</td><td>Brightest windowsill. Turn daily.</td></tr>
+<tr><td>4</td><td>All 3 varieties</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>Best 7&ndash;8 plants total (2&ndash;3 per variety)</td><td>25 May</td><td>Bed 4 (north)</td><td>45cm apart, staked</td><td>Harden off 7&ndash;10 days first!</td></tr>
+<tr class="crop-group-header"><td colspan="9">COMPANION PLANTS &mdash; Nasturtiums &amp; Marigolds + Basil</td></tr>
+<tr><td>All</td><td>Nasturtiums</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>~16 seeds (8 pots, 2/pot)</td><td>20 Apr</td><td>9cm pots</td><td>2 seeds per pot</td><td>All varieties at same time</td></tr>
+<tr><td>All</td><td>Nasturtiums</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>12&ndash;16 plants</td><td>18 May</td><td>All beds, corners</td><td>1 per corner</td><td>Trap crop for aphids</td></tr>
+<tr><td>1,3,4</td><td>Marigolds</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>~12 seeds (12 cells, 1/cell)</td><td>20 Apr</td><td>Module trays</td><td>1 per module</td><td></td></tr>
+<tr><td>1,3,4</td><td>Marigolds</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>10&ndash;12 plants</td><td>18 May</td><td>Beds 1, 3, 4</td><td>Between crops</td><td>Pest deterrent</td></tr>
+<tr><td>4</td><td>Basil</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10&ndash;12 seeds (4&ndash;5 pots, 2&ndash;3/pot)</td><td>20 Apr</td><td>Surface sow</td><td>Scatter</td><td>NOT before late April</td></tr>
+<tr><td>4</td><td>Basil</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>6&ndash;8 plants</td><td>1 Jun</td><td>Between tomatoes</td><td>Tuck in</td><td>Wait until June!</td></tr>
+<tr class="crop-group-header"><td colspan="9">BRASSICAS &mdash; Cauliflower &amp; PSB</td></tr>
+<tr><td>2</td><td>Cauliflower</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>12 seeds (6 cells, 2/cell, thin to 1)</td><td>16 Mar</td><td>Module trays</td><td>2 seeds/cell</td><td>Thin to strongest</td></tr>
+<tr><td>2</td><td>Cauliflower</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>4&ndash;5 best plants</td><td>11 May</td><td>Bed 2 south</td><td>60cm apart</td><td>Firm soil well. Net for pigeons!</td></tr>
+<tr><td>2</td><td>PSB</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (4 cells, 2/cell, thin to 1)</td><td>13 Apr</td><td>Module trays</td><td>2 seeds/cell</td><td>Main batch</td></tr>
+<tr><td>2</td><td>PSB</td><td>T/plant 1</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>3&ndash;4 best plants</td><td>15 Jun</td><td>Bed 2 north</td><td>60cm apart</td><td>Firm soil very well</td></tr>
+<tr><td>2</td><td>PSB</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>6 seeds (3 cells, 2/cell) &ndash; OPTIONAL</td><td>11 May</td><td>Module trays</td><td>2 seeds/cell</td><td>Insurance batch only if needed</td></tr>
+<tr><td>2</td><td>PSB</td><td>T/plant 2</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>2&ndash;3 plants if needed</td><td>6 Jul</td><td>Bed 2</td><td>60cm apart</td><td>Only if Batch 1 failed</td></tr>
+<tr class="crop-group-header"><td colspan="9">ONE-TIME PLANTINGS (no succession needed)</td></tr>
+<tr><td>1</td><td>Onion sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td></td><td>9 Mar</td><td>Bed 1</td><td>10cm apart, rows 25cm</td><td>Tip just showing</td></tr>
+<tr><td>2</td><td>Shallot sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td></td><td>9 Mar</td><td>Bed 2</td><td>15cm, chequerboard</td><td>Push gently</td></tr>
+<tr><td>1</td><td>Strawberries</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>23 Feb</td><td>Bed 1</td><td>30cm apart</td><td>Mulch with straw when fruiting</td></tr>
+<tr><td>1</td><td>Garlic</td><td>&mdash;</td><td><span class="task-badge general">IN GROUND</span></td><td></td><td>Already planted</td><td>Bed 1</td><td>&mdash;</td><td>Harvest Jul</td></tr>
 </tbody></table>
 </div></div></div>
+<div id="checklist" class="section">
+<div class="card"><div class="card-header"><h2>Weekly Indoor Sowing Checklist</h2></div>
+<div class="card-body">
+<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem">Week-by-week guide to what to sow on your windowsill, with exact seed counts. Tick off tasks as you complete them &mdash; progress is saved for your current session.</p>
+
+<div class="checklist-peak">
+<h4>Peak Windowsill Period: Late March &ndash; Mid April</h4>
+<ul>
+<li>Maximum cells occupied: ~84 cells across all trays</li>
+<li>Equipment needed: 1 root trainer (60 cells) + 2 module trays (40 cells each) + 9cm pots for nasturtiums &amp; basil</li>
+<li>Total capacity needed: ~148 cells &mdash; well within a standard windowsill setup</li>
+</ul>
+</div>
+
+<details class="checklist-details">
+<summary>February 2026</summary>
+<div class="checklist-body">
+<p class="checklist-week">Week of 9&ndash;15 February (Week 6)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-feb1"><label for="c-feb1"><strong>Leeks Batch 1</strong> &mdash; 26 seeds, 13 cells, 2 per cell &rarr; thin to 1. Root trainer. Transplant: 1 Jun to Bed 1.</label></li>
+</ul>
+<p class="checklist-week">Week of 16&ndash;22 February (Week 7)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-feb2"><label for="c-feb2"><strong>Chit 1st Early Potatoes (Casablanca)</strong> &mdash; Egg boxes on cool, bright windowsill. Rose end (most eyes) facing up. NOT in a warm location.</label></li>
+</ul>
+<p class="checklist-week">Week of 23 Feb &ndash; 1 Mar (Week 8)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-feb3"><label for="c-feb3"><strong>Leeks Batch 2</strong> &mdash; 26 seeds, 13 cells, 2 per cell. Root trainer. Transplant: 15 Jun to Bed 1.</label></li>
+<li><input type="checkbox" id="c-feb4"><label for="c-feb4"><strong>Tomatoes &mdash; ALL 3 VARIETIES (PRIORITY!)</strong><br>Moneymaker: 10 seeds (5 cells, 2/cell) &bull; Black Opal: 10 seeds (5 cells, 2/cell) &bull; Gardeners Delight: 10 seeds (5 cells, 2/cell)<br><strong>Total: 30 seeds, 15 cells.</strong> Root trainer, warmest windowsill (18&ndash;21&deg;C). Cover until germination. Turn trays daily. Thin to 1 per cell. Next step: Pot on 9 March.</label></li>
+<li><input type="checkbox" id="c-feb5"><label for="c-feb5"><strong>Chit 2nd Early Potatoes (Charlotte)</strong> &mdash; Egg boxes on cool, bright windowsill.</label></li>
+</ul>
+</div>
+</details>
+
+<details class="checklist-details">
+<summary>March 2026</summary>
+<div class="checklist-body">
+<p class="checklist-week">Week of 2&ndash;8 March (Week 9)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-mar1"><label for="c-mar1"><strong>Lettuce Batch 1</strong> &mdash; 8 seeds, 8 cells, 1 per cell. Module tray. Surface sow (needs light to germinate). 15&ndash;20&deg;C. Transplant: early April.</label></li>
+<li><input type="checkbox" id="c-mar2"><label for="c-mar2"><strong>Chit Maincrop Potatoes (Setanta)</strong> &mdash; Egg boxes on cool, bright windowsill.</label></li>
+</ul>
+<p class="checklist-week">Week of 9&ndash;15 March (Week 10)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-mar3"><label for="c-mar3"><strong>Leeks Batch 3</strong> &mdash; 26 seeds, 13 cells, 2 per cell. Root trainer. Transplant: 29 Jun to Bed 1 (garlic space).</label></li>
+<li><input type="checkbox" id="c-mar4"><label for="c-mar4"><strong>Tomatoes &mdash; Pot On</strong> &mdash; Move all 3 varieties to 9cm pots (2nd true leaves showing). Multipurpose compost. Brightest windowsill. Turn daily. Begin half-strength tomato feed weekly.</label></li>
+</ul>
+<p class="checklist-week">Week of 16&ndash;22 March (Week 11)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-mar5"><label for="c-mar5"><strong>Lettuce Batch 2</strong> &mdash; 8 seeds, 8 cells, 1 per cell. Surface sow. Transplant: late April.</label></li>
+<li><input type="checkbox" id="c-mar6"><label for="c-mar6"><strong>Cauliflower (All Year Round)</strong> &mdash; 12 seeds, 6 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 5&ndash;6 plants. Transplant: 11 May to Bed 2 south. <strong>Net immediately after transplanting!</strong></label></li>
+</ul>
+<p class="checklist-week">Week of 23&ndash;29 March (Week 12)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-mar7"><label for="c-mar7"><strong>Leeks Batch 4 (Final)</strong> &mdash; 26 seeds, 13 cells, 2 per cell. Root trainer. Transplant: 13 Jul to Bed 1 (onion space).</label></li>
+</ul>
+<p class="checklist-week">Week of 30 Mar &ndash; 5 Apr (Week 13)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-mar8"><label for="c-mar8"><strong>Lettuce Batch 3 (Last Indoor)</strong> &mdash; 8 seeds, 8 cells, 1 per cell. Surface sow. After this batch, switch to direct sowing in bed. Transplant: early May.</label></li>
+</ul>
+</div>
+</details>
+
+<details class="checklist-details">
+<summary>April 2026</summary>
+<div class="checklist-body">
+<p class="checklist-week">Week of 6&ndash;12 April (Week 14)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-apr1"><label for="c-apr1"><strong>Chard Batch 1 (Spring/Summer crop)</strong> &mdash; 10 seeds, 5 cells, 2 per cell. Module tray. Note: each &ldquo;seed&rdquo; is a cluster &mdash; thin to 1 strongest twice. Expect 4&ndash;5 plants. Transplant: 11 May to Bed 4 middle.</label></li>
+</ul>
+<p class="checklist-week">Week of 13&ndash;19 April (Week 15)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-apr2"><label for="c-apr2"><strong>PSB Batch 1 (Purple Sprouting Broccoli)</strong> &mdash; 8 seeds, 4 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 3&ndash;4 plants. Transplant: 15 Jun to Bed 2 north. <strong>Firm soil VERY WELL after transplanting.</strong> Harvest: spring 2027.</label></li>
+</ul>
+<p class="checklist-week">Week of 20&ndash;26 April (Week 16)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-apr3"><label for="c-apr3"><strong>Nasturtiums (All Varieties)</strong> &mdash; ~16 seeds, 8 pots, 2 per pot (9cm pots &mdash; NOT modules; they hate root disturbance). Expect 12&ndash;16 plants. Transplant: 18 May to all bed corners. Trap crop for aphids.</label></li>
+<li><input type="checkbox" id="c-apr4"><label for="c-apr4"><strong>Marigolds (Mango Tango &amp; Spanish Brocade)</strong> &mdash; ~12 seeds, 12 cells, 1 per cell. Module tray. Expect 10&ndash;12 plants. Transplant: 18 May. Pest deterrent.</label></li>
+<li><input type="checkbox" id="c-apr5"><label for="c-apr5"><strong>Basil (Greek Basil)</strong> &mdash; 10&ndash;12 seeds, 4&ndash;5 small pots, surface sow. <strong>Needs 18&ndash;20&deg;C minimum &mdash; WARM!</strong> Expect 6&ndash;8 plants. Transplant: 1 Jun between tomatoes.</label></li>
+<li><input type="checkbox" id="c-apr6"><label for="c-apr6"><strong>Tomatoes &mdash; Begin Hardening Off (late April)</strong> &mdash; Week 1: outside 2 hours daily in sheltered spot, inside overnight. Increase daily exposure over 10 days.</label></li>
+</ul>
+</div>
+</details>
+
+<details class="checklist-details">
+<summary>May 2026</summary>
+<div class="checklist-body">
+<p class="checklist-week">Week of 4&ndash;10 May (Week 18)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-may1"><label for="c-may1"><strong>Tomatoes &mdash; Continue Hardening Off</strong> &mdash; Week 2: outside 4&ndash;6 hours daily, inside at night. Watch for frost warnings.</label></li>
+</ul>
+<p class="checklist-week">Week of 11&ndash;17 May (Week 19)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-may2"><label for="c-may2"><strong>PSB Batch 2 (Insurance &mdash; OPTIONAL)</strong> &mdash; 6 seeds, 3 cells, 2 per cell. <em>Only sow if Batch 1 looks weak or failed.</em> Expect 2&ndash;3 plants. Transplant: 6 Jul.</label></li>
+<li><input type="checkbox" id="c-may3"><label for="c-may3"><strong>Transplant Day: 11 May</strong> &mdash; Cauliflower &rarr; Bed 2 south (4&ndash;5 best plants, 60cm apart, firm soil, net immediately). Chard &rarr; Bed 4 middle (4 best plants, 30cm apart).</label></li>
+<li><input type="checkbox" id="c-may4"><label for="c-may4"><strong>Tomatoes &mdash; Final Hardening Off Week</strong> &mdash; Week 3: outside all day, inside only if frost forecast. Check weather closely. Ready for planting 25 May.</label></li>
+</ul>
+<p class="checklist-week">Week of 18&ndash;24 May (Week 20)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-may5"><label for="c-may5"><strong>Transplant Day: 18 May</strong> &mdash; Nasturtiums &rarr; all bed corners (12&ndash;16 plants, 1 per corner). Marigolds &rarr; dotted through Beds 1, 3, 4 (10&ndash;12 plants).</label></li>
+</ul>
+<p class="checklist-week">Week of 25&ndash;31 May (Week 21)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-may6"><label for="c-may6"><strong>Transplant Day: 25 May &mdash; TOMATOES!</strong> &mdash; Select best 7&ndash;8 plants total (2&ndash;3 per variety). Plant to Bed 4 north, 45cm apart. Stake immediately. Water in thoroughly. Gift or compost remaining plants.</label></li>
+</ul>
+</div>
+</details>
+
+<details class="checklist-details">
+<summary>June &ndash; July 2026</summary>
+<div class="checklist-body">
+<p class="checklist-week">Week of 1&ndash;7 June (Week 22)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jun1"><label for="c-jun1"><strong>Transplant Day: 1 June</strong> &mdash; Leeks Batch 1 &rarr; Bed 1 (20 best plants from 12 Feb sowing, dibber holes through cardboard, 15cm apart). Basil &rarr; between tomatoes in Bed 4 (6&ndash;8 plants).</label></li>
+</ul>
+<p class="checklist-week">Week of 15&ndash;21 June (Week 24)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jun2"><label for="c-jun2"><strong>Transplant Day: 15 June</strong> &mdash; Leeks Batch 2 &rarr; Bed 1 (20 best plants from 23 Feb sowing). PSB Batch 1 &rarr; Bed 2 north (3&ndash;4 best plants, firm soil well!).</label></li>
+</ul>
+<p class="checklist-week">Week of 29 Jun &ndash; 5 Jul</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jun3"><label for="c-jun3"><strong>Transplant: 29 June</strong> &mdash; Leeks Batch 3 &rarr; Bed 1 garlic space (20 best plants from 9 Mar sowing).</label></li>
+</ul>
+<p class="checklist-week">Week of 6&ndash;12 July (Week 27)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jul1"><label for="c-jul1"><strong>Transplant: 6 July (if applicable)</strong> &mdash; PSB Batch 2 &rarr; Bed 2 (2&ndash;3 plants, only if insurance batch was sown).</label></li>
+</ul>
+<p class="checklist-week">Week of 13&ndash;19 July (Week 28)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jul2"><label for="c-jul2"><strong>Transplant: 13 July (Final leek transplant!)</strong> &mdash; Leeks Batch 4 &rarr; Bed 1 onion space (20 best plants from 23 Mar sowing).</label></li>
+</ul>
+<p class="checklist-week">Week of 20&ndash;26 July (Week 29)</p>
+<ul class="checklist-list">
+<li><input type="checkbox" id="c-jul3"><label for="c-jul3"><strong>Chard Batch 2 (Overwintering crop)</strong> &mdash; 8&ndash;10 seeds, <strong>DIRECT SOW</strong> in Bed 4 middle (no indoor sowing needed). Station sow 2 seeds every 30cm, thin to 1 per station = 4 plants. Harvest: Nov 2026 &ndash; Apr 2027.</label></li>
+</ul>
+</div>
+</details>
+
+<div class="card" style="margin-top:1.5rem"><div class="card-header"><h2>Seed Starting Tips</h2></div>
+<div class="card-body"><div class="checklist-tips">
+<div class="advice-card"><h4>Brassicas (Cauliflower &amp; PSB)</h4><ul><li>Thin to the strongest seedling per cell &mdash; use scissors, don&rsquo;t pull.</li><li>Firm soil very well after transplanting (critical on clay).</li><li>Net Bed 2 immediately after planting &mdash; pigeons will destroy unprotected brassicas overnight.</li></ul></div>
+<div class="advice-card"><h4>Tomatoes</h4><ul><li>Turn trays 180&deg; daily to prevent leggy growth.</li><li>Keep in warmest spot (18&ndash;21&deg;C) until germinated, then bright windowsill.</li><li>Feed weekly with half-strength tomato feed after potting on.</li><li>Hardening off is essential &mdash; never skip this step!</li></ul></div>
+<div class="advice-card"><h4>Lettuce</h4><ul><li>Surface sow &mdash; needs light to germinate (do not cover).</li><li>Quick grower: only ~4 weeks from sow to transplant.</li><li>After March batches: switch to direct sowing in bed every 2 weeks.</li></ul></div>
+<div class="advice-card"><h4>Leeks</h4><ul><li>Root trainers are best for clay soil &mdash; deep roots establish better.</li><li>Can trim tops to 8cm if plants get leggy indoors.</li><li>Water at depth when transplanting, not just the surface.</li><li>Drop into dibber hole and water in &mdash; no need to fill hole with soil.</li></ul></div>
+</div></div></div>
+
+</div></div>
+</div>
+
 <div id="advice" class="section">
 <div class="card"><div class="card-header"><h2>Growing Advice for No-Dig on Heavy Clay</h2></div>
 <div class="card-body"><div class="advice-grid">
