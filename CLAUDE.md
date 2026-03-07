@@ -18,7 +18,7 @@ This is a **zero-dependency, pure HTML/CSS/JavaScript** project. There is no bui
 |------|---------|
 | `index.html` | The entire application — HTML structure, all CSS (`<style>`), all JavaScript (`<script>`) |
 | `manifest.json` | PWA manifest (app name, icons, theme colour, display mode) |
-| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v1`) |
+| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v2`) |
 | `icon-192.png` | Home screen icon (192x192) |
 | `icon-512.png` | Splash screen icon (512x512) |
 | `.nojekyll` | Prevents GitHub Pages from processing with Jekyll |
@@ -184,8 +184,12 @@ The service worker (`sw.js`) uses a cache-first strategy:
 
 To bust the cache after updates, increment the version string in `sw.js`:
 ```javascript
-const CACHE_NAME = 'allotment-2026-v1'; // change v1 to v2 etc.
+const CACHE_NAME = 'allotment-2026-v2'; // increment on each deploy
 ```
+
+The SW uses `skipWaiting()` + `clients.claim()` so a new SW activates immediately on install. The page registration script listens for `controllerchange` and calls `window.location.reload()` — this means the installed PWA **auto-refreshes** on the user's device when new code is deployed, without needing to delete and re-add to the home screen.
+
+**Hero overlay note:** `.hero::before` has `pointer-events:none` — this is required so the decorative stripe pseudo-element does not block clicks on the theme picker buttons inside the hero.
 
 ---
 
