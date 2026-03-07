@@ -31,15 +31,18 @@ Everything lives in `index.html`. Do not split it into separate files unless exp
 
 ### Sections (Tab Navigation)
 
-The app has five tabs, each a `<div id="..." class="section">`. Only the active section has the `.active` class (shown via CSS `display:block`).
+The app has eight tabs, each a `<div id="..." class="section">`. Only the active section has the `.active` class (shown via CSS `display:block`).
 
 | Tab ID | Label | Content |
 |--------|-------|---------|
 | `calendar` | Month-by-Month | Monthly task cards from Feb–Oct |
+| `progress` | 📊 Progress Tracker | Actual vs planned progress table, windowsill occupancy, upcoming actions |
 | `gantt` | Week-by-Week Gantt | Gantt chart (table view for desktop, card view for mobile) |
 | `beds` | Bed Layouts | Visual diagrams of all 4 beds |
 | `succession` | Succession Detail | Full table of every sowing/transplanting date |
-| `advice` | Growing Advice | Eight advice cards on techniques |
+| `checklist` | Weekly Checklist | Week-by-week interactive checkbox sowing guide |
+| `guide` | 🌿 Growing Guide | Crop-by-crop expandable instructions (seed to harvest) |
+| `advice` | Growing Advice | Advice cards on techniques |
 
 ### JavaScript Functions
 
@@ -84,7 +87,7 @@ Defined in `:root` in `<style>`:
 ### Bed 1 — Alliums, Roots & Strawberries
 - Garlic (Germidour) — already in ground, harvest Jul
 - Onion sets (Sturon) — plant 9 Mar, harvest Jul/Aug
-- Leeks (Musselburgh) — 4 indoor sowings Feb–Mar, transplant Jun–Jul into garlic/onion space
+- Leeks (Musselburgh) — **3 indoor sowings** (Batch 2 missed): Batch 1 sown 14 Feb (standard tray), Batch 3 sown 6 Mar (deep root trainer), Batch 4 due 23 Mar (deep root trainer). Transplant May–Jul into garlic/onion space. ~62 leeks total.
 - Carrots (Chantenay Royal) — 4 succession sowings Apr–Jul, direct sow through cardboard
 - Strawberries (Cambridge Favourite) — plant Feb/Mar
 - Marigolds (Mango Tango) — companion between carrots and strawberries
@@ -98,16 +101,16 @@ Defined in `:root` in `<style>`:
 - Nasturtiums (Tom Thumb) — all 4 corners (essential for brassica aphid control)
 
 ### Bed 3 — Potatoes, Beetroot & Roots
-- 1st Early Potatoes (Casablanca) — chit 16 Feb, plant 23 Mar
-- 2nd Early Potatoes (Charlotte) — chit 23 Feb, plant 6 Apr
-- Maincrop Potatoes (Setanta Organic) — chit 2 Mar, plant 20 Apr
+- 1st Early Potatoes (Casablanca) — chit started ~15 Feb (18 seed potatoes), plant 23 Mar
+- 2nd Early Potatoes (Charlotte) — chit started ~20 Feb (18 seed potatoes), plant 6 Apr
+- Maincrop Potatoes (Setanta Organic) — chit started 6 Mar (18 seed potatoes), plant 20 Apr
 - Spinach (Medania) — between potato rows
 - Beetroot (Boldor) — south end, 5 succession sowings Apr–Jul
 - Radish (French Breakfast) — alongside beetroot, 5 sowings Apr–Jun
 - Nasturtiums — alongside potatoes
 
 ### Bed 4 — Tomatoes, Leafy Greens & Herbs
-- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — transplant 25 May (north end)
+- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — sown 24 Feb (72 seeds total, 24/variety, over-seeded 2.4×). Transplant best 7–8 plants 26 May (north end). Gift remaining ~12 plants.
 - Basil (Greek) — between tomatoes from Jun
 - Marigolds (Spanish Brocade) — between tomatoes
 - Radish (French Breakfast) — at tomato base May/Jun (2 sowings)
@@ -126,7 +129,7 @@ Defined in `:root` in `<style>`:
 | Carrots | 4 | Every 3–4 weeks | Apr–Jul |
 | Beetroot | 5 | Every 3 weeks | Apr–Jul |
 | Radish | 7 (5 Bed 3 + 2 Bed 4) | Every 3 weeks | Apr–Jun |
-| Leeks | 4 indoor sowings | Staggered | Feb–Mar |
+| Leeks | 3 indoor sowings (Batch 2 missed) | Staggered | Feb–Mar |
 
 No succession needed for: tomatoes, potatoes, garlic, onions, shallots, cauliflower, PSB, chard, strawberries, basil.
 
@@ -190,7 +193,10 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 ## Editing Guidelines
 
 - **All content is hardcoded HTML** — there is no data layer, no JSON data file, no templating.
-- When adding a crop task to the calendar, add it to all relevant sections: the monthly card (`#calendar`), the Gantt table rows, the Gantt card view weekly items, the bed layout (`#beds`), the succession table (`#succession`), and potentially the advice section (`#advice`).
+- When adding a crop task to the calendar, add it to all relevant sections: the monthly card (`#calendar`), the Gantt table rows, the Gantt card view weekly items, the bed layout (`#beds`), the succession table (`#succession`), the progress tracker (`#progress`), the growing guide (`#guide`), and potentially the advice section (`#advice`).
+- The `#progress` section contains a "Completed Sowings" table and "Upcoming Actions" table — update these to reflect actual vs planned dates.
+- The `#guide` section uses `<details class="checklist-details">` expandable cards with `<input type="checkbox">` items — one card per crop.
+- The `#checklist` section is a week-by-week interactive checkbox list for windowsill sowing tasks.
 - Month card header colours use classes like `.mc-feb`, `.mc-mar`, etc. — defined in CSS.
 - Bed highlight row colours use classes like `.hl-garlic`, `.hl-onion`, `.hl-carrot`, `.hl-straw`, `.hl-brass`, `.hl-potato`, `.hl-tomato`, `.hl-leafy` — defined in CSS.
 - The Gantt table has 39 week columns (Feb week 2 through Oct week 26). Each row must have exactly 39 `<td class="gantt-cell">` cells after the 3 fixed columns.
