@@ -130,7 +130,10 @@ table.succession tr:hover{background:#F5F0E8}
 .gantt-row:nth-child(even) .gantt-fixed{background:#fafaf5}
 .gantt-row:hover .gantt-cell:not([class*="gc-"]){background:#f5f0e8}
 .gantt-row:hover .gantt-fixed{background:#f5f0e8}
-.gantt-week-cell{position:sticky;top:0;z-index:1}
+.gantt-week-cell{position:sticky;top:35px;z-index:2}
+.gantt-months th{position:sticky;top:0;z-index:3;background:var(--leaf);color:#fff}
+.gantt-months th.gantt-fixed{z-index:5}
+.gantt-weeks th.gantt-fixed{position:sticky;top:35px;z-index:5}
 
 
 .gantt-toggle-group{display:flex;justify-content:center;gap:0.5rem;padding:0.5rem 1rem;background:#f9f6f0;border-bottom:1px solid var(--border)}
@@ -173,6 +176,60 @@ table.succession tr:hover{background:#F5F0E8}
 .checklist-peak ul{padding-left:1.2rem}.checklist-peak li{margin-bottom:0.2rem}
 .checklist-tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem}
 
+/* Per-bed card header colours */
+.bed1-header{background:linear-gradient(135deg,#2D5F2D 0%,#4A7C4A 100%)}
+.bed2-header{background:linear-gradient(135deg,#5D4037 0%,#8D6E63 100%)}
+.bed3-header{background:linear-gradient(135deg,#4527A0 0%,#7E57C2 100%)}
+.bed4-header{background:linear-gradient(135deg,#B71C1C 0%,#E53935 100%)}
+
+/* Gantt current week highlight */
+.gantt-col-current .gantt-cell:not([class*="gc-"]){background:#fffde7 !important}
+.gantt-col-current.gantt-cell{outline:2px solid #F9A825;outline-offset:-2px}
+.gantt-col-highlight .gantt-cell:not([class*="gc-"]){background:#e8f5e9 !important}
+.gantt-col-highlight.gantt-cell{outline:2px solid #43A047;outline-offset:-2px}
+.gantt-week-current{background:#F9A825 !important;color:#000 !important;font-weight:800}
+.gantt-week-highlight{background:#43A047 !important;color:#fff !important;font-weight:700}
+
+/* Theme picker */
+.theme-bar{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:rgba(255,255,255,0.1);border-radius:8px;margin-left:auto}
+.theme-bar label{color:rgba(255,255,255,0.8);font-size:0.75rem;font-weight:500;white-space:nowrap}
+.theme-btn{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);cursor:pointer;transition:transform 0.15s,border-color 0.15s;flex-shrink:0}
+.theme-btn.active,.theme-btn:hover{border-color:#fff;transform:scale(1.2)}
+.hero-inner{display:flex;align-items:flex-start;justify-content:center;flex-direction:column;gap:0}
+
+/* Theme: Slate */
+[data-theme="slate"]{
+  --leaf:#1a3a5c;--leaf-mid:#2a5a8c;--leaf-light:#4a7aac;
+  --cream:#f0f4f8;--warm-white:#f8fafc;--soil:#0f2233;
+  --earth:#2a4a6c;--earth-light:#4a7aac;
+  --border:#c5d5e5;--text:#0f2233;--text-muted:#4a6a8c;
+}
+[data-theme="slate"] .hero{background:linear-gradient(135deg,#1a3a5c 0%,#0f2233 100%)}
+[data-theme="slate"] .nav-tab.active{background:#1a3a5c;border-color:#1a3a5c}
+[data-theme="slate"] .nav-tab:hover{border-color:#2a5a8c;color:#1a3a5c}
+[data-theme="slate"] .gantt-months th,[data-theme="slate"] .gantt-bed-header td,[data-theme="slate"] .card-header:not(.bed1-header):not(.bed2-header):not(.bed3-header):not(.bed4-header){background:linear-gradient(135deg,#1a3a5c,#2a5a8c)}
+[data-theme="slate"] .bed1-header{background:linear-gradient(135deg,#1a3a5c 0%,#2a5a8c 100%)}
+[data-theme="slate"] .gantt-bed-header{background:#1a3a5c !important}
+[data-theme="slate"] .checklist-details summary{background:linear-gradient(135deg,#1a3a5c,#2a5a8c)}
+[data-theme="slate"] table.succession th,[data-theme="slate"] .crop-group-header{background:#1a3a5c !important}
+
+/* Theme: Terracotta */
+[data-theme="terracotta"]{
+  --leaf:#7B3F00;--leaf-mid:#A0522D;--leaf-light:#CD853F;
+  --cream:#FFF5EE;--warm-white:#FFFBF7;--soil:#3E1F00;
+  --earth:#5C2D00;--earth-light:#A0522D;
+  --border:#DDBEA9;--text:#3E1F00;--text-muted:#8B5E3C;
+}
+[data-theme="terracotta"] .hero{background:linear-gradient(135deg,#7B3F00 0%,#3E1F00 100%)}
+[data-theme="terracotta"] .nav-tab.active{background:#7B3F00;border-color:#7B3F00}
+[data-theme="terracotta"] .nav-tab:hover{border-color:#A0522D;color:#7B3F00}
+[data-theme="terracotta"] .gantt-months th{background:#7B3F00}
+[data-theme="terracotta"] .bed1-header{background:linear-gradient(135deg,#7B3F00 0%,#A0522D 100%)}
+[data-theme="terracotta"] .gantt-bed-header{background:#7B3F00 !important}
+[data-theme="terracotta"] .checklist-details summary{background:linear-gradient(135deg,#7B3F00,#A0522D)}
+[data-theme="terracotta"] table.succession th,[data-theme="terracotta"] .crop-group-header{background:#7B3F00 !important}
+[data-theme="terracotta"] .card-header:not(.bed1-header):not(.bed2-header):not(.bed3-header):not(.bed4-header){background:linear-gradient(135deg,#7B3F00,#A0522D)}
+
 </style>
 </head>
 <body>
@@ -185,6 +242,12 @@ table.succession tr:hover{background:#F5F0E8}
     <span class="tag">Succession Sowing</span>
     <span class="tag">Trap Crops</span>
     <span class="tag">Family of Four</span>
+  </div>
+  <div class="theme-bar" style="margin-top:1rem;justify-content:center">
+    <label>Theme:</label>
+    <button class="theme-btn active" id="theme-garden" title="Garden Green" style="background:#2D5F2D" onclick="setTheme('garden',this)"></button>
+    <button class="theme-btn" id="theme-slate" title="Slate Blue" style="background:#1a3a5c" onclick="setTheme('slate',this)"></button>
+    <button class="theme-btn" id="theme-terracotta" title="Terracotta" style="background:#7B3F00" onclick="setTheme('terracotta',this)"></button>
   </div>
 </div>
 
@@ -226,57 +289,57 @@ table.succession tr:hover{background:#F5F0E8}
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">6 Mar &#9989;</span>Leeks Batch 3 &mdash; 24 seeds (12 cells, 2/cell) in deep root trainer. <strong>COMPLETED 3 DAYS EARLY!</strong> Transplant 8 June.</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">9 Mar &#9200;</span><strong>Tomatoes &mdash; POT ON to 9cm pots</strong> (all ~30 plants from 36 cells, need 36 pots + multipurpose compost!)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">9 Mar &#9200;</span>Onion sets (Sturon) &mdash; Bed 1, 10cm apart in rows 25cm apart, tip just showing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">9 Mar &#9200;</span>Shallot sets (Biztro) &mdash; Bed 2, 15cm apart chequerboard pattern</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">9 Mar &#9200;</span>Shallot sets (Biztro) &mdash; Bed 3, 15cm apart chequerboard pattern</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar &#9200;</span>Lettuce Batch 2 &mdash; 8 seeds (8 cells, 1/cell). Indoor sowing.</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">16 Mar &#9200;</span>Cauliflower (All Year Round) &mdash; 12 seeds (6 cells, 2/cell, thin to 1 when first true leaves appear)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">16 Mar</span>Spinach Bed 3 &mdash; 1st direct sowing between potato rows</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">16 Mar</span>Spinach Bed 2 &mdash; 1st direct sowing between potato rows</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">23 Mar &#9200;</span><strong>Leeks Batch 4 (FINAL LEEK BATCH!)</strong> &mdash; 26 seeds (13 cells, 2/cell). Deep root trainer preferred.</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Mar &#9200;</span>1st Early potatoes (Casablanca) &mdash; 18 to Bed 3, 30cm apart, 12cm deep</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Mar &#9200;</span>1st Early potatoes (Casablanca) &mdash; 18 to Bed 2, 30cm apart, 12cm deep</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">23 Mar</span>Spinach Bed 4 &mdash; 2nd sowing</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">30 Mar</span>Lettuce Batch 3 (last indoor) &mdash; 8 seeds (8 cells, 1/cell). After this, all lettuce direct sown.</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">Ongoing</span>Earth up potato shoots with compost + straw as they emerge (when 10&ndash;15cm tall)</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-apr">April</div><div class="month-card-body">
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>Radish Bed 3 &mdash; 1st sowing</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>Radish Bed 2 &mdash; 1st sowing</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">6 Apr</span>Chard (Rainbow) &mdash; indoors (10 seeds: 5 cells, 2/cell, thin to 1)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>2nd Early potatoes &mdash; plant in Bed 3</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Apr</span>2nd Early potatoes &mdash; plant in Bed 2</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Carrots &mdash; 1st sowing (pierce cardboard)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Beetroot &mdash; 1st sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Lettuce Bed 4 &mdash; 1st direct sowing (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">13 Apr</span>PSB (Purple Sprouting) &mdash; indoors, module trays (8 seeds: 4 cells, 2/cell, thin to 1)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Spinach Beds 3 &amp; 4</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">13 Apr</span>Spinach Beds 2 &amp; 4</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Nasturtiums &mdash; indoors (~16 seeds: 8 pots, 2/pot)</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>ALL Marigolds &mdash; indoors (~12 seeds: 12 cells, 1/cell)</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">20 Apr</span>Basil (Greek) &mdash; indoors (10&ndash;12 seeds: 4&ndash;5 pots, 2&ndash;3/pot, needs 18&ndash;20&deg;C)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Apr</span>Maincrop potatoes &mdash; plant in Bed 3</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Radish Bed 3 &mdash; 2nd sowing</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Apr</span>Maincrop potatoes &mdash; plant in Bed 2</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Radish Bed 2 &mdash; 2nd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">27 Apr</span>Lettuce Bed 4 &mdash; 2nd direct sowing (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">Ongoing</span>Earth up all potato shoots with compost + straw</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-may">May</div><div class="month-card-body">
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Beetroot &mdash; 2nd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach &amp; Lettuce &mdash; Bed 2 inter-crop (6&ndash;8 lettuce seeds)</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach &amp; Lettuce &mdash; Bed 3 inter-crop (6&ndash;8 lettuce seeds)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">4 May</span>Spinach Bed 4</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Cauliflower &rarr; Bed 2 south (4&ndash;5 best plants from 6 cells, net it!)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Cauliflower &rarr; Bed 3 south (4&ndash;5 best plants from 6 cells, net it!)</div>
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">11 May</span>Chard &rarr; Bed 4 middle (4 best plants from 5 cells)</div>
   <div class="task-item"><span class="task-badge sow">SOW</span><span class="task-date">11 May</span>PSB &mdash; insurance sowing indoors (6 seeds: 3 cells, 2/cell &ndash; OPTIONAL)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">11 May</span>Carrots &mdash; 2nd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">11 May</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Nasturtiums &rarr; bed corners (12&ndash;16 plants)</div>
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">18 May</span>ALL Marigolds &rarr; dotted through beds (10&ndash;12 plants)</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">18 May</span>Radish Bed 3 &mdash; 3rd sowing</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">18 May</span>Radish Bed 2 &mdash; 3rd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Beetroot &mdash; 3rd sowing</div>
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">25 May</span>Tomatoes &times;3 &rarr; Bed 4 north (best 7&ndash;8 plants total: 2&ndash;3 per variety, harden off first!)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Radish Bed 4 &mdash; around tomatoes</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Lettuce Bed 4 &amp; Bed 2 inter-crop (6&ndash;8 seeds)</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">25 May</span>Lettuce Bed 4 &amp; Bed 3 inter-crop (6&ndash;8 seeds)</div>
 </div></div>
 <div class="month-card"><div class="month-card-header mc-jun">June</div><div class="month-card-body">
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">1 Jun</span>Basil &rarr; between tomatoes (6&ndash;8 plants). Wait for warm weather!</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Carrots &mdash; 3rd sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Radish Bed 3 &mdash; 4th sowing</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Radish Bed 2 &mdash; 4th sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">8 Jun</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">8 Jun</span>Leeks Batch 3 &rarr; Bed 1, 15cm apart (~20 plants from 24 seeds sown 6 Mar, adjusted from 15 Jun)</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>PSB batch 1 &rarr; Bed 2 north (3&ndash;4 best plants from 8 seeds sown 13 Apr). <strong>FIRM EXTRA WELL.</strong> Net immediately.</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">15 Jun</span>PSB batch 1 &rarr; Bed 3 north (3&ndash;4 best plants from 8 seeds sown 13 Apr). <strong>FIRM EXTRA WELL.</strong> Net immediately.</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">15 Jun</span>Beetroot &mdash; 4th sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">15 Jun</span>Radish Bed 4 &mdash; 2nd sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">22 Jun</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
@@ -289,7 +352,7 @@ table.succession tr:hover{background:#F5F0E8}
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Carrots &mdash; 4th (final) sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Beetroot &mdash; 5th (final) sowing</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">6 Jul</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
-  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">6 Jul</span>PSB batch 2 &rarr; Bed 2 (2&ndash;3 plants if insurance batch sown)</div>
+  <div class="task-item"><span class="task-badge transplant">T/PLANT</span><span class="task-date">6 Jul</span>PSB batch 2 &rarr; Bed 3 (2&ndash;3 plants if insurance batch sown)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Chard &mdash; 2nd sowing overwinter (8&ndash;10 seeds station sown, thin to 4 plants)</div>
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">20 Jul</span>Lettuce Bed 4 (6&ndash;8 seeds)</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">All month</span>Garlic, onions, shallots, 2nd early potatoes</div>
@@ -299,7 +362,7 @@ table.succession tr:hover{background:#F5F0E8}
 </div></div>
 <div class="month-card"><div class="month-card-header mc-aug">August</div><div class="month-card-body">
   <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">3 Aug</span>Lettuce &mdash; final sowing</div>
-  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">24 Aug</span>Spinach Beds 3 &amp; 4 &mdash; late re-sow</div>
+  <div class="task-item"><span class="task-badge direct">DIRECT/PLANT</span><span class="task-date">24 Aug</span>Spinach Beds 2 &amp; 4 &mdash; late re-sow</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">All month</span>Maincrop potatoes, tomatoes, chard</div>
   <div class="task-item"><span class="task-badge harvest">HARVEST</span><span class="task-date">All month</span>Lettuce, beetroot, carrots</div>
   <div class="task-item"><span class="task-badge general">TASK</span><span class="task-date">Ongoing</span>Clear spent potato beds, add compost</div>
@@ -370,14 +433,14 @@ table.succession tr:hover{background:#F5F0E8}
 <tbody>
 <tr style="background:#FFF3E0"><td><strong>9 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Pot on tomatoes</strong></td><td>All 36 cells to 9cm pots. Need 36 pots + multipurpose compost. Turn daily, begin weekly feeding.</td></tr>
 <tr style="background:#FFF3E0"><td><strong>9 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Plant onion sets</strong></td><td>Sturon to Bed 1, 10cm apart in rows 25cm apart, tip just showing.</td></tr>
-<tr style="background:#FFF3E0"><td><strong>9 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Plant shallot sets</strong></td><td>Biztro to Bed 2, 15cm apart chequerboard pattern.</td></tr>
+<tr style="background:#FFF3E0"><td><strong>9 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Plant shallot sets</strong></td><td>Biztro to Bed 3, 15cm apart chequerboard pattern.</td></tr>
 <tr><td>13 Mar</td><td>&#129505; Medium</td><td>Check lettuce germination</td><td>Batch 1 should be germinating by now.</td></tr>
 <tr style="background:#FFF3E0"><td><strong>16 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Sow lettuce Batch 2</strong></td><td>8 seeds (8 cells, 1/cell) indoors.</td></tr>
 <tr style="background:#FFF3E0"><td><strong>16 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Sow cauliflower</strong></td><td>12 seeds (6 cells, 2/cell) indoors. Thin to strongest when first true leaves appear.</td></tr>
-<tr><td>16 Mar</td><td>&#129505; Medium</td><td>Direct sow spinach</td><td>Bed 3, between potato rows.</td></tr>
+<tr><td>16 Mar</td><td>&#129505; Medium</td><td>Direct sow spinach</td><td>Bed 2, between potato rows.</td></tr>
 <tr><td>20 Mar</td><td>&#129505; Medium</td><td>Check leeks Batch 3 germination</td><td>Should be germinating around 20 March (14&ndash;21 days).</td></tr>
 <tr style="background:#FFF3E0"><td><strong>23 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Sow leeks Batch 4</strong></td><td>26 seeds (13 cells, 2/cell) deep root trainer &mdash; FINAL leek batch!</td></tr>
-<tr style="background:#FFF3E0"><td><strong>23 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Plant 1st Early potatoes</strong></td><td>18 Casablanca to Bed 3, 30cm apart, 12cm deep. Check sprouts first (should be 2&ndash;3cm, sturdy).</td></tr>
+<tr style="background:#FFF3E0"><td><strong>23 Mar</strong></td><td>&#128308; HIGH</td><td><strong>Plant 1st Early potatoes</strong></td><td>18 Casablanca to Bed 2, 30cm apart, 12cm deep. Check sprouts first (should be 2&ndash;3cm, sturdy).</td></tr>
 <tr><td>23 Mar</td><td>&#129505; Medium</td><td>Direct sow spinach</td><td>Bed 4 (2nd sowing).</td></tr>
 </tbody></table></div>
 
@@ -774,272 +837,7 @@ table.succession tr:hover{background:#F5F0E8}
 <td class="gantt-cell"></td>
 <td class="gantt-cell"></td>
 </tr>
-<tr class="gantt-bed-header"><td colspan="42">BED 2 &mdash; Brassicas &amp; Shallots</td></tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">Cauliflower</td>
-<td class="gantt-fixed gantt-var">All Year Round</td>
-<td class="gantt-fixed gantt-method">Sow indoors / Transplant</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-sow">S</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-transplant">T</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">PSB</td>
-<td class="gantt-fixed gantt-var">Purple Sprouting</td>
-<td class="gantt-fixed gantt-method">Sow indoors / Transplant</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-sow">S</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-sow">S</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-transplant">T</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-transplant">T</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">Shallots</td>
-<td class="gantt-fixed gantt-var">Biztro</td>
-<td class="gantt-fixed gantt-method">Plant sets</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-direct">D</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">Spinach (inter-crop)</td>
-<td class="gantt-fixed gantt-var">Medania</td>
-<td class="gantt-fixed gantt-method">Direct sow</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-direct">D</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-direct">D</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">Lettuce (inter-crop)</td>
-<td class="gantt-fixed gantt-var">Little Gem</td>
-<td class="gantt-fixed gantt-method">Direct sow</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-direct">D</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-direct">D</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell gc-harvest">H</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-row">
-<td class="gantt-fixed gantt-crop">Nasturtiums</td>
-<td class="gantt-fixed gantt-var">Tom Thumb</td>
-<td class="gantt-fixed gantt-method">Sow / Transplant</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-sow">S</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell gc-transplant">T</td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-<td class="gantt-cell"></td>
-</tr>
-<tr class="gantt-bed-header"><td colspan="42">BED 3 &mdash; Potatoes, Beetroot &amp; Roots</td></tr>
+<tr class="gantt-bed-header"><td colspan="42">BED 2 &mdash; Potatoes, Beetroot &amp; Roots</td></tr>
 <tr class="gantt-row">
 <td class="gantt-fixed gantt-crop">Potatoes (1st Early)</td>
 <td class="gantt-fixed gantt-var">Casablanca</td>
@@ -1303,6 +1101,271 @@ table.succession tr:hover{background:#F5F0E8}
 <td class="gantt-cell gc-harvest">H</td>
 <td class="gantt-cell gc-harvest">H</td>
 <td class="gantt-cell gc-harvest">H</td>
+</tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">Nasturtiums</td>
+<td class="gantt-fixed gantt-var">Tom Thumb</td>
+<td class="gantt-fixed gantt-method">Sow / Transplant</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-sow">S</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-transplant">T</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+</tr>
+<tr class="gantt-bed-header"><td colspan="42">BED 3 &mdash; Brassicas &amp; Shallots</td></tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">Cauliflower</td>
+<td class="gantt-fixed gantt-var">All Year Round</td>
+<td class="gantt-fixed gantt-method">Sow indoors / Transplant</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-sow">S</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-transplant">T</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+</tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">PSB</td>
+<td class="gantt-fixed gantt-var">Purple Sprouting</td>
+<td class="gantt-fixed gantt-method">Sow indoors / Transplant</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-sow">S</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-sow">S</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-transplant">T</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-transplant">T</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+</tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">Shallots</td>
+<td class="gantt-fixed gantt-var">Biztro</td>
+<td class="gantt-fixed gantt-method">Plant sets</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-direct">D</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+</tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">Spinach (inter-crop)</td>
+<td class="gantt-fixed gantt-var">Medania</td>
+<td class="gantt-fixed gantt-method">Direct sow</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-direct">D</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-direct">D</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+</tr>
+<tr class="gantt-row">
+<td class="gantt-fixed gantt-crop">Lettuce (inter-crop)</td>
+<td class="gantt-fixed gantt-var">Little Gem</td>
+<td class="gantt-fixed gantt-method">Direct sow</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-direct">D</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-direct">D</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell gc-harvest">H</td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
+<td class="gantt-cell"></td>
 </tr>
 <tr class="gantt-row">
 <td class="gantt-fixed gantt-crop">Nasturtiums</td>
@@ -1804,7 +1867,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -1812,12 +1875,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -1850,17 +1913,17 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -1878,17 +1941,17 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -1918,7 +1981,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Shallots</span> <span class="gwc-var">Biztro</span> <span class="gwc-action-label">&mdash; Plant sets</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -1926,22 +1989,22 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
 <span><span class="gwc-crop">Cauliflower</span> <span class="gwc-var">All Year Round</span> <span class="gwc-action-label">&mdash; Sow indoors</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -1951,7 +2014,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -1959,12 +2022,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -1974,7 +2037,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Plant</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -1995,7 +2058,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-C">C</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Chit</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -2005,12 +2068,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Plant</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -2018,7 +2081,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
 <span><span class="gwc-crop">PSB</span> <span class="gwc-var">Purple Sprouting</span> <span class="gwc-action-label">&mdash; Sow indoors</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2028,12 +2091,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2061,12 +2124,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
 <span><span class="gwc-crop">Nasturtiums</span> <span class="gwc-var">Tom Thumb</span> <span class="gwc-action-label">&mdash; Sow indoors</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
 <span><span class="gwc-crop">Nasturtiums</span> <span class="gwc-var">Tom Thumb</span> <span class="gwc-action-label">&mdash; Sow indoors</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
@@ -2086,7 +2149,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Plant</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
@@ -2099,7 +2162,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2112,17 +2175,17 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Lettuce (inter)</span> <span class="gwc-var">Little Gem</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach (inter)</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2132,12 +2195,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Spinach</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
@@ -2150,7 +2213,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-S">S</span>
 <span><span class="gwc-crop">PSB</span> <span class="gwc-var">Purple Sprouting</span> <span class="gwc-action-label">&mdash; Sow indoors</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2160,7 +2223,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2170,7 +2233,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
 <span><span class="gwc-crop">Cauliflower</span> <span class="gwc-var">All Year Round</span> <span class="gwc-action-label">&mdash; Transplant</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
@@ -2183,7 +2246,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
@@ -2198,12 +2261,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
 <span><span class="gwc-crop">Nasturtiums</span> <span class="gwc-var">Tom Thumb</span> <span class="gwc-action-label">&mdash; Transplant</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
 <span><span class="gwc-crop">Nasturtiums</span> <span class="gwc-var">Tom Thumb</span> <span class="gwc-action-label">&mdash; Transplant</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
@@ -2221,17 +2284,17 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Lettuce (inter)</span> <span class="gwc-var">Little Gem</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach (inter)</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2282,7 +2345,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2292,7 +2355,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Lettuce (inter)</span> <span class="gwc-var">Little Gem</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -2300,7 +2363,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2315,7 +2378,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
 <span><span class="gwc-crop">PSB</span> <span class="gwc-var">Purple Sprouting</span> <span class="gwc-action-label">&mdash; Transplant</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
@@ -2325,12 +2388,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Spinach (inter)</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Potatoes (1st)</span> <span class="gwc-var">Casablanca</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -2356,7 +2419,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Radish</span> <span class="gwc-var">French Breakfast</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
@@ -2371,7 +2434,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -2384,7 +2447,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Beetroot</span> <span class="gwc-var">Boldor</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2394,17 +2457,17 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-T">T</span>
 <span><span class="gwc-crop">PSB</span> <span class="gwc-var">Purple Sprouting</span> <span class="gwc-action-label">&mdash; Transplant</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Shallots</span> <span class="gwc-var">Biztro</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Potatoes (2nd)</span> <span class="gwc-var">Charlotte</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
@@ -2463,12 +2526,12 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Cauliflower</span> <span class="gwc-var">All Year Round</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 2</span>
+<span class="gwc-bed-tag">Bed 3</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-H">H</span>
 <span><span class="gwc-crop">Potatoes (Main)</span> <span class="gwc-var">Setanta</span> <span class="gwc-action-label">&mdash; Begin harvest</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 </div>
 <div class="gantt-week-card">
@@ -2484,7 +2547,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
 <span><span class="gwc-crop">Spinach</span> <span class="gwc-var">Medania</span> <span class="gwc-action-label">&mdash; Direct sow</span></span>
-<span class="gwc-bed-tag">Bed 3</span>
+<span class="gwc-bed-tag">Bed 2</span>
 </div>
 <div class="gwc-item">
 <span class="gwc-badge gwc-D">D</span>
@@ -2505,35 +2568,22 @@ table.succession tr:hover{background:#F5F0E8}
 
 <div id="beds" class="section">
 <div class="card">
-<div class="card-header"><div class="bed-num">1</div><h2>Alliums, Roots &amp; Strawberries</h2></div>
+<div class="card-header bed1-header"><div class="bed-num">1</div><h2>Alliums, Roots &amp; Strawberries</h2></div>
 <div class="card-body">
 <div class="bed-dims">2.4m &times; 1.2m &mdash; No-Dig, 15cm compost layer over cardboard on clay</div>
 <div class="bed-diagram">
   <div class="bed-label-row">&uarr; NORTH (back of bed)</div>
-  <div class="bed-row hl-garlic"><span class="crop-name">Garlic (Germidour)</span> <span class="crop-detail">&mdash; Already in ground. Harvest Jul when lower leaves yellow. Space then used for leeks.</span></div>
   <div class="bed-row hl-onion"><span class="crop-name">Onion Sets (Sturon)</span> <span class="crop-detail">&mdash; Plant 9 Mar. 10cm apart, rows 25cm apart. Harvest Jul/Aug when tops fall over.</span></div>
   <div class="bed-row hl-onion"><span class="crop-name">Leeks (Musselburgh) &mdash; 3 batches total</span> <span class="crop-detail">&mdash; Batch 1 (14 Feb, standard tray): T/plant 28 May, ~20 plants, Sept&ndash;Nov harvest. Batch 3 (6 Mar, deep root trainer): T/plant 8 Jun, ~20 plants, Oct&ndash;Dec harvest. Batch 4 (23 Mar, deep root trainer): T/plant 13 Jul into onion space, ~22 plants, Nov&ndash;Jan harvest. Total: ~62 leeks. Dibber holes through cardboard, 15cm apart.</span></div>
   <div class="bed-row hl-carrot"><span class="crop-name">Carrots (Chantenay Royal)</span> <span class="crop-detail">&mdash; Succession every 3&ndash;4 weeks Apr&ndash;Jul. Pierce cardboard, fill with compost + sharp sand, mound 10cm.</span></div>
-  <div class="bed-row hl-straw"><span class="crop-name">Strawberries (Cambridge Favourite)</span> <span class="crop-detail">&mdash; Plant Feb/Mar. 30cm apart. Mulch with straw when fruiting. Harvest Jun&ndash;Aug.</span></div>
   <div class="bed-row "><span class="crop-name">&#127804; Marigolds (Mango Tango)</span> <span class="crop-detail">&mdash; Dotted between carrots &amp; strawberries for carrot fly deterrence.</span></div>
+  <div class="bed-row hl-straw"><span class="crop-name">Strawberries (Cambridge Favourite)</span> <span class="crop-detail">&mdash; Plant Feb/Mar. 30cm apart. Mulch with straw when fruiting. Harvest Jun&ndash;Aug.</span></div>
+  <div class="bed-row hl-garlic"><span class="crop-name">Garlic (Germidour)</span> <span class="crop-detail">&mdash; Already in ground (south end). Harvest Jul when lower leaves yellow. Space then used for leeks.</span></div>
   <div class="bed-label-row">&darr; SOUTH (front of bed)</div>
   <div class="bed-corner-note">&#127807; Nasturtiums (Cherry Rose Jewel, Tip Top Pink Blush, Tom Thumb) at all 4 corners &mdash; trap crop for aphids</div>
 </div></div></div>
 <div class="card">
-<div class="card-header"><div class="bed-num">2</div><h2>Brassicas &amp; Shallots</h2></div>
-<div class="card-body">
-<div class="bed-dims">2.4m &times; 1.2m &mdash; Firm soil before planting brassicas &middot; Net immediately for pigeons</div>
-<div class="bed-diagram">
-  <div class="bed-label-row">&uarr; NORTH (back of bed)</div>
-  <div class="bed-row hl-brass"><span class="crop-name">PSB (Purple Sprouting Early)</span> <span class="crop-detail">&mdash; Transplant Jun/Jul. 60cm apart. Grows 90cm tall. Stays until spring 2027. North side.</span></div>
-  <div class="bed-row hl-onion"><span class="crop-name">Shallots (Biztro)</span> <span class="crop-detail">&mdash; Plant sets 9 Mar. Chequerboard pattern between brassicas, 15cm apart. Harvest Jul.</span></div>
-  <div class="bed-row hl-brass"><span class="crop-name">Cauliflower (All Year Round)</span> <span class="crop-detail">&mdash; Transplant 11 May. 60cm apart. Dib through cardboard. Firm soil. Net for pigeons.</span></div>
-  <div class="bed-row hl-leafy"><span class="crop-name">Spinach &amp; Lettuce (inter-crop)</span> <span class="crop-detail">&mdash; Direct sow May/Jun between brassicas. Quick crop harvested before brassicas fill out.</span></div>
-  <div class="bed-label-row">&darr; SOUTH (front of bed)</div>
-  <div class="bed-corner-note">&#127807; Nasturtiums (Tom Thumb) at all 4 corners &mdash; ESSENTIAL. Brassicas are aphid magnets.</div>
-</div></div></div>
-<div class="card">
-<div class="card-header"><div class="bed-num">3</div><h2>Potatoes, Beetroot &amp; Roots</h2></div>
+<div class="card-header bed2-header"><div class="bed-num">2</div><h2>Potatoes, Beetroot &amp; Roots</h2></div>
 <div class="card-body">
 <div class="bed-dims">2.4m &times; 1.2m &mdash; Earth up potatoes with compost + straw &middot; Beetroot at south, away from potato watering</div>
 <div class="bed-diagram">
@@ -2548,7 +2598,20 @@ table.succession tr:hover{background:#F5F0E8}
   <div class="bed-corner-note">&#127807; Nasturtiums (Tom Thumb) alongside potatoes to draw aphids away</div>
 </div></div></div>
 <div class="card">
-<div class="card-header"><div class="bed-num">4</div><h2>Tomatoes, Leafy Greens &amp; Herbs</h2></div>
+<div class="card-header bed3-header"><div class="bed-num">3</div><h2>Brassicas &amp; Shallots</h2></div>
+<div class="card-body">
+<div class="bed-dims">2.4m &times; 1.2m &mdash; Firm soil before planting brassicas &middot; Net immediately for pigeons</div>
+<div class="bed-diagram">
+  <div class="bed-label-row">&uarr; NORTH (back of bed)</div>
+  <div class="bed-row hl-brass"><span class="crop-name">PSB (Purple Sprouting Early)</span> <span class="crop-detail">&mdash; Transplant Jun/Jul. 60cm apart. Grows 90cm tall. Stays until spring 2027. North side.</span></div>
+  <div class="bed-row hl-onion"><span class="crop-name">Shallots (Biztro)</span> <span class="crop-detail">&mdash; Plant sets 9 Mar. Chequerboard pattern between brassicas, 15cm apart. Harvest Jul.</span></div>
+  <div class="bed-row hl-brass"><span class="crop-name">Cauliflower (All Year Round)</span> <span class="crop-detail">&mdash; Transplant 11 May. 60cm apart. Dib through cardboard. Firm soil. Net for pigeons.</span></div>
+  <div class="bed-row hl-leafy"><span class="crop-name">Spinach &amp; Lettuce (inter-crop)</span> <span class="crop-detail">&mdash; Direct sow May/Jun between brassicas. Quick crop harvested before brassicas fill out.</span></div>
+  <div class="bed-label-row">&darr; SOUTH (front of bed)</div>
+  <div class="bed-corner-note">&#127807; Nasturtiums (Tom Thumb) at all 4 corners &mdash; ESSENTIAL. Brassicas are aphid magnets.</div>
+</div></div></div>
+<div class="card">
+<div class="card-header bed4-header"><div class="bed-num">4</div><h2>Tomatoes, Leafy Greens &amp; Herbs</h2></div>
 <div class="card-body">
 <div class="bed-dims">2.4m &times; 1.2m &mdash; Tomatoes at north (staked, tall). Leafy greens at south benefit from tomato shade.</div>
 <div class="bed-diagram">
@@ -2583,17 +2646,17 @@ table.succession tr:hover{background:#F5F0E8}
 <tr><td>1</td><td>Carrots</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>8 Jun</td><td>Bed 1</td><td>60cm row</td><td>Thin seedlings when large enough</td></tr>
 <tr><td>1</td><td>Carrots</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Jul</td><td>Bed 1</td><td>60cm row</td><td>Final sowing. Harvest into Oct.</td></tr>
 <tr class="crop-group-header"><td colspan="9">BEETROOT &mdash; 5 direct sowings (every 3 weeks, Apr&ndash;Jul)</td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Bed 3 (south)</td><td>50cm row, thin to 10cm</td><td>Away from potatoes</td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>25 May</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>15 Jun</td><td>Bed 3 (south)</td><td>50cm row</td><td></td></tr>
-<tr><td>3</td><td>Beetroot</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Jul</td><td>Bed 3 (south)</td><td>50cm row</td><td>Final sowing</td></tr>
-<tr class="crop-group-header"><td colspan="9">RADISH &mdash; 5 sowings Bed 3 + 2 sowings Bed 4</td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Apr</td><td>Bed 3</td><td>Short row</td><td>Harvest 25 days after sowing</td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>27 Apr</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>18 May</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>8 Jun</td><td>Bed 3</td><td>Short row</td><td></td></tr>
-<tr><td>3</td><td>Radish</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>29 Jun</td><td>Bed 3</td><td>Short row</td><td>Final Bed 3 sowing</td></tr>
+<tr><td>2</td><td>Beetroot</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Bed 2 (south)</td><td>50cm row, thin to 10cm</td><td>Away from potatoes</td></tr>
+<tr><td>2</td><td>Beetroot</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4 May</td><td>Bed 2 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>2</td><td>Beetroot</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>25 May</td><td>Bed 2 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>2</td><td>Beetroot</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>15 Jun</td><td>Bed 2 (south)</td><td>50cm row</td><td></td></tr>
+<tr><td>2</td><td>Beetroot</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Jul</td><td>Bed 2 (south)</td><td>50cm row</td><td>Final sowing</td></tr>
+<tr class="crop-group-header"><td colspan="9">RADISH &mdash; 5 sowings Bed 2 + 2 sowings Bed 4</td></tr>
+<tr><td>2</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>6 Apr</td><td>Bed 2</td><td>Short row</td><td>Harvest 25 days after sowing</td></tr>
+<tr><td>2</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>27 Apr</td><td>Bed 2</td><td>Short row</td><td></td></tr>
+<tr><td>2</td><td>Radish</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>18 May</td><td>Bed 2</td><td>Short row</td><td></td></tr>
+<tr><td>2</td><td>Radish</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>8 Jun</td><td>Bed 2</td><td>Short row</td><td></td></tr>
+<tr><td>2</td><td>Radish</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>29 Jun</td><td>Bed 2</td><td>Short row</td><td>Final Bed 2 sowing</td></tr>
 <tr><td>4</td><td>Radish</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>25 May</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Before tomatoes fill out</td></tr>
 <tr><td>4</td><td>Radish</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>15 Jun</td><td>Bed 4 (tomatoes)</td><td>Small patch</td><td>Final Bed 4</td></tr>
 <tr class="crop-group-header"><td colspan="9">LETTUCE &mdash; 3 indoor + 9 direct (every 2 weeks, Mar&ndash;Aug)</td></tr>
@@ -2606,27 +2669,27 @@ table.succession tr:hover{background:#F5F0E8}
 <tr><td>4</td><td>Lettuce</td><td>Sow 7</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>25 May</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
 <tr><td>4</td><td>Lettuce</td><td>Sow 8</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>8 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
 <tr><td>4</td><td>Lettuce</td><td>Sow 9</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>22 Jun</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
-<tr><td>4</td><td>Lettuce</td><td>Sow 10</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>6 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Also Bed 2 gaps</td></tr>
+<tr><td>4</td><td>Lettuce</td><td>Sow 10</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>6 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Also Bed 3 gaps</td></tr>
 <tr><td>4</td><td>Lettuce</td><td>Sow 11</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>20 Jul</td><td>Bed 4 (south)</td><td>Small pinch</td><td></td></tr>
 <tr><td>4</td><td>Lettuce</td><td>Sow 12</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>Small pinch (6&ndash;8 seeds)</td><td>3 Aug</td><td>Bed 4 (south)</td><td>Small pinch</td><td>Final sowing</td></tr>
 <tr class="crop-group-header"><td colspan="9">SPINACH &mdash; 5 spring sowings + late Aug re-sow (avoid July!)</td></tr>
 <tr><td>4</td><td>Spinach</td><td>Sow 1</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>2 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td>Tolerates light frost</td></tr>
-<tr><td>3</td><td>Spinach</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>16 Mar</td><td>Bed 3 (potatoes)</td><td>Between rows</td><td></td></tr>
+<tr><td>2</td><td>Spinach</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>16 Mar</td><td>Bed 2 (potatoes)</td><td>Between rows</td><td></td></tr>
 <tr><td>4</td><td>Spinach</td><td>Sow 3</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>23 Mar</td><td>Bed 4 (south)</td><td>Short rows</td><td></td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td></td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4&ndash;11 May</td><td>Beds 3 &amp; 4</td><td>Short rows</td><td>Final spring. Avoid July!</td></tr>
-<tr><td>3&amp;4</td><td>Spinach</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>24 Aug</td><td>Beds 3 &amp; 4</td><td>Cleared space</td><td>Late summer re-sow</td></tr>
+<tr><td>2&amp;4</td><td>Spinach</td><td>Sow 4</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>13 Apr</td><td>Beds 2 &amp; 4</td><td>Short rows</td><td></td></tr>
+<tr><td>2&amp;4</td><td>Spinach</td><td>Sow 5</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>4&ndash;11 May</td><td>Beds 2 &amp; 4</td><td>Short rows</td><td>Final spring. Avoid July!</td></tr>
+<tr><td>2&amp;4</td><td>Spinach</td><td>Sow 6</td><td><span class="task-badge direct">DIRECT SOW</span></td><td></td><td>24 Aug</td><td>Beds 2 &amp; 4</td><td>Cleared space</td><td>Late summer re-sow</td></tr>
 <tr class="crop-group-header"><td colspan="9">CHARD &mdash; 1 indoor + 1 late direct</td></tr>
 <tr><td>4</td><td>Chard</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10 seeds (5 cells, 2/cell, thin to 1)</td><td>6 Apr</td><td>Module trays</td><td>1 per module</td><td>Summer/autumn eating</td></tr>
 <tr><td>4</td><td>Chard</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>4 best plants</td><td>11 May</td><td>Bed 4 (middle)</td><td>30cm apart</td><td></td></tr>
 <tr><td>4</td><td>Chard</td><td>Sow 2</td><td><span class="task-badge direct">DIRECT SOW</span></td><td>8&ndash;10 seeds (station sow)</td><td>20 Jul</td><td>Bed 4 (middle)</td><td>30cm apart</td><td>Overwinters for spring 2027</td></tr>
 <tr class="crop-group-header"><td colspan="9">POTATOES &mdash; Chit then plant (staggered)</td></tr>
-<tr><td>3</td><td>1st Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>16 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td>Cool, bright. NOT warm.</td></tr>
-<tr><td>3</td><td>1st Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>23 Mar</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
-<tr><td>3</td><td>2nd Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>23 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
-<tr><td>3</td><td>2nd Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>6 Apr</td><td>Bed 3</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
-<tr><td>3</td><td>Maincrop</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>2 Mar</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
-<tr><td>3</td><td>Maincrop</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>20 Apr</td><td>Bed 3</td><td>40cm apart, 15cm deep</td><td>Larger spacing</td></tr>
+<tr><td>2</td><td>1st Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>16 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td>Cool, bright. NOT warm.</td></tr>
+<tr><td>2</td><td>1st Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>23 Mar</td><td>Bed 2</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
+<tr><td>2</td><td>2nd Early</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>23 Feb</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
+<tr><td>2</td><td>2nd Early</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>6 Apr</td><td>Bed 2</td><td>30cm apart, 12cm deep</td><td>Earth up with compost + straw</td></tr>
+<tr><td>2</td><td>Maincrop</td><td>Chit</td><td><span class="task-badge chit">CHIT</span></td><td></td><td>2 Mar</td><td>Egg boxes, windowsill</td><td>Rose end up</td><td></td></tr>
+<tr><td>2</td><td>Maincrop</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>20 Apr</td><td>Bed 2</td><td>40cm apart, 15cm deep</td><td>Larger spacing</td></tr>
 <tr class="crop-group-header"><td colspan="9">TOMATOES &mdash; over-seeded &rarr; pot on &rarr; select best &rarr; transplant</td></tr>
 <tr><td>4</td><td>Tomato (Moneymaker)</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>24 seeds (12 cells, 2/cell &rarr; thin to 1)</td><td>&#9989; DONE 24 Feb</td><td>Windowsill, 18&ndash;21&deg;C</td><td>2 seeds/cell</td><td>Over-seeded 2.4&times;! ~10 plants. Select best 2&ndash;3 for bed.</td></tr>
 <tr><td>4</td><td>Tomato (Black Opal)</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>24 seeds (12 cells, 2/cell &rarr; thin to 1)</td><td>&#9989; DONE 24 Feb</td><td>Windowsill, 18&ndash;21&deg;C</td><td>2 seeds/cell</td><td>Over-seeded 2.4&times;! ~10 plants. Select best 2&ndash;3 for bed.</td></tr>
@@ -2644,15 +2707,15 @@ table.succession tr:hover{background:#F5F0E8}
 <tr><td>4</td><td>Basil</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>10&ndash;12 seeds (4&ndash;5 pots, 2&ndash;3/pot)</td><td>20 Apr</td><td>Surface sow</td><td>Scatter</td><td>NOT before late April</td></tr>
 <tr><td>4</td><td>Basil</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>6&ndash;8 plants</td><td>1 Jun</td><td>Between tomatoes</td><td>Tuck in</td><td>Wait until June!</td></tr>
 <tr class="crop-group-header"><td colspan="9">BRASSICAS &mdash; Cauliflower &amp; PSB</td></tr>
-<tr><td>2</td><td>Cauliflower</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>12 seeds (6 cells, 2/cell, thin to 1)</td><td>16 Mar</td><td>Module trays</td><td>2 seeds/cell</td><td>Thin to strongest</td></tr>
-<tr><td>2</td><td>Cauliflower</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>4&ndash;5 best plants</td><td>11 May</td><td>Bed 2 south</td><td>60cm apart</td><td>Firm soil well. Net for pigeons!</td></tr>
-<tr><td>2</td><td>PSB</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (4 cells, 2/cell, thin to 1)</td><td>13 Apr</td><td>Module trays</td><td>2 seeds/cell</td><td>Main batch</td></tr>
-<tr><td>2</td><td>PSB</td><td>T/plant 1</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>3&ndash;4 best plants</td><td>15 Jun</td><td>Bed 2 north</td><td>60cm apart</td><td>Firm soil very well</td></tr>
-<tr><td>2</td><td>PSB</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>6 seeds (3 cells, 2/cell) &ndash; OPTIONAL</td><td>11 May</td><td>Module trays</td><td>2 seeds/cell</td><td>Insurance batch only if needed</td></tr>
-<tr><td>2</td><td>PSB</td><td>T/plant 2</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>2&ndash;3 plants if needed</td><td>6 Jul</td><td>Bed 2</td><td>60cm apart</td><td>Only if Batch 1 failed</td></tr>
+<tr><td>3</td><td>Cauliflower</td><td>Sow</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>12 seeds (6 cells, 2/cell, thin to 1)</td><td>16 Mar</td><td>Module trays</td><td>2 seeds/cell</td><td>Thin to strongest</td></tr>
+<tr><td>3</td><td>Cauliflower</td><td>T/plant</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>4&ndash;5 best plants</td><td>11 May</td><td>Bed 3 south</td><td>60cm apart</td><td>Firm soil well. Net for pigeons!</td></tr>
+<tr><td>3</td><td>PSB</td><td>Sow 1</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>8 seeds (4 cells, 2/cell, thin to 1)</td><td>13 Apr</td><td>Module trays</td><td>2 seeds/cell</td><td>Main batch</td></tr>
+<tr><td>3</td><td>PSB</td><td>T/plant 1</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>3&ndash;4 best plants</td><td>15 Jun</td><td>Bed 3 north</td><td>60cm apart</td><td>Firm soil very well</td></tr>
+<tr><td>3</td><td>PSB</td><td>Sow 2</td><td><span class="task-badge sow">SOW INDOORS</span></td><td>6 seeds (3 cells, 2/cell) &ndash; OPTIONAL</td><td>11 May</td><td>Module trays</td><td>2 seeds/cell</td><td>Insurance batch only if needed</td></tr>
+<tr><td>3</td><td>PSB</td><td>T/plant 2</td><td><span class="task-badge transplant">TRANSPLANT</span></td><td>2&ndash;3 plants if needed</td><td>6 Jul</td><td>Bed 3</td><td>60cm apart</td><td>Only if Batch 1 failed</td></tr>
 <tr class="crop-group-header"><td colspan="9">ONE-TIME PLANTINGS (no succession needed)</td></tr>
 <tr><td>1</td><td>Onion sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td></td><td>9 Mar</td><td>Bed 1</td><td>10cm apart, rows 25cm</td><td>Tip just showing</td></tr>
-<tr><td>2</td><td>Shallot sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td></td><td>9 Mar</td><td>Bed 2</td><td>15cm, chequerboard</td><td>Push gently</td></tr>
+<tr><td>3</td><td>Shallot sets</td><td>Plant</td><td><span class="task-badge direct">PLANT SETS</span></td><td></td><td>9 Mar</td><td>Bed 3</td><td>15cm, chequerboard</td><td>Push gently</td></tr>
 <tr><td>1</td><td>Strawberries</td><td>Plant</td><td><span class="task-badge direct">PLANT</span></td><td></td><td>23 Feb</td><td>Bed 1</td><td>30cm apart</td><td>Mulch with straw when fruiting</td></tr>
 <tr><td>1</td><td>Garlic</td><td>&mdash;</td><td><span class="task-badge general">IN GROUND</span></td><td></td><td>Already planted</td><td>Bed 1</td><td>&mdash;</td><td>Harvest Jul</td></tr>
 </tbody></table>
@@ -2707,7 +2770,7 @@ table.succession tr:hover{background:#F5F0E8}
 <p class="checklist-week">Week of 16&ndash;22 March (Week 11)</p>
 <ul class="checklist-list">
 <li><input type="checkbox" id="c-mar5"><label for="c-mar5"><strong>Lettuce Batch 2</strong> &mdash; 8 seeds, 8 cells, 1 per cell. Surface sow. Transplant: late April.</label></li>
-<li><input type="checkbox" id="c-mar6"><label for="c-mar6"><strong>Cauliflower (All Year Round)</strong> &mdash; 12 seeds, 6 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 5&ndash;6 plants. Transplant: 11 May to Bed 2 south. <strong>Net immediately after transplanting!</strong></label></li>
+<li><input type="checkbox" id="c-mar6"><label for="c-mar6"><strong>Cauliflower (All Year Round)</strong> &mdash; 12 seeds, 6 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 5&ndash;6 plants. Transplant: 11 May to Bed 3 south. <strong>Net immediately after transplanting!</strong></label></li>
 </ul>
 <p class="checklist-week">Week of 23&ndash;29 March (Week 12)</p>
 <ul class="checklist-list">
@@ -2729,7 +2792,7 @@ table.succession tr:hover{background:#F5F0E8}
 </ul>
 <p class="checklist-week">Week of 13&ndash;19 April (Week 15)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="c-apr2"><label for="c-apr2"><strong>PSB Batch 1 (Purple Sprouting Broccoli)</strong> &mdash; 8 seeds, 4 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 3&ndash;4 plants. Transplant: 15 Jun to Bed 2 north. <strong>Firm soil VERY WELL after transplanting.</strong> Harvest: spring 2027.</label></li>
+<li><input type="checkbox" id="c-apr2"><label for="c-apr2"><strong>PSB Batch 1 (Purple Sprouting Broccoli)</strong> &mdash; 8 seeds, 4 cells, 2 per cell. Module tray. Thin to 1 strongest. Expect 3&ndash;4 plants. Transplant: 15 Jun to Bed 3 north. <strong>Firm soil VERY WELL after transplanting.</strong> Harvest: spring 2027.</label></li>
 </ul>
 <p class="checklist-week">Week of 20&ndash;26 April (Week 16)</p>
 <ul class="checklist-list">
@@ -2751,7 +2814,7 @@ table.succession tr:hover{background:#F5F0E8}
 <p class="checklist-week">Week of 11&ndash;17 May (Week 19)</p>
 <ul class="checklist-list">
 <li><input type="checkbox" id="c-may2"><label for="c-may2"><strong>PSB Batch 2 (Insurance &mdash; OPTIONAL)</strong> &mdash; 6 seeds, 3 cells, 2 per cell. <em>Only sow if Batch 1 looks weak or failed.</em> Expect 2&ndash;3 plants. Transplant: 6 Jul.</label></li>
-<li><input type="checkbox" id="c-may3"><label for="c-may3"><strong>Transplant Day: 11 May</strong> &mdash; Cauliflower &rarr; Bed 2 south (4&ndash;5 best plants, 60cm apart, firm soil, net immediately). Chard &rarr; Bed 4 middle (4 best plants, 30cm apart).</label></li>
+<li><input type="checkbox" id="c-may3"><label for="c-may3"><strong>Transplant Day: 11 May</strong> &mdash; Cauliflower &rarr; Bed 3 south (4&ndash;5 best plants, 60cm apart, firm soil, net immediately). Chard &rarr; Bed 4 middle (4 best plants, 30cm apart).</label></li>
 <li><input type="checkbox" id="c-may4"><label for="c-may4"><strong>Tomatoes &mdash; Final Hardening Off Week</strong> &mdash; Week 3: outside all day, inside only if frost forecast. Check weather closely. Ready for planting 25 May.</label></li>
 </ul>
 <p class="checklist-week">Week of 18&ndash;24 May (Week 20)</p>
@@ -2774,7 +2837,7 @@ table.succession tr:hover{background:#F5F0E8}
 </ul>
 <p class="checklist-week">Week of 15&ndash;21 June (Week 24)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="c-jun2"><label for="c-jun2"><strong>Transplant Day: 15 June</strong> &mdash; Leeks Batch 2 &rarr; Bed 1 (20 best plants from 23 Feb sowing). PSB Batch 1 &rarr; Bed 2 north (3&ndash;4 best plants, firm soil well!).</label></li>
+<li><input type="checkbox" id="c-jun2"><label for="c-jun2"><strong>Transplant Day: 15 June</strong> &mdash; Leeks Batch 2 &rarr; Bed 1 (20 best plants from 23 Feb sowing). PSB Batch 1 &rarr; Bed 3 north (3&ndash;4 best plants, firm soil well!).</label></li>
 </ul>
 <p class="checklist-week">Week of 29 Jun &ndash; 5 Jul</p>
 <ul class="checklist-list">
@@ -2782,7 +2845,7 @@ table.succession tr:hover{background:#F5F0E8}
 </ul>
 <p class="checklist-week">Week of 6&ndash;12 July (Week 27)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="c-jul1"><label for="c-jul1"><strong>Transplant: 6 July (if applicable)</strong> &mdash; PSB Batch 2 &rarr; Bed 2 (2&ndash;3 plants, only if insurance batch was sown).</label></li>
+<li><input type="checkbox" id="c-jul1"><label for="c-jul1"><strong>Transplant: 6 July (if applicable)</strong> &mdash; PSB Batch 2 &rarr; Bed 3 (2&ndash;3 plants, only if insurance batch was sown).</label></li>
 </ul>
 <p class="checklist-week">Week of 13&ndash;19 July (Week 28)</p>
 <ul class="checklist-list">
@@ -2797,7 +2860,7 @@ table.succession tr:hover{background:#F5F0E8}
 
 <div class="card" style="margin-top:1.5rem"><div class="card-header"><h2>Seed Starting Tips</h2></div>
 <div class="card-body"><div class="checklist-tips">
-<div class="advice-card"><h4>Brassicas (Cauliflower &amp; PSB)</h4><ul><li>Thin to the strongest seedling per cell &mdash; use scissors, don&rsquo;t pull.</li><li>Firm soil very well after transplanting (critical on clay).</li><li>Net Bed 2 immediately after planting &mdash; pigeons will destroy unprotected brassicas overnight.</li></ul></div>
+<div class="advice-card"><h4>Brassicas (Cauliflower &amp; PSB)</h4><ul><li>Thin to the strongest seedling per cell &mdash; use scissors, don&rsquo;t pull.</li><li>Firm soil very well after transplanting (critical on clay).</li><li>Net Bed 3 immediately after planting &mdash; pigeons will destroy unprotected brassicas overnight.</li></ul></div>
 <div class="advice-card"><h4>Tomatoes</h4><ul><li>Turn trays 180&deg; daily to prevent leggy growth.</li><li>Keep in warmest spot (18&ndash;21&deg;C) until germinated, then bright windowsill.</li><li>Feed weekly with half-strength tomato feed after potting on.</li><li>Hardening off is essential &mdash; never skip this step!</li></ul></div>
 <div class="advice-card"><h4>Lettuce</h4><ul><li>Surface sow &mdash; needs light to germinate (do not cover).</li><li>Quick grower: only ~4 weeks from sow to transplant.</li><li>After March batches: switch to direct sowing in bed every 2 weeks.</li></ul></div>
 <div class="advice-card"><h4>Leeks</h4><ul><li>Root trainers are best for clay soil &mdash; deep roots establish better.</li><li>Can trim tops to 8cm if plants get leggy indoors.</li><li>Water at depth when transplanting, not just the surface.</li><li>Drop into dibber hole and water in &mdash; no need to fill hole with soil.</li></ul></div>
@@ -2875,7 +2938,7 @@ table.succession tr:hover{background:#F5F0E8}
 <div class="checklist-body">
 <p class="checklist-week">Indoor Batches (1&ndash;3)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="g-le1"><label for="g-le1"><strong>Batch 1 &#9989; (6 Mar):</strong> Germination ~13 March. Transplant ~10 April (6&ndash;7 plants to Bed 4 south or gaps in Bed 2). Harden off 1 week first.</label></li>
+<li><input type="checkbox" id="g-le1"><label for="g-le1"><strong>Batch 1 &#9989; (6 Mar):</strong> Germination ~13 March. Transplant ~10 April (6&ndash;7 plants to Bed 4 south or gaps in Bed 3). Harden off 1 week first.</label></li>
 <li><input type="checkbox" id="g-le2"><label for="g-le2"><strong>Batch 2 &#9200; (16 Mar):</strong> Surface sow (needs light). 8 seeds, 8 cells, 1/cell. Transplant late April.</label></li>
 <li><input type="checkbox" id="g-le3"><label for="g-le3"><strong>Batch 3 (30 Mar):</strong> Last indoor batch. Same method. Transplant early May.</label></li>
 </ul>
@@ -2897,7 +2960,7 @@ table.succession tr:hover{background:#F5F0E8}
 </ul>
 <p class="checklist-week">Transplanting &mdash; 11 May (CRITICAL FIRMING!)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="g-c3"><label for="g-c3"><strong>Plant 4&ndash;5 best plants</strong> to Bed 2 south, 60cm apart. <strong>FIRM VERY WELL using heel of boot &mdash; press HARD from all directions. Plant must NOT rock when pushed!</strong> Wind rock = no heads.</label></li>
+<li><input type="checkbox" id="g-c3"><label for="g-c3"><strong>Plant 4&ndash;5 best plants</strong> to Bed 3 south, 60cm apart. <strong>FIRM VERY WELL using heel of boot &mdash; press HARD from all directions. Plant must NOT rock when pushed!</strong> Wind rock = no heads.</label></li>
 <li><input type="checkbox" id="g-c4"><label for="g-c4"><strong>Net immediately</strong> against pigeons. Water 2L per plant. Check next day and re-firm if loose. Re-check weekly for first month.</label></li>
 </ul>
 <p class="checklist-week">Growing to Harvest (July&ndash;October)</p>
@@ -2916,7 +2979,7 @@ table.succession tr:hover{background:#F5F0E8}
 </ul>
 <p class="checklist-week">Transplanting &mdash; 15 June (EXTRA FIRM!)</p>
 <ul class="checklist-list">
-<li><input type="checkbox" id="g-p3"><label for="g-p3"><strong>Plant 3&ndash;4 plants to Bed 2 north, 60cm apart. FIRM EXTREMELY WELL &mdash; PSB grows 90cm+ tall and faces winter winds. Must be rock-solid.</strong> Net immediately. Water 2&ndash;3L per plant.</label></li>
+<li><input type="checkbox" id="g-p3"><label for="g-p3"><strong>Plant 3&ndash;4 plants to Bed 3 north, 60cm apart. FIRM EXTREMELY WELL &mdash; PSB grows 90cm+ tall and faces winter winds. Must be rock-solid.</strong> Net immediately. Water 2&ndash;3L per plant.</label></li>
 <li><input type="checkbox" id="g-p4"><label for="g-p4"><strong>Check and re-firm weekly</strong> for the first month. Stop feeding in September. Hardy to &minus;10&deg;C.</label></li>
 </ul>
 <p class="checklist-week">Harvest &mdash; March&ndash;April 2027</p>
@@ -3054,6 +3117,119 @@ function showSection(id, btn) {
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
+
+/* ── Theme system ── */
+function setTheme(name, btn) {
+  document.documentElement.setAttribute('data-theme', name === 'garden' ? '' : name);
+  localStorage.setItem('allotment-theme', name);
+  document.querySelectorAll('.theme-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+}
+
+(function initTheme() {
+  var saved = localStorage.getItem('allotment-theme') || 'garden';
+  var btn = document.getElementById('theme-' + saved);
+  setTheme(saved, btn);
+})();
+
+/* ── Gantt: current week + click-to-highlight ── */
+(function initGantt() {
+  // Gantt starts week of Feb 2, 2026
+  var ganttStart = new Date(2026, 1, 2); // Feb 2 2026
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var msPerWeek = 7 * 24 * 60 * 60 * 1000;
+  var weekIdx = Math.floor((today - ganttStart) / msPerWeek);
+
+  var clickedCol = null;
+
+  function highlightCol(colIdx, mode) {
+    // mode: 'current' (amber, auto) or 'click' (green, manual)
+    var rows = document.querySelectorAll('.gantt-table .gantt-row');
+    rows.forEach(function(row) {
+      var cells = row.querySelectorAll('td:not(.gantt-fixed)');
+      if (colIdx >= 0 && colIdx < cells.length) {
+        cells[colIdx].classList.add(mode === 'current' ? 'gc-current-week' : 'gc-clicked-week');
+      }
+    });
+    // Highlight the week header cell
+    var weekHeaders = document.querySelectorAll('.gantt-weeks th:not(.gantt-fixed)');
+    if (colIdx >= 0 && colIdx < weekHeaders.length) {
+      weekHeaders[colIdx].classList.add(mode === 'current' ? 'gantt-week-current' : 'gantt-week-highlight');
+    }
+  }
+
+  function clearClickHighlight() {
+    document.querySelectorAll('.gc-clicked-week').forEach(function(el) { el.classList.remove('gc-clicked-week'); });
+    document.querySelectorAll('.gantt-week-highlight').forEach(function(el) { el.classList.remove('gantt-week-highlight'); });
+  }
+
+  // Highlight current week automatically
+  if (weekIdx >= 0 && weekIdx < 39) {
+    highlightCol(weekIdx, 'current');
+  }
+
+  // Add inline styles for current/clicked week cells
+  var style = document.createElement('style');
+  style.textContent = '.gc-current-week:not([class*="gc-s"]):not([class*="gc-t"]):not([class*="gc-d"]):not([class*="gc-h"]):not([class*="gc-c"]){background:#FFF8DC !important;outline:2px solid #F9A825;outline-offset:-2px}.gc-clicked-week:not([class*="gc-s"]):not([class*="gc-t"]):not([class*="gc-d"]):not([class*="gc-h"]):not([class*="gc-c"]){background:#E8F5E9 !important;outline:2px solid #43A047;outline-offset:-2px}';
+  document.head.appendChild(style);
+
+  // Click-to-highlight on week header cells
+  document.querySelectorAll('.gantt-weeks th:not(.gantt-fixed)').forEach(function(th, idx) {
+    th.style.cursor = 'pointer';
+    th.title = 'Click to highlight this week';
+    th.addEventListener('click', function() {
+      if (clickedCol === idx) {
+        // Second click on same column: clear highlight
+        clearClickHighlight();
+        clickedCol = null;
+      } else {
+        clearClickHighlight();
+        highlightCol(idx, 'click');
+        clickedCol = idx;
+      }
+    });
+  });
+
+  // Also allow clicking data cells in a row to highlight that column
+  document.querySelectorAll('.gantt-table .gantt-row').forEach(function(row) {
+    row.querySelectorAll('td:not(.gantt-fixed)').forEach(function(cell, idx) {
+      cell.style.cursor = 'pointer';
+      cell.addEventListener('click', function() {
+        if (clickedCol === idx) {
+          clearClickHighlight();
+          clickedCol = null;
+        } else {
+          clearClickHighlight();
+          highlightCol(idx, 'click');
+          clickedCol = idx;
+        }
+      });
+    });
+  });
+})();
+
+/* ── Checklist localStorage persistence ── */
+(function initChecklists() {
+  var KEY = 'allotment-checks';
+  var saved;
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { saved = {}; }
+
+  function saveChecks() {
+    var state = {};
+    document.querySelectorAll('input[type=checkbox][id]').forEach(function(cb) {
+      state[cb.id] = cb.checked;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  // Restore saved state
+  document.querySelectorAll('input[type=checkbox][id]').forEach(function(cb) {
+    if (saved[cb.id] !== undefined) cb.checked = saved[cb.id];
+    cb.addEventListener('change', saveChecks);
+  });
+})();
+
 </script>
 
 <script>
