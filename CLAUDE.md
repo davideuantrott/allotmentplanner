@@ -17,6 +17,7 @@ This is a **zero-dependency, pure HTML/CSS/JavaScript** project. There is no bui
 | File | Purpose |
 |------|---------|
 | `index.html` | The entire application — HTML structure, all CSS (`<style>`), all JavaScript (`<script>`) |
+| `updates.html` | Password-protected progress update form — see Progress Update Workflow below |
 | `manifest.json` | PWA manifest (app name, icons, theme colour, display mode) |
 | `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v2`) |
 | `icon-192.png` | Home screen icon (192x192) |
@@ -225,6 +226,34 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 ## Season
 
 This calendar covers the **2026 growing season** (February 2026 – October 2026, with PSB overwintering to spring 2027). The year is hardcoded in the title, manifest, and service worker cache name.
+
+---
+
+## Progress Update Workflow
+
+The owner uses `updates.html` to record task progress and generate a structured prompt for Claude to process. This is the canonical way to keep the site, Asana, and CLAUDE.md in sync.
+
+### How it works
+1. Owner visits `https://davideuantrott.github.io/allotmentplanner/updates.html`
+2. Logs in with password (SHA-256 protected; hash stored in `updates.html`)
+3. Sets status, actual date, and notes for any changed tasks
+4. Clicks **Generate Claude Prompt** → copies the output block
+5. Pastes into a new Claude Code chat
+
+### What Claude does when receiving a prompt from updates.html
+1. Read `CLAUDE.md` for full project context and current season status
+2. Parse each task update and determine what changed vs the plan
+3. Update `index.html` across all relevant sections: progress tracker (completed sowings, windowsill occupancy, upcoming actions), calendar month cards, succession table, checklist — and Gantt only if dates shift significantly. Update the "Last Updated" date.
+4. Sync Asana (project GID: `1213549975842888`, user GID: `1208097174845383`): mark tasks complete/incomplete, update due dates, add a story comment, update task description if the plan changed. For tasks with GID prefixed `new_`, search by name first and create if not found.
+5. Update `CLAUDE.md` season status section
+6. Commit and push with a descriptive message
+
+### Keeping updates.html in sync with the plan
+When task dates or names change in `index.html`, update the corresponding entry in the `TASKS` array in `updates.html`. Each entry has: `gid` (Asana task GID), `name`, `due` (ISO date), `month`, `status`, and optional `note` (pre-filled context).
+
+### Access
+- Direct URL: `https://davideuantrott.github.io/allotmentplanner/updates.html`
+- Also reachable via the faint ⚙ icon fixed to the bottom-right of the main page
 
 ---
 
