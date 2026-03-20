@@ -92,8 +92,8 @@ Defined in `:root` in `<style>`:
 
 ### Bed 1 — Alliums, Roots & Strawberries
 Layout north → south (as planted):
-- Onion sets (Sturon) — plant 9 Mar, harvest Jul/Aug
-- Leeks (Musselburgh) — **3 indoor sowings** (Batch 2 missed): Batch 1 sown 14 Feb (standard tray), Batch 3 sown 6 Mar (deep root trainer), Batch 4 due 23 Mar (deep root trainer). Transplant May–Jul into garlic/onion space. ~62 leeks total.
+- Onion sets (Sturon) — planted 20 Mar (delayed from 9 Mar), harvest Jul/Aug
+- Leeks (Musselburgh) — **3 indoor sowings** (Batch 2 missed): Batch 1 sown 14 Feb (standard tray), Batch 3 sown 6 Mar (germinating well), Batch 4 due 23 Mar (deep root trainer). Transplant May–Jul into garlic/onion space. ~62 leeks total.
 - Carrots (Chantenay Royal) — 4 succession sowings Apr–Jul, direct sow through cardboard
 - Marigolds (Mango Tango) — companion between carrots and strawberries
 - Strawberries (Cambridge Favourite) — plant Feb/Mar
@@ -113,18 +113,18 @@ Layout north → south (as planted):
 ### Bed 3 — Brassicas & Shallots
 *(was Bed 2 before 07 Mar 2026 renumbering)*
 - PSB / Purple Sprouting Early — transplant Jun/Jul, stays until spring 2027
-- Shallot sets (Biztro) — plant 9 Mar
-- Cauliflower (All Year Round) — transplant 11 May, net immediately
+- Shallot sets (Biztro) — planted 20 Mar (delayed from 9 Mar)
+- Cauliflower (All Year Round) — sow 22 Mar (delayed from 16 Mar), transplant 11 May, net immediately
 - Spinach & Lettuce inter-crop — between brassicas May/Jun
 - Nasturtiums (Tom Thumb) — all 4 corners (essential for brassica aphid control)
 
 ### Bed 4 — Tomatoes, Leafy Greens & Herbs
-- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — sown 24 Feb (72 seeds total, 24/variety, over-seeded 2.4×). Transplant best 7–8 plants 26 May (north end). Gift remaining ~12 plants.
+- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — sown 24 Feb (72 seeds total, 24/variety, over-seeded 2.4×). Potting on to 9cm pots (started 20 Mar, ~6 GD done; completing 23 Mar). Transplant best 7–8 plants 26 May (north end). Gift remaining ~12 plants.
 - Basil (Greek) — between tomatoes from Jun
 - Marigolds (Spanish Brocade) — between tomatoes
 - Radish (French Breakfast) — at tomato base May/Jun (2 sowings)
 - Chard (Rainbow) — transplant May, 2nd direct sow Jul for overwintering
-- Lettuce (Little Gem) — south end, 12 succession sowings Mar–Aug (every 2 weeks)
+- Lettuce (Little Gem) — south end, **11 sowings** (Batches 1+2 failed/missed; combined 12-cell replacement batch 22 Mar; last indoor 5 Apr; then 9 direct every 2 weeks 13 Apr–3 Aug)
 - Spinach (Medania) — south end, succession Mar–May and late Aug
 
 ---
@@ -133,7 +133,7 @@ Layout north → south (as planted):
 
 | Crop | # Sowings | Frequency | Season |
 |------|-----------|-----------|--------|
-| Lettuce | 12 (3 indoor + 9 direct) | Every 2 weeks | Mar–Aug |
+| Lettuce | 11 (2 indoor + 9 direct) | Every 2 weeks | Mar–Aug (Batches 1+2 combined into 12-cell batch 22 Mar; last indoor 5 Apr) |
 | Spinach | 6 | Every 3 weeks | Mar–May + late Aug (AVOID July) |
 | Carrots | 4 | Every 3–4 weeks | Apr–Jul |
 | Beetroot | 5 | Every 3 weeks | Apr–Jul |
@@ -172,6 +172,7 @@ Gantt chart uses single-letter codes: S=Sow, P=Pot On, T=Transplant, D=Direct, H
 - **Nasturtiums**: Essential trap crop — aphids prefer them over vegetables. Every bed corner.
 - **Leeks**: Transplant into dibber holes through cardboard (no need to fill hole — just water in).
 - **Garlic space re-use**: Transplant leeks into garlic/onion gaps as they are harvested in July.
+- **Lettuce indoors**: Must be in a COOL (12–15°C), bright spot — NOT a warm propagator. Warm + low light = leggy seedlings. Surface sow (needs light to germinate).
 
 ---
 
@@ -224,3 +225,29 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 ## Season
 
 This calendar covers the **2026 growing season** (February 2026 – October 2026, with PSB overwintering to spring 2027). The year is hardcoded in the title, manifest, and service worker cache name.
+
+---
+
+## Season Status (as of 20 March 2026)
+
+### Completed
+- ✅ Leeks Batch 1 — sown 14 Feb (standard tray, 12 cells). Germinated.
+- ✅ Tomatoes ×3 — sown 24 Feb (72 seeds, 36 cells). Potting on in progress (6 GD done; rest 23 Mar).
+- ✅ Potatoes Casablanca — chitting since ~15 Feb (18 sets). Plant 23 Mar.
+- ✅ Potatoes Charlotte — chitting since ~20 Feb (18 sets). Plant 6 Apr.
+- ✅ Potatoes Setanta — chitting since 6 Mar (18 sets). Plant 20 Apr.
+- ✅ Leeks Batch 3 — sown 6 Mar (deep root trainer, 12 cells). Germinating well (confirmed 20 Mar).
+
+### Missed / Failed / Delayed
+- ❌ Leeks Batch 2 (due 23 Feb) — MISSED. Accepting 3-batch succession (~62 leeks).
+- ❌ Lettuce Batch 1 (sown 6 Mar) — FAILED (too leggy; insufficient light + too warm). Discarded.
+- ❌ Lettuce Batch 2 (due 16 Mar) — MISSED. Combined with replacement batch.
+- ⏰ Onion sets — planted 20 Mar (delayed 11 days from 9 Mar). Still fine timing.
+- ⏰ Shallot sets — planted 20 Mar (delayed 11 days from 9 Mar). Still fine timing.
+- ⏰ Cauliflower sow — delayed to 22 Mar (from 16 Mar).
+- ⏰ Spinach Bed 2 (1st sow) — delayed to 22 Mar (from 16 Mar).
+
+### Upcoming (immediate)
+- 22 Mar: Lettuce combined replacement batch (12 cells), Cauliflower (12 seeds/6 cells), Spinach Bed 2 direct
+- 23 Mar: Pot on remaining ~30 tomato cells; Leeks Batch 4 (26 seeds); Plant Casablanca potatoes
+- 5 Apr: Lettuce Batch 3 last indoor (8 cells)
