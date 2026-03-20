@@ -3257,6 +3257,22 @@ function setTheme(name, btn) {
 </script>
 
 <script>
+// Admin link
+document.addEventListener('DOMContentLoaded', function() {
+  const link = document.createElement('a');
+  link.href = 'updates.html';
+  link.textContent = '⚙';
+  link.title = 'Progress Updates';
+  Object.assign(link.style, {
+    position:'fixed', bottom:'12px', right:'14px', zIndex:'9999',
+    fontSize:'1.1rem', opacity:'0.25', textDecoration:'none',
+    color:'inherit', lineHeight:'1'
+  });
+  link.addEventListener('mouseenter', function(){ this.style.opacity='0.7'; });
+  link.addEventListener('mouseleave', function(){ this.style.opacity='0.25'; });
+  document.body.appendChild(link);
+});
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('sw.js').then(function(reg) {
