@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allotment — Progress Updates</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f0e8;color:#3a2e1e;min-height:100vh}
+/* ── Login / Setup ─────────────────────────────── */
+#login-screen,#setup-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem}
+.auth-box{background:#fff;border-radius:12px;padding:2rem 2.5rem;box-shadow:0 4px 20px rgba(0,0,0,.12);max-width:380px;width:100%;text-align:center}
+.auth-box h1{font-size:1.4rem;color:#3a7d44;margin-bottom:.4rem}
+.auth-box p{font-size:.85rem;color:#666;margin-bottom:1.5rem}
+.auth-box input[type=password],.auth-box input[type=text]{width:100%;padding:.7rem 1rem;border:1.5px solid #ccc;border-radius:8px;font-size:1rem;margin-bottom:.8rem;outline:none}
+.auth-box input:focus{border-color:#3a7d44}
+.btn{display:inline-block;padding:.7rem 1.6rem;border:none;border-radius:8px;font-size:.95rem;cursor:pointer;font-weight:600}
+.btn-green{background:#3a7d44;color:#fff}.btn-green:hover{background:#2d6235}
+.btn-copy{background:#e8f5e9;color:#2d6235;border:1.5px solid #3a7d44}.btn-copy:hover{background:#c8e6c9}
+.btn-generate{background:#3a7d44;color:#fff;font-size:1.05rem;padding:.85rem 2rem;width:100%;margin-top:1.5rem}.btn-generate:hover{background:#2d6235}
+#login-error{color:#c62828;font-size:.85rem;margin-top:.5rem;min-height:1.2em}
+.hash-output{font-family:monospace;font-size:.75rem;word-break:break-all;background:#f5f5f5;border:1px solid #ddd;border-radius:6px;padding:.7rem;margin:.8rem 0;text-align:left;color:#333}
+/* ── App shell ─────────────────────────────────── */
+#app-screen{display:none;max-width:760px;margin:0 auto;padding:1rem}
+header{background:#3a7d44;color:#fff;border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+header h1{font-size:1.25rem;font-weight:700}
+header .meta{font-size:.82rem;opacity:.85}
+#logout-btn{font-size:.8rem;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:6px;padding:.3rem .8rem;cursor:pointer}
+#logout-btn:hover{background:rgba(255,255,255,.3)}
+/* ── Month sections ─────────────────────────────── */
+.month-section{margin-bottom:1.25rem}
+.month-header{background:#5d4037;color:#fff;border-radius:8px 8px 0 0;padding:.6rem 1rem;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.month-header .toggle-icon{font-size:.8rem;opacity:.8}
+.month-header.past{background:#8d6e63}
+.month-header.current{background:#3a7d44}
+.month-body{background:#fff;border-radius:0 0 8px 8px;border:1px solid #e0d5c5;border-top:none;overflow:hidden}
+/* ── Task rows ──────────────────────────────────── */
+.task-row{padding:.85rem 1rem;border-bottom:1px solid #f0e8df}
+.task-row:last-child{border-bottom:none}
+.task-row.is-done{background:#f9fbe7;opacity:.75}
+.task-row.is-failed{background:#fff5f5;opacity:.75}
+.task-row.is-missed{background:#fff5f5;opacity:.75}
+.task-header{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.5rem}
+.task-due{font-size:.75rem;color:#888;white-space:nowrap;padding-top:.15rem}
+.task-name{font-weight:600;font-size:.9rem;flex:1}
+.status-badge{font-size:.7rem;font-weight:700;padding:.18rem .55rem;border-radius:10px;white-space:nowrap}
+.badge-done{background:#e8f5e9;color:#2e7d32}
+.badge-failed{background:#ffebee;color:#c62828}
+.badge-missed{background:#ffebee;color:#c62828}
+.badge-in_progress{background:#fff8e1;color:#f57f17}
+.badge-pending{background:#e3f2fd;color:#1565c0}
+.badge-delayed{background:#fce4ec;color:#880e4f}
+.badge-skipped{background:#f3e5f5;color:#4a148c}
+/* ── Update fields ──────────────────────────────── */
+.update-fields{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+@media(max-width:500px){.update-fields{grid-template-columns:1fr}}
+.field-group{display:flex;flex-direction:column;gap:.25rem}
+.field-group.notes-field{grid-column:1/-1}
+.field-group label{font-size:.75rem;color:#666;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.field-group select,.field-group input[type=date],.field-group textarea{border:1.5px solid #ddd;border-radius:6px;padding:.45rem .65rem;font-size:.875rem;font-family:inherit;background:#fafafa;outline:none;width:100%}
+.field-group select:focus,.field-group input:focus,.field-group textarea:focus{border-color:#3a7d44;background:#fff}
+.field-group textarea{resize:vertical;min-height:56px}
+.task-existing-note{font-size:.78rem;color:#888;font-style:italic;margin-bottom:.4rem}
+/* ── Output ─────────────────────────────────────── */
+#output-section{margin-top:1.5rem;display:none}
+#output-section h2{font-size:1rem;margin-bottom:.75rem;color:#3a7d44}
+#prompt-output{width:100%;height:320px;font-family:monospace;font-size:.78rem;border:1.5px solid #ccc;border-radius:8px;padding:.75rem;background:#fafafa;resize:vertical}
+.copy-row{display:flex;align-items:center;gap:.75rem;margin-top:.6rem;flex-wrap:wrap}
+#copy-feedback{font-size:.82rem;color:#2e7d32;display:none}
+.instructions{background:#e8f5e9;border-left:4px solid #3a7d44;border-radius:0 8px 8px 0;padding:.9rem 1rem;font-size:.82rem;color:#1b5e20;margin-top:.75rem;line-height:1.6}
+.instructions strong{display:block;margin-bottom:.35rem}
+</style>
+</head>
+<body>
+
+<!-- ══ SETUP SCREEN (shown only when STORED_HASH = 'CHANGE_ME') ══ -->
+<div id="setup-screen" style="display:none">
+<div class="auth-box">
+  <h1>🌱 First-Time Setup</h1>
+  <p>Generate your password hash, then paste it into <code>updates.html</code> as the <code>STORED_HASH</code> constant.</p>
+  <input type="text" id="setup-pw" placeholder="Choose a password" autocomplete="off">
+  <button class="btn btn-green" onclick="generateHash()">Generate Hash</button>
+  <div class="hash-output" id="hash-result" style="display:none"></div>
+  <p style="font-size:.78rem;color:#888;margin-top:.5rem">Copy the hash above → open <code>updates.html</code> → replace <code>'CHANGE_ME'</code> with it → save &amp; push.</p>
+</div>
+</div>
+
+<!-- ══ LOGIN SCREEN ══════════════════════════════════════════════ -->
+<div id="login-screen">
+<div class="auth-box">
+  <h1>🌱 Allotment Updates</h1>
+  <p>Enter your password to record progress</p>
+  <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password"
+    onkeydown="if(event.key==='Enter')login()">
+  <button class="btn btn-green" onclick="login()">Login</button>
+  <div id="login-error"></div>
+</div>
+</div>
+
+<!-- ══ APP SCREEN ════════════════════════════════════════════════ -->
+<div id="app-screen">
+<header>
+  <div>
+    <h1>🌱 Allotment Progress Updates</h1>
+    <div class="meta">Update task statuses, then generate a prompt for Claude</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <span class="meta" id="today-label"></span>
+    <button id="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<div id="task-list"></div>
+
+<button class="btn btn-generate" onclick="generatePrompt()">⬇ Generate Claude Prompt</button>
+
+<div id="output-section">
+  <h2>Paste this into a new Claude Code chat:</h2>
+  <textarea id="prompt-output" readonly></textarea>
+  <div class="copy-row">
+    <button class="btn btn-copy" onclick="copyPrompt()">📋 Copy to Clipboard</button>
+    <span id="copy-feedback">✅ Copied!</span>
+  </div>
+  <div class="instructions">
+    <strong>What Claude will do with this prompt:</strong>
+    1. Read CLAUDE.md for full project context &amp; season status<br>
+    2. Parse each task update and determine what changed<br>
+    3. Update index.html (progress tracker, calendar, succession table, checklist)<br>
+    4. Sync Asana: mark tasks complete/update dates/add notes/update descriptions<br>
+    5. Update CLAUDE.md season status section<br>
+    6. Commit and push all changes
+  </div>
+</div>
+</div>
+
+<script>
+'use strict';
+
+// ════════════════════════════════════════════════════════════════
+// CONFIGURATION — replace 'CHANGE_ME' with your password hash.
+// To generate: open browser console (F12) and run:
+//   await hashPw('your-chosen-password')
+// Copy the result and paste it below.
+// ════════════════════════════════════════════════════════════════
+const STORED_HASH = 'CHANGE_ME';
+
+// Asana IDs (not sensitive — numeric IDs only, no personal data)
+const ASANA_PROJECT_GID = '1213549975842888';
+const ASANA_USER_GID    = '1208097174845383';
+
+// ════════════════════════════════════════════════════════════════
+// TASK DATA  — keep in sync with index.html plan
+// status: 'pending' | 'in_progress' | 'done' | 'failed' | 'missed'
+// note: pre-filled context shown to user (greyed, still editable)
+// ════════════════════════════════════════════════════════════════
+const TASKS = [
+  // ── FEBRUARY ────────────────────────────────────────────────
+  { gid:'1213539337258812', name:'Leeks Batch 1 — Sow Indoors',                      due:'2026-02-14', month:'February 2026', status:'done' },
+  { gid:'1213542429697963', name:'Tomatoes (All 3 Varieties) — Sow Indoors',          due:'2026-02-24', month:'February 2026', status:'done' },
+
+  // ── MARCH ───────────────────────────────────────────────────
+  { gid:'1213542429712539', name:'Leeks Batch 3 — Sow Indoors',                       due:'2026-03-06', month:'March 2026',    status:'done',        note:'Sown 6 Mar (3 days early). Deep root trainer. Germination confirmed 20 Mar.' },
+  { gid:'1213538942091885', name:'Lettuce Batch 1 — Sow Indoors',                     due:'2026-03-06', month:'March 2026',    status:'failed',      note:'Too leggy — insufficient light. Discarding. Replaced by 12-cell combined batch 22 Mar.' },
+  { gid:'1213542432666861', name:'Start: Weekly Garden Journal',                      due:'2026-03-08', month:'March 2026',    status:'done' },
+  { gid:'1213561840828103', name:'Test Soil pH',                                      due:'2026-03-15', month:'March 2026',    status:'done' },
+  { gid:'1213549975870784', name:'Pot On Tomatoes (When True Leaves Appear)',         due:'2026-03-23', month:'March 2026',    status:'in_progress', note:'6 Gardeners Delight cells done. Remaining ~30 cells to be potted Mon 23 Mar.' },
+  { gid:'1213576768683387', name:'Plant Onion Sets (Sturon) — Bed 1',                 due:'2026-03-20', month:'March 2026',    status:'done',        note:'Planted 20 Mar (delayed from 9 Mar). Bed 1, rows 25cm apart.' },
+  { gid:'1213550880777669', name:'Install Water Butt / Rainwater Collection',         due:'2026-03-20', month:'March 2026',    status:'done' },
+  { gid:'1213576768336217', name:'Plant Shallot Sets (Biztro) — Bed 3',              due:'2026-03-20', month:'March 2026',    status:'done',        note:'Planted 20 Mar (delayed from 9 Mar). Bed 3, chequerboard 15cm.' },
+  { gid:'1213576768718819', name:'Lettuce Combined Batch (Batches 1+2) — Sow Indoors', due:'2026-03-22', month:'March 2026',  status:'pending',     note:'12 seeds, 12 cells, 1/cell. Cool bright spot (12–15°C). NOT warm propagator.' },
+  { gid:'1213561256410511', name:'Cauliflower (All Year Round) — Sow Indoors',        due:'2026-03-22', month:'March 2026',    status:'pending',     note:'Delayed from 16 Mar. 12 seeds, 6 cells, 2/cell.' },
+  { gid:'1213539337316905', name:'Leeks Batch 4 (FINAL) — Sow Indoors',              due:'2026-03-23', month:'March 2026',    status:'pending' },
+  { gid:'1213576768744677', name:'Plant 1st Early Potatoes (Casablanca) — Bed 2',    due:'2026-03-23', month:'March 2026',    status:'pending' },
+
+  // ── APRIL ───────────────────────────────────────────────────
+  { gid:'1213742915561656', name:'Lettuce Batch 3 (Last Indoor) — Sow Indoors',       due:'2026-04-05', month:'April 2026',   status:'pending',     note:'Shifted from 30 Mar. 8 seeds, 8 cells. Last indoor batch — then all direct sow.' },
+  { gid:'1213539337334291', name:'Chard Batch 1 — Sow Indoors',                       due:'2026-04-06', month:'April 2026',   status:'pending' },
+  { gid:'1213538942208275', name:'Plant 2nd Early Potatoes (Charlotte) — Bed 2',      due:'2026-04-06', month:'April 2026',   status:'pending' },
+  { gid:'1213540316473534', name:'Purchase Frost Protection Materials',               due:'2026-04-10', month:'April 2026',   status:'pending' },
+  { gid:'1213549975932587', name:'Purple Sprouting Broccoli Batch 1 — Sow Indoors',  due:'2026-04-13', month:'April 2026',   status:'pending' },
+  { gid:'1213576798077809', name:'Start: Earth Up Potatoes (Casablanca)',              due:'2026-04-13', month:'April 2026',   status:'pending' },
+  { gid:'1213539337604149', name:'Start: Weekly Tomato Feeding',                      due:'2026-04-13', month:'April 2026',   status:'pending' },
+  { gid:'1213561840838429', name:'Install Wildlife Habitats (Bug Hotels etc)',        due:'2026-04-15', month:'April 2026',   status:'pending' },
+  { gid:'1213549975933979', name:'All Companion Plants — Sow Indoors (Nasturtiums, Marigolds, Basil)', due:'2026-04-20', month:'April 2026', status:'pending' },
+  { gid:'1213542429791730', name:'Plant Maincrop Potatoes (Setanta Organic) — Bed 2', due:'2026-04-20', month:'April 2026',  status:'pending' },
+  { gid:'1213576993470254', name:'Monitor Frost Forecasts & Prepare Protection',      due:'2026-04-20', month:'April 2026',   status:'pending' },
+  { gid:'1213561840567670', name:'Lettuce Succession #4 — Direct Sow (Bed 4)',        due:'2026-04-27', month:'April 2026',   status:'pending' },
+
+  // ── MAY ─────────────────────────────────────────────────────
+  { gid:'1213542432481469', name:'Beetroot #2 + Allium Leaf Miner Check',             due:'2026-05-04', month:'May 2026',     status:'pending' },
+  { gid:'1213542430030566', name:'Install Netting on Brassicas',                      due:'2026-05-11', month:'May 2026',     status:'pending' },
+  { gid:'1213542429791177', name:'Transplant Cauliflower + Chard — Bed 3 / Bed 4',   due:'2026-05-11', month:'May 2026',     status:'pending' },
+  { gid:'1213550880547042', name:'Carrots Sowing #2 + Lettuce #6 + Earth Up Potatoes', due:'2026-05-11', month:'May 2026',   status:'pending' },
+  { gid:'1213561256463354', name:'Transplant Nasturtiums + Marigolds — All Bed Corners', due:'2026-05-18', month:'May 2026', status:'pending' },
+  { gid:'1213550880639855', name:'Radish Succession #3 (Bed 3)',                      due:'2026-05-18', month:'May 2026',     status:'pending' },
+  { gid:'1213540316278314', name:'Beetroot #3 + Second Potato Earthing + Lettuce #7', due:'2026-05-25', month:'May 2026',    status:'pending' },
+  { gid:'1213542429786364', name:'Transplant Tomatoes (Best 7–8 Plants) — Bed 4 North', due:'2026-05-26', month:'May 2026', status:'pending' },
+  { gid:'1213539337394238', name:'Transplant Leeks Batch 1 — Bed 1',                 due:'2026-05-28', month:'May 2026',     status:'pending' },
+
+  // ── JUNE ────────────────────────────────────────────────────
+  { gid:'1213576798100634', name:'Start: Weekly Tomato Side Shooting',                due:'2026-06-01', month:'June 2026',    status:'pending' },
+  { gid:'1213538942285726', name:'Transplant Basil — Between Tomatoes (Bed 4)',       due:'2026-06-01', month:'June 2026',    status:'pending' },
+  { gid:'1213550880554742', name:'Carrots #3 + Lettuce #8 + Carrot Fly Protection',  due:'2026-06-08', month:'June 2026',    status:'pending' },
+  { gid:'1213538942309611', name:'Transplant Leeks Batch 3 — Bed 1',                 due:'2026-06-08', month:'June 2026',    status:'pending' },
+  { gid:'1213561838273356', name:'Start: Harvest 1st Early Potatoes (Casablanca)',    due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213540316429219', name:'Mulch Strawberries with Straw (Bed 1)',             due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213538942325638', name:'Transplant PSB Batch 1 — Bed 3 North',             due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213561840691796', name:'Final Potato Earthing + Beetroot #4 + Radish #6',  due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213539337604637', name:'Establish Watering Routine (Summer)',               due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213549976226519', name:'Weekly Pest & Disease Check — Start',              due:'2026-06-15', month:'June 2026',    status:'pending' },
+  { gid:'1213561838319556', name:'Weekly Brassica Firming Check — Start',            due:'2026-06-22', month:'June 2026',    status:'pending' },
+
+  // ── JULY ────────────────────────────────────────────────────
+  { gid:'1213542432488395', name:'Final Carrots #4 + Final Beetroot #5 + Lettuce #10', due:'2026-07-06', month:'July 2026',  status:'pending' },
+  { gid:'1213561840701669', name:'Harvest Garlic, Onions & Shallots (Beds 1 & 3)',   due:'2026-07-13', month:'July 2026',    status:'pending' },
+  { gid:'1213538942321681', name:'Transplant Leeks Batch 4 (FINAL) — Bed 1',         due:'2026-07-13', month:'July 2026',    status:'pending' },
+  { gid:'1213549976016627', name:'Chard Batch 2 — Direct Sow (Overwinter, Bed 4)',   due:'2026-07-20', month:'July 2026',    status:'pending' },
+  { gid:'1213538944916942', name:'Lettuce #11 + Earth Up Leeks (All Batches)',        due:'2026-07-20', month:'July 2026',    status:'pending' },
+  { gid:'1213539337636549', name:'Start: Harvest Tomatoes',                           due:'2026-07-20', month:'July 2026',    status:'pending' },
+
+  // ── AUGUST ──────────────────────────────────────────────────
+  { gid:'1213538944957130', name:'FINAL Lettuce #12 + Late Spinach Re-sow',          due:'2026-08-03', month:'August 2026',  status:'pending' },
+  { gid:'1213561840712744', name:'Harvest Maincrop Potatoes (Setanta) — Cure & Store', due:'2026-08-20', month:'August 2026', status:'pending' },
+
+  // ── SEPTEMBER ───────────────────────────────────────────────
+  { gid:'1213549976226763', name:'Start: Harvest Leeks Batch 1',                     due:'2026-09-01', month:'September 2026', status:'pending' },
+
+  // ── OCTOBER / NOVEMBER ──────────────────────────────────────
+  { gid:'1213539337679850', name:'Autumn Garden Cleanup & Prep',                     due:'2026-10-01', month:'October 2026', status:'pending' },
+  { gid:'1213540316407180', name:'Annual Compost Layer — Top Up All Beds',           due:'2026-11-01', month:'November 2026', status:'pending' },
+];
+
+// ════════════════════════════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════════════════════════════
+async function hashPw(pw) {
+  const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+  console.log('Hash:', hash);
+  return hash;
+}
+
+async function login() {
+  const pw   = document.getElementById('pw-input').value;
+  const hash = await hashPw(pw);
+  if (hash === STORED_HASH) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display   = 'block';
+    sessionStorage.setItem('ap_auth', '1');
+    initApp();
+  } else {
+    document.getElementById('login-error').textContent = 'Incorrect password.';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('ap_auth');
+  document.getElementById('app-screen').style.display   = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+}
+
+async function generateHash() {
+  const pw = document.getElementById('setup-pw').value.trim();
+  if (!pw) return;
+  const hash = await hashPw(pw);
+  const el   = document.getElementById('hash-result');
+  el.style.display = 'block';
+  el.textContent = hash;
+}
+
+// ════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════
+function initApp() {
+  const today = new Date();
+  document.getElementById('today-label').textContent =
+    today.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  // Restore saved form state (24h expiry)
+  const saved    = loadSaved();
+  const todayStr = today.toISOString().slice(0,10);
+
+  // Group tasks by month
+  const months = {};
+  TASKS.forEach(t => { (months[t.month] = months[t.month] || []).push(t); });
+
+  const container = document.getElementById('task-list');
+  container.innerHTML = '';
+
+  for (const [month, tasks] of Object.entries(months)) {
+    const firstDue    = tasks[0].due;
+    const isPast      = firstDue < todayStr && !tasks.some(t => t.due >= todayStr);
+    const isCurrent   = tasks.some(t => t.due.slice(0,7) === todayStr.slice(0,7));
+
+    const section = document.createElement('div');
+    section.className = 'month-section';
+
+    const allTerminal = tasks.every(t => ['done','failed','missed'].includes(
+      saved[t.gid]?.status || t.status
+    ));
+
+    const hdr = document.createElement('div');
+    hdr.className = 'month-header' + (isPast && allTerminal ? ' past' : isCurrent ? ' current' : '');
+    hdr.innerHTML = `<span>${month}</span><span class="toggle-icon">▾</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'month-body';
+
+    tasks.forEach(t => {
+      const cur = saved[t.gid] || {};
+      const st  = cur.status || t.status;
+      body.appendChild(buildTaskRow(t, st, cur));
+    });
+
+    hdr.addEventListener('click', () => {
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      hdr.querySelector('.toggle-icon').textContent = open ? '▸' : '▾';
+    });
+
+    // Collapse completed past months by default
+    if (isPast && allTerminal) {
+      body.style.display = 'none';
+      hdr.querySelector('.toggle-icon').textContent = '▸';
+    }
+
+    section.appendChild(hdr);
+    section.appendChild(body);
+    container.appendChild(section);
+  }
+}
+
+function buildTaskRow(task, currentStatus, saved) {
+  const row = document.createElement('div');
+  const isTerminal = ['done','failed','missed'].includes(currentStatus);
+  row.className = 'task-row' + (isTerminal ? ' is-' + currentStatus : '');
+  row.dataset.gid = task.gid;
+
+  const dueFmt = new Date(task.due + 'T12:00:00').toLocaleDateString('en-GB',
+    { day:'numeric', month:'short' });
+
+  row.innerHTML = `
+    <div class="task-header">
+      <span class="task-due">${dueFmt}</span>
+      <span class="task-name">${task.name}</span>
+      <span class="status-badge badge-${currentStatus}">${currentStatus.replace('_',' ').toUpperCase()}</span>
+    </div>
+    ${task.note ? `<div class="task-existing-note">📌 ${task.note}</div>` : ''}
+    <div class="update-fields">
+      <div class="field-group">
+        <label>Status Update</label>
+        <select data-field="status" onchange="onFieldChange(this)">
+          <option value="pending"     ${currentStatus==='pending'     ?'selected':''}>Pending (no change)</option>
+          <option value="in_progress" ${currentStatus==='in_progress' ?'selected':''}>In Progress</option>
+          <option value="done"        ${currentStatus==='done'        ?'selected':''}>✅ Done</option>
+          <option value="delayed"     ${currentStatus==='delayed'     ?'selected':''}>⏰ Delayed</option>
+          <option value="failed"      ${currentStatus==='failed'      ?'selected':''}>❌ Failed</option>
+          <option value="missed"      ${currentStatus==='missed'      ?'selected':''}>❌ Missed</option>
+          <option value="skipped"     ${currentStatus==='skipped'     ?'selected':''}>⏭ Skipped</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Actual Date</label>
+        <input type="date" data-field="actual_date" value="${saved.actual_date || ''}"
+          onchange="onFieldChange(this)">
+      </div>
+      <div class="field-group notes-field">
+        <label>Notes (what happened, any deviations, observations)</label>
+        <textarea data-field="notes" placeholder="Leave blank if nothing to report…"
+          oninput="onFieldChange(this)">${saved.notes || ''}</textarea>
+      </div>
+    </div>`;
+  return row;
+}
+
+// ════════════════════════════════════════════════════════════════
+// STATE PERSISTENCE  (sessionStorage, cleared on tab close)
+// ════════════════════════════════════════════════════════════════
+function loadSaved() {
+  try { return JSON.parse(sessionStorage.getItem('ap_updates') || '{}'); } catch { return {}; }
+}
+function saveCurrent() {
+  const state = {};
+  document.querySelectorAll('.task-row').forEach(row => {
+    const gid = row.dataset.gid;
+    state[gid] = {
+      status:      row.querySelector('[data-field=status]')?.value,
+      actual_date: row.querySelector('[data-field=actual_date]')?.value,
+      notes:       row.querySelector('[data-field=notes]')?.value,
+    };
+  });
+  sessionStorage.setItem('ap_updates', JSON.stringify(state));
+}
+function onFieldChange(el) {
+  // Update badge colour on status change
+  const row = el.closest('.task-row');
+  if (el.dataset.field === 'status') {
+    const badge = row.querySelector('.status-badge');
+    badge.className = 'status-badge badge-' + el.value;
+    badge.textContent = el.value.replace('_',' ').toUpperCase();
+    row.className = 'task-row' + (['done','failed','missed'].includes(el.value) ? ' is-' + el.value : '');
+  }
+  saveCurrent();
+}
+
+// ════════════════════════════════════════════════════════════════
+// PROMPT GENERATION
+// ════════════════════════════════════════════════════════════════
+function generatePrompt() {
+  const today = new Date().toLocaleDateString('en-GB',
+    { day:'numeric', month:'long', year:'numeric' });
+
+  const changes = [];
+  document.querySelectorAll('.task-row').forEach(row => {
+    const gid    = row.dataset.gid;
+    const task   = TASKS.find(t => t.gid === gid);
+    const status = row.querySelector('[data-field=status]').value;
+    const date   = row.querySelector('[data-field=actual_date]').value;
+    const notes  = row.querySelector('[data-field=notes]').value.trim();
+
+    // Only include tasks with meaningful updates
+    const isChanged = status !== 'pending' || date || notes;
+    if (!isChanged) return;
+
+    const origStatus = task.status;
+    const statusChanged = status !== origStatus;
+
+    let block = `TASK: ${task.name}\n`;
+    block    += `ASANA GID: ${gid.startsWith('new_') ? '[NEW — find by name in project or create if missing]' : gid}\n`;
+    block    += `DUE DATE: ${task.due}\n`;
+    block    += `STATUS: ${status.toUpperCase().replace('_',' ')}`;
+    if (statusChanged && origStatus !== 'pending') block += ` (was: ${origStatus.toUpperCase()})`;
+    block    += '\n';
+    if (date) block += `ACTUAL DATE: ${date}\n`;
+    if (notes) block += `NOTES: ${notes}\n`;
+
+    changes.push(block);
+  });
+
+  const hasChanges = changes.length > 0;
+
+  const prompt = `=== ALLOTMENT PLANNER PROGRESS UPDATE — ${today} ===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CLAUDE INSTRUCTIONS — follow these steps in order:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Read CLAUDE.md for full project context, architecture, and current season status.
+2. Parse each TASK UPDATE below and determine what needs to change.
+3. Update index.html across ALL relevant sections:
+   - Progress tracker (completed sowings table, windowsill occupancy, upcoming actions)
+   - Calendar month cards
+   - Succession detail table
+   - Weekly checklist
+   - Gantt chart (only if task dates shift significantly)
+   Update the "Last Updated" date in the progress tracker.
+4. Sync Asana (project GID: ${ASANA_PROJECT_GID}, user GID: ${ASANA_USER_GID}):
+   - Mark tasks complete/incomplete as appropriate
+   - Update due dates if delayed
+   - Add a story/comment describing what actually happened
+   - Update task descriptions if the plan changed
+   - For any NEW tasks (gid starts with 'new_'), search the project by name first;
+     create if not found, with full step-by-step description and assign to user GID.
+5. Update CLAUDE.md: season status section (completed / missed / upcoming lists).
+6. Commit and push with a descriptive message summarising what was updated.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${hasChanges ? 'TASK UPDATES (' + changes.length + ' changed):' : 'NO TASK CHANGES — general check-in only.'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${hasChanges ? changes.join('\n---\n') + '\n---' : '(No tasks were marked as changed.)'}
+
+=== END OF UPDATE ===`;
+
+  const out = document.getElementById('prompt-output');
+  out.value = prompt;
+  document.getElementById('output-section').style.display = 'block';
+  out.scrollIntoView({ behavior:'smooth' });
+}
+
+async function copyPrompt() {
+  const text = document.getElementById('prompt-output').value;
+  await navigator.clipboard.writeText(text);
+  const fb = document.getElementById('copy-feedback');
+  fb.style.display = 'inline';
+  setTimeout(() => { fb.style.display = 'none'; }, 2500);
+}
+
+// ════════════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  if (STORED_HASH === 'CHANGE_ME') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('setup-screen').style.display = 'flex';
+    return;
+  }
+  // Restore session if still active
+  if (sessionStorage.getItem('ap_auth') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display   = 'block';
+    initApp();
+  }
+});
+</script>
+</body>
+</html>
