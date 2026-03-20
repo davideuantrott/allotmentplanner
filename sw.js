@@ -1,4 +1,4 @@
-const CACHE_NAME = 'allotment-2026-v3';
+const CACHE_NAME = 'allotment-2026-v4';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -26,6 +26,11 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Never cache the updates page — always fetch fresh
+  if (event.request.url.includes('updates.html')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
