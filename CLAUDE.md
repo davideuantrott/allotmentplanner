@@ -181,12 +181,12 @@ Gantt chart uses single-letter codes: S=Sow, P=Pot On, T=Transplant, D=Direct, H
 
 The service worker (`sw.js`) uses a cache-first strategy:
 1. On install: caches `./`, `./index.html`, `./manifest.json`, `./icon-192.png`, `./icon-512.png`
-2. On activate: deletes any old caches with a different name than `allotment-2026-v1`
-3. On fetch: returns cached response if available; otherwise fetches from network and caches the response; falls back to `./index.html` on network failure
+2. On activate: deletes any old caches with a different name than the current cache name
+3. On fetch: returns cached response if available; otherwise fetches from network and caches the response; falls back to `./index.html` on network failure. `updates.html` is explicitly excluded from caching — always fetched fresh.
 
 To bust the cache after updates, increment the version string in `sw.js`:
 ```javascript
-const CACHE_NAME = 'allotment-2026-v2'; // increment on each deploy
+const CACHE_NAME = 'allotment-2026-v4'; // increment on each deploy
 ```
 
 The SW uses `skipWaiting()` + `clients.claim()` so a new SW activates immediately on install. The page registration script listens for `controllerchange` and calls `window.location.reload()` — this means the installed PWA **auto-refreshes** on the user's device when new code is deployed, without needing to delete and re-add to the home screen.
@@ -254,6 +254,8 @@ When task dates or names change in `index.html`, update the corresponding entry 
 ### Access
 - Direct URL: `https://davideuantrott.github.io/allotmentplanner/updates.html`
 - Also reachable via the faint ⚙ icon fixed to the bottom-right of the main page
+- Password is set and active as of 20 March 2026
+- `updates.html` is never cached by the service worker — always served fresh
 
 ---
 
