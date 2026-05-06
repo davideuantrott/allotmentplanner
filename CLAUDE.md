@@ -19,7 +19,7 @@ This is a **zero-dependency, pure HTML/CSS/JavaScript** project. There is no bui
 | `index.html` | The entire application — HTML structure, all CSS (`<style>`), all JavaScript (`<script>`) |
 | `updates.html` | Password-protected progress update form — see Progress Update Workflow below |
 | `manifest.json` | PWA manifest (app name, icons, theme colour, display mode) |
-| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v5`) |
+| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v6`) |
 | `archive-plan-2026.html` | Read-only archive of the original February 2026 season plan, before the May 2026 re-sync |
 | `icon-192.png` | Home screen icon (192x192) |
 | `icon-512.png` | Splash screen icon (512x512) |
@@ -187,7 +187,7 @@ The service worker (`sw.js`) uses a cache-first strategy:
 
 To bust the cache after updates, increment the version string in `sw.js`:
 ```javascript
-const CACHE_NAME = 'allotment-2026-v5'; // increment on each deploy
+const CACHE_NAME = 'allotment-2026-v6'; // increment on each deploy
 ```
 
 The SW uses `skipWaiting()` + `clients.claim()` so a new SW activates immediately on install. The page registration script listens for `controllerchange` and calls `window.location.reload()` — this means the installed PWA **auto-refreshes** on the user's device when new code is deployed, without needing to delete and re-add to the home screen.
@@ -262,52 +262,36 @@ When task dates or names change in `index.html`, update the corresponding entry 
 
 ## Season Status (as of 6 May 2026)
 
-### Completed
-- ✅ Leeks Batch 1 — sown 14 Feb (standard tray, 12 cells). Transplant 28 May.
-- ✅ Tomatoes ×3 — sown 24 Feb (72 seeds). Potted on 29 Apr (~30 plants in 9cm pots). Harden off 19 May; transplant 26 May.
-- ✅ Leeks Batch 3 — sown 6 Mar (deep root trainer, 12 cells). Transplant 8 Jun.
-- ✅ Onion sets (Sturon) — planted 20 Mar, Bed 1.
-- ✅ Shallot sets (Biztro) — planted 20 Mar, Bed 3.
-- ✅ Potatoes Casablanca — chitting complete (~15 Feb, 18 sets). NOT YET PLANTED.
-- ✅ Potatoes Charlotte — chitting complete (~20 Feb, 18 sets). NOT YET PLANTED.
-- ✅ Potatoes Setanta — chitting complete (6 Mar, 18 sets). NOT YET PLANTED.
-- ✅ Start weekly garden journal — done by 8 Mar.
-- ✅ Test soil pH — done by 15 Mar.
-- ✅ Install water butt — done by 20 Mar.
-- ✅ Purchase frost protection materials — done by 10 Apr.
-- ✅ Install wildlife habitats (bug hotels) — done by 15 Apr.
-- ✅ Monitor frost forecasts & prepare protection — done by 20 Apr.
+> **Note:** The site was re-planned on 6 May 2026 as a fresh forward-looking plan. All sections of index.html show what IS growing and what the plan is from here — no failure/missed language anywhere on the site. CLAUDE.md retains technical accuracy for context but the site philosophy is positive and forward-looking.
 
-### Missed / Failed / Delayed
-- ❌ Leeks Batch 2 (due 23 Feb) — MISSED. Accepting 3-batch succession (~62 leeks).
-- ❌ Lettuce Batch 1 (sown 6 Mar) — FAILED (too leggy; insufficient light + too warm). Discarded.
-- ❌ Lettuce Batch 2 (due 16 Mar) — MISSED.
-- ❌ Lettuce Combined Batch (due 22 Mar) — FAILED (seeds failed). No replacement attempted.
-- ❌ Lettuce Batch 3 last indoor (due 5 Apr) — SKIPPED. Switching to direct sowing outdoors.
-- ⏰ Cauliflower sow — still NOT sown as of 6 May (7 weeks late). Sow immediately.
-- ⏰ Leeks Batch 4 (due 23 Mar) — still NOT sown as of 6 May (6 weeks late). Sow immediately.
-- ⏰ Casablanca potatoes (due 23 Mar) — chitted but NOT planted as of 6 May (6 weeks late).
-- ⏰ Charlotte potatoes (due 6 Apr) — chitted but NOT planted as of 6 May (4 weeks late).
-- ⏰ Setanta potatoes (due 20 Apr) — chitted but NOT planted as of 6 May (2.5 weeks late).
-- ⏰ Chard Batch 1 (due 6 Apr) — NOT sown. Sow immediately.
-- ⏰ PSB Batch 1 (due 13 Apr) — NOT sown. Sow immediately.
-- ⏰ Companion plants (due 20 Apr) — NOT sown. Sow immediately.
-- ⏰ Weekly tomato feeding (due 13 Apr) — not started. Begin now.
-- ⏰ Lettuce direct sow succession #4 and #5 (27 Apr) — overdue. Direct sow now.
-- ⏰ Beetroot successions #1 and #2 (Apr) — overdue. Direct sow now.
+### Established & Growing
+- ✅ Leeks Batch 1 — sown 14 Feb (standard tray, 12 cells). Transplant 28 May to Bed 1.
+- ✅ Leeks Batch 3 — sown 6 Mar (deep root trainer, 12 cells). Transplant 8 Jun to Bed 1 (garlic gap).
+- ✅ Tomatoes ×3 — sown 24 Feb (72 seeds). Potted on 29 Apr (~30 plants in 9cm pots). Feeding weekly. Harden off 19 May; transplant best 7–8 plants 26 May.
+- ✅ Onion sets (Sturon) — planted 20 Mar, Bed 1. Growing.
+- ✅ Shallot sets (Biztro) — planted 20 Mar, Bed 3. Growing.
+- ✅ Garlic (Germidour) — in ground since autumn, Bed 1 south end. Harvest Jul.
+- ✅ Potatoes Casablanca (18 sets), Charlotte (18 sets), Setanta (18 sets) — all chitted. Plant 6 May, Bed 2.
 
-### Upcoming (immediate — as of 6 May 2026)
-- ASAP: Plant ALL 3 potato varieties (Casablanca 30cm/12cm deep, Charlotte 30cm/12cm, Setanta 40cm/15cm) — all in Bed 2
-- ASAP: Sow Leeks Batch 4 (26 seeds, deep root trainer, cool windowsill)
-- ASAP: Sow Cauliflower (12 seeds, 6 cells, cool windowsill, transplant Jun)
-- ASAP: Sow PSB Batch 1 (8 seeds, 4 cells)
-- ASAP: Sow Chard Batch 1 (10 seeds, 5 cells, or direct outside)
-- ASAP: Sow Companion Plants (nasturtiums direct outside, marigolds indoors, basil warmest spot)
-- ASAP: Begin weekly tomato feeding (half-strength, now potted on)
-- ASAP: Direct sow lettuce outdoors (Bed 4 south, 6–8 seeds, every 2 weeks from now)
-- ASAP: Direct sow Beetroot Batch 1 + 2 (Bed 2 south end, 2 weeks apart)
-- ASAP: Direct sow Radish successions (Bed 2 alongside beetroot; Bed 4 at tomato base)
+### Sown 6 May 2026 (the new plan's starting point)
+- Leeks Batch 4 (26 seeds, deep root trainer) — transplant mid-July
+- Cauliflower (12 seeds, 6 cells) — transplant mid-June
+- PSB Batch 1 (8 seeds, 4 cells) — transplant late June/Jul
+- Chard Batch 1 (10 seeds, 5 cells) — transplant early June
+- Companion plants: nasturtiums direct, marigolds indoor, basil warmest spot
+- Lettuce #1 direct sow (Bed 4 south)
+- Beetroot Batch 1 direct sow (Bed 2 south)
+- Radish Batch 1 direct sow (Bed 2 alongside beetroot)
+
+### Lettuce Plan (direct-sow only, from 6 May)
+All indoor attempts discarded/abandoned. Plan is 8 direct sowings every 2 weeks:
+6 May → 20 May → 3 Jun → 17 Jun → 1 Jul → 15 Jul → 29 Jul → 12 Aug
+
+### Upcoming
 - 19 May: Begin hardening off tomatoes
+- 20 May: Lettuce direct sow #2
 - 26 May: Transplant tomatoes to Bed 4 (best 7–8 plants)
 - 28 May: Transplant Leeks Batch 1 to Bed 1
 - 8 Jun: Transplant Leeks Batch 3 to Bed 1 (garlic gap)
+- Mid-Jun: Transplant cauliflower to Bed 3
+- Late Jun/Jul: Transplant PSB to Bed 3; Transplant Leeks Batch 4 to Bed 1 (onion gap)
