@@ -92,42 +92,40 @@ Defined in `:root` in `<style>`:
 
 ## Data: Beds and Crops
 
-### Bed 1 — Alliums, Roots & Strawberries
+### Bed 1 — Alliums, Roots & Leeks
 Layout north → south (as planted):
-- Onion sets (Sturon) — planted 20 Mar (delayed from 9 Mar), harvest Jul/Aug
-- Leeks (Musselburgh) — **3 indoor sowings** (Batch 2 missed): Batch 1 sown 14 Feb (standard tray), Batch 3 sown 6 Mar (germinating well), Batch 4 due 23 Mar (deep root trainer). Transplant May–Jul into garlic/onion space. ~62 leeks total.
-- Carrots (Chantenay Royal) — 4 succession sowings Apr–Jul, direct sow through cardboard
-- Marigolds (Mango Tango) — companion between carrots and strawberries
-- Strawberries (Cambridge Favourite) — plant Feb/Mar
-- Garlic (Germidour) — already in ground (south end), harvest Jul
-- Nasturtiums (Cherry Rose Jewel, Tip Top Pink Blush, Tom Thumb) — all 4 corners, trap crop
+- Onion sets (Sturon) — planted 20 Mar, harvest Jul/Aug
+- Leeks (Musselburgh) — **3 batches**: Batch 1 sown 14 Feb (standard tray, transplant 28 May), Batch 3 sown 6 Mar (deep root trainer, transplant 8 Jun into garlic gap), Batch 4 sown 6 May (deep root trainer, transplant mid-Jul into onion gap). ~60 leeks total.
+- Carrots (Chantenay Royal) — 4 succession sowings May–Jul, direct sow through cardboard
+- Marigolds (Mango Tango) — companion between carrots
+- Garlic (Germidour) — in ground (south end), harvest Jul
+- Nasturtiums — all 4 corners, trap crop
 
 ### Bed 2 — Potatoes, Beetroot & Roots
 *(was Bed 3 before 07 Mar 2026 renumbering)*
-- 1st Early Potatoes (Casablanca) — chit started ~15 Feb (18 seed potatoes), plant 23 Mar
-- 2nd Early Potatoes (Charlotte) — chit started ~20 Feb (18 seed potatoes), plant 6 Apr
-- Maincrop Potatoes (Setanta Organic) — chit started 6 Mar (18 seed potatoes), plant 20 Apr
+- 1st Early Potatoes (Casablanca) — 18 sets, planted 6 May, harvest mid-Jul
+- 2nd Early Potatoes (Charlotte) — 18 sets, planted 6 May, harvest late Jul–Aug
+- Maincrop Potatoes (Setanta Organic) — 18 sets, planted 6 May, harvest Sep–Oct
 - Spinach (Medania) — between potato rows
-- Beetroot (Boldor) — south end, 5 succession sowings Apr–Jul
-- Radish (French Breakfast) — alongside beetroot, 5 sowings Apr–Jun
+- Beetroot (Boldor) — south end, 5 succession sowings May–Jul (first sown 6 May)
+- Radish (French Breakfast) — alongside beetroot, sowings May–Jun
 - Nasturtiums — alongside potatoes
 
 ### Bed 3 — Brassicas & Shallots
 *(was Bed 2 before 07 Mar 2026 renumbering)*
-- PSB / Purple Sprouting Early — transplant Jun/Jul, stays until spring 2027
-- Shallot sets (Biztro) — planted 20 Mar (delayed from 9 Mar)
-- Cauliflower (All Year Round) — sow 22 Mar (delayed from 16 Mar), transplant 11 May, net immediately
-- Spinach & Lettuce inter-crop — between brassicas May/Jun
+- PSB / Purple Sprouting Early — sown 6 May (4 cells), transplant late Jun/Jul, overwinters to spring 2027
+- Shallot sets (Biztro) — planted 20 Mar, harvest Jul/Aug
+- Cauliflower (All Year Round) — sown 6 May (6 cells), transplant mid-Jun, net immediately
 - Nasturtiums (Tom Thumb) — all 4 corners (essential for brassica aphid control)
 
 ### Bed 4 — Tomatoes, Leafy Greens & Herbs
-- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — sown 24 Feb (72 seeds total, 24/variety, over-seeded 2.4×). Potting on to 9cm pots (started 20 Mar, ~6 GD done; completing 23 Mar). Transplant best 7–8 plants 26 May (north end). Gift remaining ~12 plants.
-- Basil (Greek) — between tomatoes from Jun
-- Marigolds (Spanish Brocade) — between tomatoes
-- Radish (French Breakfast) — at tomato base May/Jun (2 sowings)
-- Chard (Rainbow) — transplant May, 2nd direct sow Jul for overwintering
-- Lettuce (Little Gem) — south end, **11 sowings** (Batches 1+2 failed/missed; combined 12-cell replacement batch 22 Mar; last indoor 5 Apr; then 9 direct every 2 weeks 13 Apr–3 Aug)
-- Spinach (Medania) — south end, succession Mar–May and late Aug
+- Tomatoes x3: Moneymaker, Black Opal, Gardeners Delight — sown 24 Feb (72 seeds). In 9cm pots (~30 plants). Harden off 19 May; transplant best 7–8 plants 26 May (north end). Gift remaining ~12 plants.
+- Basil (Greek) — sown 6 May, transplant early Jun between tomatoes
+- Marigolds (Spanish Brocade) — sown 6 May, transplant late May/Jun between tomatoes
+- Radish (French Breakfast) — 2 sowings at tomato base May/Jun
+- Chard (Rainbow) — sown 6 May (5 cells), transplant early Jun; 2nd direct sow 20 Jul for overwintering
+- Lettuce (Little Gem) — south end, **8 direct sowings** every 2 weeks from 6 May through 12 Aug
+- Spinach (Medania) — south end, direct sow May, restart late Aug
 
 ---
 
@@ -135,14 +133,14 @@ Layout north → south (as planted):
 
 | Crop | # Sowings | Frequency | Season |
 |------|-----------|-----------|--------|
-| Lettuce | 11 (2 indoor + 9 direct) | Every 2 weeks | Mar–Aug (Batches 1+2 combined into 12-cell batch 22 Mar; last indoor 5 Apr) |
-| Spinach | 6 | Every 3 weeks | Mar–May + late Aug (AVOID July) |
-| Carrots | 4 | Every 3–4 weeks | Apr–Jul |
-| Beetroot | 5 | Every 3 weeks | Apr–Jul |
-| Radish | 7 (5 Bed 2 + 2 Bed 4) | Every 3 weeks | Apr–Jun |
-| Leeks | 3 indoor sowings (Batch 2 missed) | Staggered | Feb–Mar |
+| Lettuce | 8 (direct only) | Every 2 weeks | 6 May → 20 May → 3 Jun → 17 Jun → 1 Jul → 15 Jul → 29 Jul → 12 Aug |
+| Spinach | ~3 | Every 3 weeks | May, then restart late Aug (AVOID July) |
+| Carrots | 4 | Every 3–4 weeks | May–Jul |
+| Beetroot | 5 | Every 3 weeks | May–Jul (first sown 6 May) |
+| Radish | ~5 (Bed 2 + Bed 4) | Every 3 weeks | May–Jun |
+| Leeks | 3 indoor sowings | Staggered | Feb (Batch 1), Mar (Batch 3), May (Batch 4) |
 
-No succession needed for: tomatoes, potatoes, garlic, onions, shallots, cauliflower, PSB, chard, strawberries, basil.
+No succession needed for: tomatoes, potatoes, garlic, onions, shallots, cauliflower, PSB, chard, basil.
 
 ---
 
@@ -174,7 +172,7 @@ Gantt chart uses single-letter codes: S=Sow, P=Pot On, T=Transplant, D=Direct, H
 - **Nasturtiums**: Essential trap crop — aphids prefer them over vegetables. Every bed corner.
 - **Leeks**: Transplant into dibber holes through cardboard (no need to fill hole — just water in).
 - **Garlic space re-use**: Transplant leeks into garlic/onion gaps as they are harvested in July.
-- **Lettuce indoors**: Must be in a COOL (12–15°C), bright spot — NOT a warm propagator. Warm + low light = leggy seedlings. Surface sow (needs light to germinate).
+- **Lettuce**: Direct sow outdoors from May. Surface sow (needs light to germinate) — do not cover seed. Station sow 2–3 seeds every 20cm, thin to 1.
 
 ---
 
@@ -218,6 +216,7 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 - Bed card headers in `#beds` use `.bed1-header` (green), `.bed2-header` (brown), `.bed3-header` (purple), `.bed4-header` (red) classes on the `.card-header` div.
 - The Gantt table has 39 week columns (Feb week 2 through Oct week 26). Each row must have exactly 39 `<td class="gantt-cell">` cells after the 3 fixed columns.
 - Gantt month header row (`.gantt-months th`) is sticky at `top:0`. Week header row (`.gantt-week-cell`) is sticky at `top:35px`.
+- **Gantt pending update (as of 6 May 2026):** The `#gantt` section (both `.gantt-table-view` and `.gantt-card-view`) still reflects the original Feb 2026 plan and has not yet been updated to the new plan. Key changes needed: potato planting moved to W18 (6 May); lettuce rows show 8 direct sowings from W18 only (no indoor batches); cauliflower/PSB/chard/leek Batch 4 sow in W18; tomato transplant W21 (26 May); brassica transplants mid–late Jun; remove any rows for crops no longer in the plan (strawberries). All historical pre-May rows should show the crop as established (no "missed" codes).
 - Themes are applied via `data-theme=""` (garden/default), `data-theme="slate"`, or `data-theme="terracotta"` on `<html>`. Three coloured dot buttons live in the hero section.
 - `localStorage` keys: `allotment-theme` (theme name), `allotment-checks` (JSON map of checkbox id → boolean).
 - Typography: headings use `Playfair Display` (serif), body uses `Source Sans 3` (sans-serif), both loaded from Google Fonts.
