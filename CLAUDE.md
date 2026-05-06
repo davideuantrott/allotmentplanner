@@ -19,10 +19,11 @@ This is a **zero-dependency, pure HTML/CSS/JavaScript** project. There is no bui
 | `index.html` | The entire application — HTML structure, all CSS (`<style>`), all JavaScript (`<script>`) |
 | `updates.html` | Password-protected progress update form — see Progress Update Workflow below |
 | `manifest.json` | PWA manifest (app name, icons, theme colour, display mode) |
-| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v6`) |
+| `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v7`) |
 | `archive-plan-2026.html` | Read-only archive of the original February 2026 season plan, before the May 2026 re-sync |
 | `icon-192.png` | Home screen icon (192x192) |
 | `icon-512.png` | Splash screen icon (512x512) |
+| `gantt-data.md` | Raw Gantt data (all crops, dates, activities) for import into MS Project or similar |
 | `.nojekyll` | Prevents GitHub Pages from processing with Jekyll |
 
 Everything lives in `index.html`. Do not split it into separate files unless explicitly asked.
@@ -33,13 +34,13 @@ Everything lives in `index.html`. Do not split it into separate files unless exp
 
 ### Sections (Tab Navigation)
 
-The app has eight tabs, each a `<div id="..." class="section">`. Only the active section has the `.active` class (shown via CSS `display:block`).
+The app has seven tabs, each a `<div id="..." class="section">`. Only the active section has the `.active` class (shown via CSS `display:block`).
 
 | Tab ID | Label | Content |
 |--------|-------|---------|
 | `calendar` | Month-by-Month | Monthly task cards from Feb–Oct |
 | `progress` | 📊 Progress Tracker | Actual vs planned progress table, windowsill occupancy, upcoming actions |
-| `gantt` | Week-by-Week Gantt | Gantt chart (table view for desktop, card view for mobile) |
+| `gantt` | Week-by-Week Gantt | Placeholder pointing to `gantt-data.md` (chart removed 07 May 2026) |
 | `beds` | Bed Layouts | Visual diagrams of all 4 beds |
 | `succession` | Succession Detail | Full table of every sowing/transplanting date |
 | `checklist` | Weekly Checklist | Week-by-week interactive checkbox sowing guide |
@@ -52,16 +53,12 @@ The app has eight tabs, each a `<div id="..." class="section">`. Only the active
 // Switch between main navigation tabs
 function showSection(id, btn) { ... }
 
-// Toggle Gantt chart between table and card view
-function ganttView(mode, btn) { ... }
-
 // Set colour theme ('garden' | 'slate' | 'terracotta') and persist to localStorage
 function setTheme(name, btn) { ... }
 ```
 
-Three self-invoking init functions also run on page load:
+Two self-invoking init functions also run on page load:
 - `initTheme()` — restores saved theme from `localStorage`
-- `initGantt()` — highlights current week column (amber); wires click-to-highlight (green) on week headers and data cells
 - `initChecklists()` — restores all checkbox states from `localStorage` and saves on every change
 
 All data is hardcoded in HTML. Persistent state (theme, checkbox ticks) is stored in `localStorage` only — no backend required.
@@ -85,8 +82,8 @@ Defined in `:root` in `<style>`:
 
 ### Responsive Behaviour
 
-- Mobile (max 700px): Gantt table is hidden; card view shown automatically. Nav tabs compact.
-- Desktop (min 701px): Gantt card view is hidden; toggle group hidden. Table view shown.
+- Mobile (max 700px): Nav tabs compact.
+- Desktop (min 701px): Full layout.
 
 ---
 
@@ -155,7 +152,7 @@ No succession needed for: tomatoes, potatoes, garlic, onions, shallots, cauliflo
 | `.chit` | CHIT | Purple | Chit seed potatoes |
 | `.general` | TASK | Brown | General tasks |
 
-Gantt chart uses single-letter codes: S=Sow, P=Pot On, T=Transplant, D=Direct, H=Harvest, C=Chit.
+Gantt data (activity codes: SOW/DIRECT/TRANSPLANT/CHIT/HARVEST/TASK) is in `gantt-data.md` — import into MS Project or any Gantt tool.
 
 ---
 
@@ -207,16 +204,13 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 ## Editing Guidelines
 
 - **All content is hardcoded HTML** — there is no data layer, no JSON data file, no templating.
-- When adding a crop task to the calendar, add it to all relevant sections: the monthly card (`#calendar`), the Gantt table rows, the Gantt card view weekly items, the bed layout (`#beds`), the succession table (`#succession`), the progress tracker (`#progress`), the growing guide (`#guide`), and potentially the advice section (`#advice`).
+- When adding a crop task to the calendar, add it to all relevant sections: the monthly card (`#calendar`), the bed layout (`#beds`), the succession table (`#succession`), the progress tracker (`#progress`), the growing guide (`#guide`), and potentially the advice section (`#advice`). Also update `gantt-data.md`.
 - The `#progress` section contains a "Completed Sowings" table and "Upcoming Actions" table — update these to reflect actual vs planned dates.
 - The `#guide` section uses `<details class="checklist-details">` expandable cards with `<input type="checkbox">` items — one card per crop.
 - The `#checklist` section is a week-by-week interactive checkbox list for windowsill sowing tasks.
 - Month card header colours use classes like `.mc-feb`, `.mc-mar`, etc. — defined in CSS.
 - Bed highlight row colours use classes like `.hl-garlic`, `.hl-onion`, `.hl-carrot`, `.hl-straw`, `.hl-brass`, `.hl-potato`, `.hl-tomato`, `.hl-leafy` — defined in CSS.
 - Bed card headers in `#beds` use `.bed1-header` (green), `.bed2-header` (brown), `.bed3-header` (purple), `.bed4-header` (red) classes on the `.card-header` div.
-- The Gantt table has 39 week columns (Feb week 2 through Oct week 26). Each row must have exactly 39 `<td class="gantt-cell">` cells after the 3 fixed columns.
-- Gantt month header row (`.gantt-months th`) is sticky at `top:0`. Week header row (`.gantt-week-cell`) is sticky at `top:35px`.
-- **Gantt pending update (as of 6 May 2026):** The `#gantt` section (both `.gantt-table-view` and `.gantt-card-view`) still reflects the original Feb 2026 plan and has not yet been updated to the new plan. Key changes needed: potato planting moved to W18 (6 May); lettuce rows show 8 direct sowings from W18 only (no indoor batches); cauliflower/PSB/chard/leek Batch 4 sow in W18; tomato transplant W21 (26 May); brassica transplants mid–late Jun; remove any rows for crops no longer in the plan (strawberries). All historical pre-May rows should show the crop as established (no "missed" codes).
 - Themes are applied via `data-theme=""` (garden/default), `data-theme="slate"`, or `data-theme="terracotta"` on `<html>`. Three coloured dot buttons live in the hero section.
 - `localStorage` keys: `allotment-theme` (theme name), `allotment-checks` (JSON map of checkbox id → boolean).
 - Typography: headings use `Playfair Display` (serif), body uses `Source Sans 3` (sans-serif), both loaded from Google Fonts.
@@ -243,7 +237,7 @@ The owner uses `updates.html` to record task progress and generate a structured 
 ### What Claude does when receiving a prompt from updates.html
 1. Read `CLAUDE.md` for full project context and current season status
 2. Parse each task update and determine what changed vs the plan
-3. Update `index.html` across all relevant sections: progress tracker (completed sowings, windowsill occupancy, upcoming actions), calendar month cards, succession table, checklist — and Gantt only if dates shift significantly. Update the "Last Updated" date.
+3. Update `index.html` across all relevant sections: progress tracker (completed sowings, windowsill occupancy, upcoming actions), calendar month cards, succession table, checklist. Also update `gantt-data.md` if dates shift. Update the "Last Updated" date.
 4. Sync Asana (project GID: `1213549975842888`, user GID: `1208097174845383`): mark tasks complete/incomplete, update due dates, add a story comment, update task description if the plan changed. For tasks with GID prefixed `new_`, search by name first and create if not found.
 5. Update `CLAUDE.md` season status section
 6. Commit and push with a descriptive message
