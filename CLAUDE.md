@@ -259,26 +259,54 @@ When task dates or names change in `index.html`, update the corresponding entry 
 
 ---
 
-## Season Status (as of 20 March 2026)
+## Season Status (as of 6 May 2026)
 
 ### Completed
-- ✅ Leeks Batch 1 — sown 14 Feb (standard tray, 12 cells). Germinated.
-- ✅ Tomatoes ×3 — sown 24 Feb (72 seeds, 36 cells). Potting on in progress (6 GD done; rest 23 Mar).
-- ✅ Potatoes Casablanca — chitting since ~15 Feb (18 sets). Plant 23 Mar.
-- ✅ Potatoes Charlotte — chitting since ~20 Feb (18 sets). Plant 6 Apr.
-- ✅ Potatoes Setanta — chitting since 6 Mar (18 sets). Plant 20 Apr.
-- ✅ Leeks Batch 3 — sown 6 Mar (deep root trainer, 12 cells). Germinating well (confirmed 20 Mar).
+- ✅ Leeks Batch 1 — sown 14 Feb (standard tray, 12 cells). Transplant 28 May.
+- ✅ Tomatoes ×3 — sown 24 Feb (72 seeds). Potted on 29 Apr (~30 plants in 9cm pots). Harden off 19 May; transplant 26 May.
+- ✅ Leeks Batch 3 — sown 6 Mar (deep root trainer, 12 cells). Transplant 8 Jun.
+- ✅ Onion sets (Sturon) — planted 20 Mar, Bed 1.
+- ✅ Shallot sets (Biztro) — planted 20 Mar, Bed 3.
+- ✅ Potatoes Casablanca — chitting complete (~15 Feb, 18 sets). NOT YET PLANTED.
+- ✅ Potatoes Charlotte — chitting complete (~20 Feb, 18 sets). NOT YET PLANTED.
+- ✅ Potatoes Setanta — chitting complete (6 Mar, 18 sets). NOT YET PLANTED.
+- ✅ Start weekly garden journal — done by 8 Mar.
+- ✅ Test soil pH — done by 15 Mar.
+- ✅ Install water butt — done by 20 Mar.
+- ✅ Purchase frost protection materials — done by 10 Apr.
+- ✅ Install wildlife habitats (bug hotels) — done by 15 Apr.
+- ✅ Monitor frost forecasts & prepare protection — done by 20 Apr.
 
 ### Missed / Failed / Delayed
 - ❌ Leeks Batch 2 (due 23 Feb) — MISSED. Accepting 3-batch succession (~62 leeks).
 - ❌ Lettuce Batch 1 (sown 6 Mar) — FAILED (too leggy; insufficient light + too warm). Discarded.
-- ❌ Lettuce Batch 2 (due 16 Mar) — MISSED. Combined with replacement batch.
-- ⏰ Onion sets — planted 20 Mar (delayed 11 days from 9 Mar). Still fine timing.
-- ⏰ Shallot sets — planted 20 Mar (delayed 11 days from 9 Mar). Still fine timing.
-- ⏰ Cauliflower sow — delayed to 22 Mar (from 16 Mar).
-- ⏰ Spinach Bed 2 (1st sow) — delayed to 22 Mar (from 16 Mar).
+- ❌ Lettuce Batch 2 (due 16 Mar) — MISSED.
+- ❌ Lettuce Combined Batch (due 22 Mar) — FAILED (seeds failed). No replacement attempted.
+- ❌ Lettuce Batch 3 last indoor (due 5 Apr) — SKIPPED. Switching to direct sowing outdoors.
+- ⏰ Cauliflower sow — still NOT sown as of 6 May (7 weeks late). Sow immediately.
+- ⏰ Leeks Batch 4 (due 23 Mar) — still NOT sown as of 6 May (6 weeks late). Sow immediately.
+- ⏰ Casablanca potatoes (due 23 Mar) — chitted but NOT planted as of 6 May (6 weeks late).
+- ⏰ Charlotte potatoes (due 6 Apr) — chitted but NOT planted as of 6 May (4 weeks late).
+- ⏰ Setanta potatoes (due 20 Apr) — chitted but NOT planted as of 6 May (2.5 weeks late).
+- ⏰ Chard Batch 1 (due 6 Apr) — NOT sown. Sow immediately.
+- ⏰ PSB Batch 1 (due 13 Apr) — NOT sown. Sow immediately.
+- ⏰ Companion plants (due 20 Apr) — NOT sown. Sow immediately.
+- ⏰ Weekly tomato feeding (due 13 Apr) — not started. Begin now.
+- ⏰ Lettuce direct sow succession #4 and #5 (27 Apr) — overdue. Direct sow now.
+- ⏰ Beetroot successions #1 and #2 (Apr) — overdue. Direct sow now.
 
-### Upcoming (immediate)
-- 22 Mar: Lettuce combined replacement batch (12 cells), Cauliflower (12 seeds/6 cells), Spinach Bed 2 direct
-- 23 Mar: Pot on remaining ~30 tomato cells; Leeks Batch 4 (26 seeds); Plant Casablanca potatoes
-- 5 Apr: Lettuce Batch 3 last indoor (8 cells)
+### Upcoming (immediate — as of 6 May 2026)
+- ASAP: Plant ALL 3 potato varieties (Casablanca 30cm/12cm deep, Charlotte 30cm/12cm, Setanta 40cm/15cm) — all in Bed 2
+- ASAP: Sow Leeks Batch 4 (26 seeds, deep root trainer, cool windowsill)
+- ASAP: Sow Cauliflower (12 seeds, 6 cells, cool windowsill, transplant Jun)
+- ASAP: Sow PSB Batch 1 (8 seeds, 4 cells)
+- ASAP: Sow Chard Batch 1 (10 seeds, 5 cells, or direct outside)
+- ASAP: Sow Companion Plants (nasturtiums direct outside, marigolds indoors, basil warmest spot)
+- ASAP: Begin weekly tomato feeding (half-strength, now potted on)
+- ASAP: Direct sow lettuce outdoors (Bed 4 south, 6–8 seeds, every 2 weeks from now)
+- ASAP: Direct sow Beetroot Batch 1 + 2 (Bed 2 south end, 2 weeks apart)
+- ASAP: Direct sow Radish successions (Bed 2 alongside beetroot; Bed 4 at tomato base)
+- 19 May: Begin hardening off tomatoes
+- 26 May: Transplant tomatoes to Bed 4 (best 7–8 plants)
+- 28 May: Transplant Leeks Batch 1 to Bed 1
+- 8 Jun: Transplant Leeks Batch 3 to Bed 1 (garlic gap)
