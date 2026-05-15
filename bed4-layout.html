@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Bed 4 &mdash; Tomatoes, Leafy Greens &amp; Herbs | 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF6F1;--text:#3E2C23;--text-light:#7A6355;--accent:#C75B39;--accent-soft:#E8A87C;--card:#FFF;--shadow:rgba(62,44,35,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:20px 12px}
+header{text-align:center;margin-bottom:24px}
+header h1{font-family:'Lora',serif;font-size:26px;font-weight:600;margin-bottom:2px}
+header .sub{font-size:13px;color:var(--text-light)}
+.months{display:flex;justify-content:center;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.mbtn{padding:7px 13px;border:2px solid transparent;border-radius:20px;background:var(--card);color:var(--text-light);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 1px 3px var(--shadow)}
+.mbtn:hover{border-color:var(--accent-soft);color:var(--text)}.mbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.zoom-bar{display:flex;justify-content:center;gap:8px;margin-bottom:12px;align-items:center}
+.zbtn{width:34px;height:34px;border-radius:50%;border:2px solid #DDD3C9;background:var(--card);font-size:18px;font-weight:700;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.zbtn:hover{border-color:var(--accent);color:var(--accent)}
+.zoom-label{font-size:12px;color:var(--text-light);min-width:48px;text-align:center;font-weight:600}
+.bed-wrap{display:flex;justify-content:center;overflow:auto;margin-bottom:24px;border:1px solid #EDE4DA;border-radius:12px;background:#FDFBF8;padding:8px;max-height:80vh}
+.bed-wrap svg{display:block;transition:transform .15s}
+.legend{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:center;margin-bottom:24px;padding:14px 20px;background:var(--card);border-radius:10px;box-shadow:0 2px 6px var(--shadow)}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.leg-sw{width:14px;height:14px;border-radius:50%;border:2px solid rgba(0,0,0,.08);flex-shrink:0}
+.notes{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px var(--shadow);margin-bottom:20px}
+.notes h2{font-family:'Lora',serif;font-size:18px;font-weight:600;margin-bottom:12px}
+.tbar{display:flex;gap:2px;margin-bottom:14px;border-bottom:2px solid #EDE4DA;overflow-x:auto}
+.tbtn{padding:7px 14px;border:none;background:transparent;color:var(--text-light);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tbtn:hover{color:var(--text)}.tbtn.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tcont{display:none}.tcont.on{display:block}
+.notes h3{font-size:14px;font-weight:700;color:var(--accent);margin:14px 0 6px}
+.notes p,.notes li{font-size:13px;line-height:1.7}
+.notes ul{list-style:none;padding:0}
+.notes ul li{padding:3px 0 3px 18px;position:relative}
+.notes ul li::before{content:'\2022';position:absolute;left:3px;color:var(--accent-soft);font-weight:700}
+.wb{display:inline-block;background:#FFF3CD;color:#856404;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-left:3px}
+.ob{display:inline-block;background:#D4EDDA;color:#155724;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-left:3px}
+.pg-row{background:#FDFBF8;border:1px solid #EDE4DA;border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.pg-row h4{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.pg-row p{font-size:12px;margin-bottom:4px}
+.pg-row .pg-spec{font-family:'Courier New',monospace;font-size:11px;background:#F5EFE6;padding:6px 10px;border-radius:4px;margin-top:6px;line-height:1.6;white-space:pre-wrap}
+.tip{position:fixed;background:var(--text);color:#fff;padding:9px 13px;border-radius:7px;font-size:11px;font-family:'Nunito',sans-serif;line-height:1.5;pointer-events:none;z-index:1000;max-width:260px;opacity:0;transition:opacity .12s;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.tip.vis{opacity:1}
+.back-link{display:inline-block;margin-bottom:16px;color:var(--accent);font-size:13px;font-weight:700;text-decoration:none}
+.back-link:hover{text-decoration:underline}
+@media print{.months,.zoom-bar,.tbar,.tbtn{display:none!important}.tcont{display:block!important}.notes{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.bed-wrap{page-break-after:always;border:none;max-height:none}}
+@media(max-width:600px){.mbtn{padding:5px 8px;font-size:10px}header h1{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" class="back-link">&larr; Back to planner</a>
+<header>
+  <h1>Bed 4 &mdash; Tomatoes, Leafy Greens &amp; Herbs</h1>
+  <p class="sub">2.4m &times; 1.2m &middot; No-dig raised bed &middot; 2026 &middot; Tomatoes north (staked) &middot; Leafy greens benefit from shade at south</p>
+</header>
+<div class="months" id="mBar"></div>
+<div class="zoom-bar">
+  <button class="zbtn" id="zOut">&minus;</button>
+  <span class="zoom-label" id="zLbl">100%</span>
+  <button class="zbtn" id="zIn">+</button>
+  <button class="zbtn" id="zFit" style="font-size:12px;width:auto;padding:0 10px;border-radius:6px">Fit</button>
+</div>
+<div class="bed-wrap" id="bedWrap"></div>
+<div class="legend" id="leg"></div>
+<div class="notes">
+  <h2>Layout Notes &amp; Planting Guide</h2>
+  <div class="tbar" id="tBar"></div>
+  <div id="tConts"></div>
+</div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const BW=1200,BH=2400,SC=0.5;
+const SW=BW*SC,SH=BH*SC;
+const MG={t:55,r:110,b:55,l:55};
+const TW=SW+MG.l+MG.r,TH=SH+MG.t+MG.b;
+const MONTHS=['May','Jun','Jul','Aug','Sep','Oct'];
+const FM={May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October'};
+let curM='May',zoom=1;
+function bx(mm){return MG.l+mm*SC}
+function by(mm){return MG.t+(BH-mm)*SC}
+
+// TOMATOES: 8 plants, 2 staggered rows
+const tomatoPos=[
+  {x:150,y:1650,v:'Moneymaker'},{x:500,y:1650,v:'Black Opal'},
+  {x:850,y:1650,v:'Grdns Delight'},{x:1100,y:1650,v:'Moneymaker'},
+  {x:300,y:2100,v:'Black Opal'},{x:650,y:2100,v:'Grdns Delight'},
+  {x:1000,y:2100,v:'Moneymaker'},{x:150,y:2100,v:'Grdns Delight'},
+];
+
+// BASIL: between tomato plants
+const basilPos=[
+  {x:325,y:1850},{x:675,y:1850},{x:975,y:1850},
+  {x:225,y:2250},{x:575,y:2250},{x:825,y:2250},
+];
+
+// MARIGOLDS: between tomatoes
+const marigoldPos=[
+  {x:500,y:1500},{x:850,y:1500},
+  {x:400,y:2300},{x:800,y:2300},
+];
+
+// CHARD: row at y=1175
+const chardPos=[
+  {x:150,y:1175},{x:450,y:1175},{x:750,y:1175},{x:1050,y:1175}
+];
+
+// LETTUCE: succession rows at south end
+const lettuceRows=[300,500,700];
+
+// NASTURTIUMS
+const nast=[
+  {x:150,y:100,lab:'SW'},{x:1050,y:100,lab:'SE'},
+  {x:150,y:2300,lab:'NW'},{x:1050,y:2300,lab:'NE'}
+];
+
+function mi(m){return MONTHS.indexOf(m)}
+
+function getState(month){
+  const idx=mi(month);
+  const pts=[],zones=[],rows=[];
+
+  // TOMATOES: from May (transplant 26 May)
+  if(idx>=0){
+    const wk=idx*4;
+    const ph=wk<=2?'transplanted':wk<=6?'growing':wk<=10?'fruiting':wk<=14?'ripening':'clearing';
+    const r=wk<=2?8:wk<=6?14:wk<=10?18:wk<=14?16:10;
+    zones.push({id:'tomato',lab:'Tomatoes',yR:[1400,2400],col:'rgba(200,50,50,.08)'});
+    tomatoPos.forEach(t=>pts.push({
+      x:t.x,y:t.y,r,col:'#C83232',
+      lab:'Tomato ('+t.v+')',
+      inf:`Variety: ${t.v}\nTransplanted 26 May\nPhase: ${ph}\n45cm apart, staked cordon\nFeed weekly from first truss`,
+      z:'tomato'
+    }));
+  }
+
+  // BASIL: from Jun
+  if(idx>=1){
+    const wk=(idx-1)*4;
+    const ph=wk<=4?'establishing':'bushy';
+    const r=wk<=4?5:8;
+    basilPos.forEach(b=>pts.push({
+      x:b.x,y:b.y,r,col:'#2D8C3C',
+      lab:'Basil (Greek)',
+      inf:`Transplanted 1 Jun\nBetween tomato plants\nPhase: ${ph}\nPinch tips for bushy growth`,
+      z:'basil'
+    }));
+  }
+
+  // MARIGOLDS: from May
+  if(idx>=0){
+    const r=idx<=1?6:10;
+    marigoldPos.forEach(m=>pts.push({
+      x:m.x,y:m.y,r,col:'#F4C430',
+      lab:'Marigold (Spanish Brocade)',
+      inf:`Planted 18 May\nBetween tomatoes\nPest deterrent + pollinator attractant`,
+      z:'marigold'
+    }));
+  }
+
+  // RADISH: May-Jun only
+  if(idx>=0 && idx<=1){
+    for(let x=200;x<=1000;x+=200){
+      pts.push({x,y:1450,r:3,col:'#D35B5B',
+        lab:'Radish (French Breakfast)',
+        inf:`Quick crop at tomato base\nSow May, harvest 25 days later`,
+        z:'radish'});
+    }
+  }
+
+  // CHARD: from May (transplant early Jun)
+  if(idx>=0){
+    const wk=idx*4;
+    const ph=wk<=4?'establishing':wk<=8?'harvesting':'harvesting';
+    const r=wk<=4?8:wk<=8?16:16;
+    zones.push({id:'chard',lab:'Chard',yR:[1000,1350],col:'rgba(100,60,140,.08)'});
+    chardPos.forEach(c=>pts.push({
+      x:c.x,y:c.y,r,col:'#6A3C8C',
+      lab:'Chard (Rainbow)',
+      inf:`Transplanted early Jun\nPhase: ${ph}\n4 plants, 30cm apart\nCut outer leaves only`,
+      z:'chard'
+    }));
+  }
+
+  // LETTUCE: succession at south end
+  if(idx>=0){
+    const activeLettuce=[];
+    if(idx<=1) activeLettuce.push({y:300,ph:'establishing'});
+    if(idx>=0&&idx<=2) activeLettuce.push({y:500,ph:idx<=1?'establishing':'growing'});
+    if(idx>=1&&idx<=3) activeLettuce.push({y:700,ph:'growing'});
+    if(idx>=2&&idx<=4) activeLettuce.push({y:300,ph:'growing'});
+    if(idx>=3&&idx<=5) activeLettuce.push({y:500,ph:'growing'});
+    const seen=new Set();
+    activeLettuce.forEach(l=>{
+      if(!seen.has(l.y)){
+        seen.add(l.y);
+        rows.push({y:l.y,col:'#7CAA5A',lab:'Lettuce (Little Gem)',ph:l.ph,r:4,
+          inf:`Succession sowing (8 total, every 2 weeks)\nDirect sow from 6 May\nPhase: ${l.ph}\nHarvest when heart firm`});
+      }
+    });
+    if(activeLettuce.length>0){
+      zones.push({id:'leafy',lab:'Lettuce & Spinach',yR:[100,800],col:'rgba(100,170,80,.07)'});
+    }
+  }
+
+  // SPINACH: May + late Aug re-sow
+  {
+    const ph=idx<=1?'growing':idx<=3?'harvesting':idx>=4?'re-sown (late Aug)':'';
+    if(idx<=3||idx>=4){
+      const r=idx<=1?3:idx<=3?5:3;
+      const activeRows=idx>=4?[200]:(idx<=1?[200,600]:[400]);
+      activeRows.forEach(y=>{
+        rows.push({y,col:'#5A8C3A',lab:'Spinach (Medania)',ph,r,
+          inf:`Succession May, re-sow late Aug\nPhase: ${ph}\nAvoid July (bolts)\nBenefits from tomato shade`});
+      });
+    }
+  }
+
+  // NASTURTIUMS: from May
+  if(idx>=0){
+    const wk=idx*4;
+    const r=Math.min(wk<=4?8:wk<=8?12:15,15);
+    const spr=wk<=4?60:wk<=8?120:180;
+    nast.forEach(n=>pts.push({
+      x:n.x,y:n.y,r,col:'#E8A020',
+      lab:'Nasturtium '+n.lab+' (Tom Thumb)',
+      inf:`Planted 18 May\nCompact sprawl ~${spr}mm\nAphid trap crop`,
+      z:'nast',spr
+    }));
+  }
+
+  return {pts,zones,rows};
+}
+
+function render(month){
+  const st=getState(month);
+  const ns='http://www.w3.org/2000/svg';
+  let s=`<svg xmlns="${ns}" viewBox="0 0 ${TW} ${TH}" width="${TW}" height="${TH}" font-family="Nunito,sans-serif">`;
+  s+=`<defs>
+    <pattern id="cp" patternUnits="userSpaceOnUse" width="10" height="10"><rect width="10" height="10" fill="#C4A97D"/><circle cx="3" cy="4" r="1" fill="#B09570" opacity=".4"/><circle cx="8" cy="8" r=".7" fill="#A8875E" opacity=".3"/></pattern>
+    <filter id="sh"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".1"/></filter>
+  </defs>`;
+  s+=`<rect width="${TW}" height="${TH}" fill="#FAF6F1" rx="6"/>`;
+  const fp=5;
+  s+=`<rect x="${MG.l-fp}" y="${MG.t-fp}" width="${SW+fp*2}" height="${SH+fp*2}" rx="3" fill="#5C3F2E" filter="url(#sh)"/>`;
+  s+=`<rect x="${MG.l-fp+1}" y="${MG.t-fp+1}" width="${SW+fp*2-2}" height="${SH+fp*2-2}" rx="2" fill="#6B4E3D"/>`;
+  s+=`<rect x="${MG.l}" y="${MG.t}" width="${SW}" height="${SH}" fill="url(#cp)" rx="1"/>`;
+
+  st.zones.forEach(z=>{
+    const yt=by(z.yR[1]),yb=by(z.yR[0]),h=yb-yt;
+    if(h>0) s+=`<rect x="${MG.l}" y="${yt}" width="${SW}" height="${h}" fill="${z.col}"/>`;
+    s+=`<text x="${MG.l+SW+6}" y="${yt+h/2}" font-size="8.5" fill="#7A6355" dominant-baseline="middle" font-weight="700">${z.lab}</text>`;
+  });
+
+  const idx=mi(month);
+
+  // Tomato stake lines from Jun
+  if(idx>=1){
+    const stakeH=Math.min((idx)*15,50);
+    tomatoPos.forEach(t=>{
+      const cx=bx(t.x),cy=by(t.y);
+      s+=`<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-stakeH}" stroke="#8B6F47" stroke-width="1.5" opacity=".3"/>`;
+      s+=`<circle cx="${cx}" cy="${cy-stakeH}" r="1.5" fill="#8B6F47" opacity=".3"/>`;
+    });
+  }
+
+  // Tomato shadow from Jul
+  if(idx>=2){
+    const shadowLen=idx<=3?100:idx<=4?180:150;
+    tomatoPos.forEach(t=>{
+      const cx=bx(t.x),cy=by(t.y);
+      const sy=by(t.y-shadowLen);
+      s+=`<ellipse cx="${cx}" cy="${(cy+sy)/2}" rx="${120*SC}" ry="${Math.abs(sy-cy)/2}" fill="rgba(0,0,0,.04)"/>`;
+    });
+  }
+
+  st.pts.filter(p=>p.z==='nast'&&p.spr).forEach(p=>{
+    s+=`<circle cx="${bx(p.x)}" cy="${by(p.y)}" r="${p.spr*SC}" fill="rgba(232,160,32,.06)" stroke="rgba(232,160,32,.18)" stroke-width=".8" stroke-dasharray="3,2.5"/>`;
+  });
+
+  st.pts.filter(p=>p.z==='marigold').forEach(p=>{
+    s+=`<circle cx="${bx(p.x)}" cy="${by(p.y)}" r="${300*SC}" fill="none" stroke="rgba(244,196,48,.18)" stroke-width=".8" stroke-dasharray="3,2.5"/>`;
+  });
+
+  st.rows.forEach(row=>{
+    const sy=by(row.y);
+    const isSpinach=row.col==='#5A8C3A';
+    s+=`<line x1="${bx(100)}" y1="${sy}" x2="${bx(1100)}" y2="${sy}" stroke="${row.col}" stroke-width="1.2" opacity=".4" ${row.ph&&row.ph.includes('re-sown')?'stroke-dasharray="4,3"':''}/>`;
+    const count=isSpinach?8:6;
+    for(let i=0;i<count;i++){
+      const px=bx(100+i*(1000/(count-1)));
+      s+=`<circle cx="${px}" cy="${sy}" r="${Math.max(row.r*SC,2)}" fill="${row.col}" opacity=".7" class="dot" data-l="${esc(row.lab)}" data-i="${esc(row.inf)}"/>`;
+    }
+    s+=`<text x="${MG.l-6}" y="${sy}" font-size="7" fill="${row.col}" text-anchor="end" dominant-baseline="middle" font-weight="700">${isSpinach?'Sp':'Lt'}</text>`;
+  });
+
+  st.pts.forEach(p=>{
+    const cx=bx(p.x),cy=by(p.y),r=Math.max(p.r*SC,2.5);
+    s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${p.col}" stroke="#fff" stroke-width=".8" opacity=".85" class="dot" data-l="${esc(p.lab)}" data-i="${esc(p.inf)}"/>`;
+  });
+
+  const rY=MG.t+SH+7;
+  for(let x=0;x<=1200;x+=200){s+=`<line x1="${bx(x)}" y1="${rY}" x2="${bx(x)}" y2="${rY+6}" stroke="#A08B7A" stroke-width=".8"/>`;s+=`<text x="${bx(x)}" y="${rY+15}" font-size="7" fill="#A08B7A" text-anchor="middle">${x/10}cm</text>`}
+  s+=`<line x1="${bx(0)}" y1="${rY+3}" x2="${bx(1200)}" y2="${rY+3}" stroke="#A08B7A" stroke-width=".4"/>`;
+  for(let y=0;y<=2400;y+=200){const sy=by(y),rx=MG.l-6;s+=`<line x1="${rx-5}" y1="${sy}" x2="${rx}" y2="${sy}" stroke="#A08B7A" stroke-width=".8"/>`;if(y%400===0)s+=`<text x="${rx-8}" y="${sy}" font-size="7" fill="#A08B7A" text-anchor="end" dominant-baseline="middle">${y/10}</text>`}
+  s+=`<g transform="translate(${MG.l+SW/2},${MG.t-26})"><polygon points="0,-10 3.5,0 -3.5,0" fill="#3E2C23"/><text x="0" y="-14" font-size="9" fill="#3E2C23" text-anchor="middle" font-weight="800">N</text></g>`;
+  s+=`<g transform="translate(${MG.l},${MG.t+SH+34})"><rect width="${500*SC}" height="2.5" fill="#3E2C23" rx="1"/><text x="${500*SC/2}" y="12" font-size="8" fill="#3E2C23" text-anchor="middle" font-weight="700">50cm</text></g>`;
+  s+=`<text x="${TW/2}" y="16" font-size="13" fill="#3E2C23" text-anchor="middle" font-weight="700" font-family="Lora,serif">${FM[month]} 2026</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+const zoomLevels=[0.5,0.65,0.8,1,1.2,1.5];
+let zIdx=3;
+function applyZoom(){zoom=zoomLevels[zIdx];const svg=document.querySelector('#bedWrap svg');if(svg){svg.style.transform=`scale(${zoom})`;svg.style.transformOrigin='top center'}document.getElementById('zLbl').textContent=Math.round(zoom*100)+'%'}
+function fitZoom(){const w=document.getElementById('bedWrap').clientWidth-20;let best=0;zoomLevels.forEach((z,i)=>{if(z<=w/TW+.05)best=i});zIdx=best;applyZoom()}
+
+function tabHTML(id){
+  if(id==='spatial') return `
+<h3>Zone Layout (south to north)</h3>
+<ul>
+  <li><strong>Lettuce &amp; Spinach zone</strong> &mdash; y = 100&ndash;800mm (south third). Succession rows alternating lettuce and spinach. 2&ndash;3 rows active at any time.</li>
+  <li><strong>Chard zone</strong> &mdash; y = 1000&ndash;1350mm (middle). 4 plants at 30cm in a single E&ndash;W row at y=1175. Batch 1 transplanted early Jun. Batch 2 direct sown 20 Jul for overwinter.</li>
+  <li><strong>Tomato zone</strong> &mdash; y = 1400&ndash;2400mm (north 1000mm). 8 plants in 2 staggered rows at y=1650 and y=2100. 45cm nearest-neighbour spacing. Staked cordons 150cm+. Basil, marigolds, radish interplanted between tomatoes.</li>
+</ul>
+<h3>Shading &mdash; Key Design Feature</h3>
+<ul>
+  <li>Tomatoes at 150cm+ cast shadow <strong>southward</strong> during summer. This falls across the chard and into the lettuce/spinach zone &mdash; <strong>intentional</strong>. Summer lettuce and spinach bolt in full sun. Dappled shade from tomato foliage extends their productive season.</li>
+  <li>Shadow footprint shown as subtle ellipses south of each plant from July onwards.</li>
+</ul>`;
+
+  if(id==='companion') return `
+<h3>Basil (Greek) &mdash; tomato companion</h3>
+<ul>
+  <li>6 plants tucked between tomato plants. Transplant 1 Jun (warm weather only &mdash; hates cold).</li>
+  <li>Scent may deter whitefly. Also useful in the kitchen.</li>
+  <li>Pinch out tips for bushy growth. Pinch off flowers to keep leaves coming.</li>
+</ul>
+<h3>Marigolds (Spanish Brocade) &mdash; between tomatoes</h3>
+<ul>
+  <li>4 plants at edges of tomato zone. Planted 18 May. Pest deterrent + pollinator attractant for tomato fruit set.</li>
+</ul>
+<h3>Nasturtiums (Tom Thumb) &mdash; 4 corners</h3>
+<ul>
+  <li>Standard aphid trap crop. Monitor SW/SE corners &mdash; sprawl near lettuce seedlings. <span class="wb">&#9888; Monitor May&ndash;Jun</span></li>
+</ul>`;
+
+  if(id==='calendar') return `
+<h3>Month-by-Month Actions</h3>
+<ul>
+  <li><strong>May</strong>: Plant nasturtiums 4 corners + marigolds (18 May). <strong>Transplant tomatoes 26 May</strong> &mdash; 7&ndash;8 best plants, stake immediately, plant deep (bury to first leaves). Sow radish at tomato base.</li>
+  <li><strong>Jun</strong>: <strong>Transplant basil</strong> between tomatoes (1 Jun). Begin weekly side-shooting. <strong>Transplant chard</strong> to middle (early Jun, 4 plants). Harvest radish. Start tomato feed when first truss appears.</li>
+  <li><strong>Jul</strong>: Lettuce succession sow #5 &amp; #6. <strong>Sow chard Batch 2</strong> direct (20 Jul, overwinter). <strong>First tomato harvest</strong> (late Jul). No spinach sowing.</li>
+  <li><strong>Aug</strong>: Final lettuce sowing (12 Aug). <strong>Late spinach re-sow</strong> (24 Aug). Tomato harvest in full swing. Remove growing tip above 4&ndash;5 trusses (late Aug).</li>
+  <li><strong>Sep</strong>: Tomato harvest continues. Green tomatoes &mdash; windowsill to ripen. Chard Batch 2 growing.</li>
+  <li><strong>Oct</strong>: Clear summer crops. Late lettuce and spinach still harvestable. Chard Batch 2 overwintering. Apply compost.</li>
+</ul>`;
+
+  if(id==='guide') return `
+<h3>Planting Guide &mdash; Exact Positions</h3>
+<p>All measurements from the <strong>inner face</strong> of the timber frame. &ldquo;West&rdquo; = left when facing north.</p>
+
+<div class="pg-row">
+  <h4>Tomatoes &mdash; 8 plants, 2 staggered rows (transplant 26 May)</h4>
+  <div class="pg-spec">Row 1 (165cm from south): 4 plants
+  Plant 1: 15cm from west  (Moneymaker)
+  Plant 2: 50cm from west  (Black Opal)
+  Plant 3: 85cm from west  (Gardeners Delight)
+  Plant 4: 110cm from west (Moneymaker)
+
+Row 2 (210cm from south): 4 plants (staggered)
+  Plant 5: 15cm from west  (Gardeners Delight)
+  Plant 6: 30cm from west  (Black Opal)
+  Plant 7: 65cm from west  (Gardeners Delight)
+  Plant 8: 100cm from west (Moneymaker)
+
+PLANTING METHOD:
+1. Pierce cardboard at each position
+2. Dig hole 20cm deep. Add handful compost to bottom.
+3. Plant DEEP - bury to first true leaves. Buried stem = extra roots.
+4. Firm gently. Create slight depression for watering.
+5. Water 2-3L per plant immediately.
+6. STAKE IMMEDIATELY - 1.5-2m cane, 20cm into ground, 5cm from plant.
+7. Tie loosely with figure-8 pattern.
+
+ONGOING: Weekly side-shoot removal. Tie every 20-30cm. Weekly feed once first truss appears. Late Aug: remove growing tip above 4-5 trusses.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Chard (Rainbow) &mdash; 4 plants, single row (transplant early Jun)</h4>
+  <div class="pg-spec">Single E-W row at 117.5cm from south frame.
+4 plants at 30cm: positions at 15, 45, 75, 105cm from west.
+Batch 1 (transplant early Jun): harvest outer leaves from June.
+Batch 2 (direct sow 20 Jul): overwinters, harvest Nov 2026-Apr 2027.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Lettuce (Little Gem) &mdash; 8 direct sowings from 6 May</h4>
+  <div class="pg-spec">Zone: south end, y = 20-80cm from south frame.
+3 E-W rows at y=30cm, 50cm, 70cm from south. Rotate through as each clears.
+Station sow 2-3 seeds every 20cm. Thin to 1 strongest.
+Schedule: 6 May, 20 May, 3 Jun, 17 Jun, 1 Jul, 15 Jul, 29 Jul, 12 Aug.
+Surface sow (needs light to germinate). Harvest when heart firm - cut at base.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Spinach (Medania) &mdash; succession at south end</h4>
+  <div class="pg-spec">E-W rows at y=20cm and y=60cm (alternating with lettuce).
+Spring: sow 11 May. NO SOWING IN JULY - bolts in heat.
+Late re-sow: 24 Aug (benefits from tomato shade + shorter days).</div>
+</div>
+
+<div class="pg-row">
+  <h4>Basil (Greek) &mdash; 6 plants between tomatoes (transplant 1 Jun)</h4>
+  <div class="pg-spec">6 plants in the gaps between tomato plants.
+Sits below the tomato canopy. 30cm from nearest tomato.
+Pinch tips regularly for bushy growth. Pinch off flowers.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Nasturtiums (Tom Thumb) &mdash; 4 corners (plant 18 May)</h4>
+  <div class="pg-spec">SW: 10cm from south, 15cm from west
+SE: 10cm from south, 105cm from west
+NW: 230cm from south, 15cm from west
+NE: 230cm from south, 105cm from west</div>
+</div>`;
+
+  return '';
+}
+
+function init(){
+  const mb=document.getElementById('mBar');
+  MONTHS.forEach(m=>{const b=document.createElement('button');b.className='mbtn'+(m===curM?' on':'');b.textContent=m;b.onclick=()=>selM(m);mb.appendChild(b)});
+  document.getElementById('zIn').onclick=()=>{if(zIdx<zoomLevels.length-1){zIdx++;applyZoom()}};
+  document.getElementById('zOut').onclick=()=>{if(zIdx>0){zIdx--;applyZoom()}};
+  document.getElementById('zFit').onclick=fitZoom;
+  [{c:'#C83232',l:'Tomato'},{c:'#2D8C3C',l:'Basil'},{c:'#F4C430',l:'Marigold'},{c:'#D35B5B',l:'Radish'},
+   {c:'#6A3C8C',l:'Chard'},{c:'#7CAA5A',l:'Lettuce'},{c:'#5A8C3A',l:'Spinach'},{c:'#E8A020',l:'Nasturtium'}].forEach(l=>{
+    const d=document.createElement('div');d.className='leg-item';d.innerHTML=`<span class="leg-sw" style="background:${l.c}"></span>${l.l}`;document.getElementById('leg').appendChild(d)});
+  const tabs=[{id:'spatial',l:'Spatial Model'},{id:'companion',l:'Companions'},{id:'calendar',l:'Calendar'},{id:'guide',l:'Planting Guide'}];
+  const tb=document.getElementById('tBar'),tc=document.getElementById('tConts');
+  tabs.forEach((t,i)=>{
+    const b=document.createElement('button');b.className='tbtn'+(i===0?' on':'');b.textContent=t.l;b.onclick=()=>selT(t.id);tb.appendChild(b);
+    const d=document.createElement('div');d.className='tcont'+(i===0?' on':'');d.id='t-'+t.id;d.innerHTML=tabHTML(t.id);tc.appendChild(d)});
+  renderM();setTimeout(fitZoom,100);
+}
+function selM(m){curM=m;document.querySelectorAll('.mbtn').forEach(b=>b.classList.toggle('on',b.textContent===m));renderM()}
+function renderM(){document.getElementById('bedWrap').innerHTML=render(curM);applyZoom();tips()}
+function selT(id){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.tcont').forEach(c=>c.classList.remove('on'));
+  document.getElementById('t-'+id).classList.add('on');
+  const map={spatial:'Spatial Model',companion:'Companions',calendar:'Calendar',guide:'Planting Guide'};
+  document.querySelectorAll('.tbtn').forEach(b=>{if(b.textContent===map[id])b.classList.add('on')});
+}
+function tips(){
+  const tip=document.getElementById('tip');
+  document.querySelectorAll('.dot').forEach(d=>{
+    d.style.cursor='pointer';
+    d.addEventListener('mouseenter',e=>{const l=e.target.getAttribute('data-l'),i=e.target.getAttribute('data-i');if(i){tip.innerHTML=`<strong>${l}</strong><br>${i.replace(/\n/g,'<br>')}`;tip.classList.add('vis')}});
+    d.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-12)+'px'});
+    d.addEventListener('mouseleave',()=>tip.classList.remove('vis'));
+    d.addEventListener('touchstart',e=>{const l=e.target.getAttribute('data-l'),i=e.target.getAttribute('data-i');if(i){const r=e.target.getBoundingClientRect();tip.innerHTML=`<strong>${l}</strong><br>${i.replace(/\n/g,'<br>')}`;tip.style.left=(r.left+20)+'px';tip.style.top=(r.top-60)+'px';tip.classList.add('vis');setTimeout(()=>tip.classList.remove('vis'),3000)}},{passive:true});
+  });
+}
+init();
+</script>
+</body>
+</html>

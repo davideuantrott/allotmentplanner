@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Bed 1 — Alliums, Roots &amp; Leeks | 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF6F1; --text: #3E2C23; --text-light: #7A6355; --accent: #C75B39;
+  --accent-soft: #E8A87C; --green-dark: #4A7C59; --green-mid: #7FB069;
+  --soil: #8B7355; --soil-light: #C4A97D; --frame-col: #6B4E3D;
+  --card: #FFFFFF; --shadow: rgba(62,44,35,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:20px 12px}
+header{text-align:center;margin-bottom:24px}
+header h1{font-family:'Lora',serif;font-size:26px;font-weight:600;margin-bottom:2px}
+header .sub{font-size:13px;color:var(--text-light)}
+
+/* Month bar */
+.months{display:flex;justify-content:center;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.mbtn{padding:7px 13px;border:2px solid transparent;border-radius:20px;background:var(--card);
+  color:var(--text-light);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 1px 3px var(--shadow)}
+.mbtn:hover{border-color:var(--accent-soft);color:var(--text)}
+.mbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Zoom controls */
+.zoom-bar{display:flex;justify-content:center;gap:8px;margin-bottom:12px;align-items:center}
+.zbtn{width:34px;height:34px;border-radius:50%;border:2px solid #DDD3C9;background:var(--card);
+  font-size:18px;font-weight:700;color:var(--text);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:all .15s}
+.zbtn:hover{border-color:var(--accent);color:var(--accent)}
+.zoom-label{font-size:12px;color:var(--text-light);min-width:48px;text-align:center;font-weight:600}
+
+/* SVG viewport */
+.bed-wrap{display:flex;justify-content:center;overflow:auto;margin-bottom:24px;
+  border:1px solid #EDE4DA;border-radius:12px;background:#FDFBF8;padding:8px;max-height:80vh}
+.bed-wrap svg{display:block;transition:transform .15s}
+
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:center;margin-bottom:24px;
+  padding:14px 20px;background:var(--card);border-radius:10px;box-shadow:0 2px 6px var(--shadow)}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.leg-sw{width:14px;height:14px;border-radius:50%;border:2px solid rgba(0,0,0,.08);flex-shrink:0}
+
+/* Tabs */
+.notes{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px var(--shadow);margin-bottom:20px}
+.notes h2{font-family:'Lora',serif;font-size:18px;font-weight:600;margin-bottom:12px}
+.tbar{display:flex;gap:2px;margin-bottom:14px;border-bottom:2px solid #EDE4DA;overflow-x:auto}
+.tbtn{padding:7px 14px;border:none;background:transparent;color:var(--text-light);
+  font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tbtn:hover{color:var(--text)} .tbtn.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tcont{display:none} .tcont.on{display:block}
+.notes h3{font-size:14px;font-weight:700;color:var(--accent);margin:14px 0 6px}
+.notes p,.notes li{font-size:13px;line-height:1.7}
+.notes ul{list-style:none;padding:0}
+.notes ul li{padding:3px 0 3px 18px;position:relative}
+.notes ul li::before{content:'\2022';position:absolute;left:3px;color:var(--accent-soft);font-weight:700}
+.wb{display:inline-block;background:#FFF3CD;color:#856404;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-left:3px}
+.ob{display:inline-block;background:#D4EDDA;color:#155724;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-left:3px}
+
+/* Planting guide specific */
+.pg-row{background:#FDFBF8;border:1px solid #EDE4DA;border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.pg-row h4{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.pg-row p{font-size:12px;margin-bottom:4px}
+.pg-row .pg-spec{font-family:'Courier New',monospace;font-size:11px;background:#F5EFE6;
+  padding:6px 10px;border-radius:4px;margin-top:6px;line-height:1.6;white-space:pre-wrap}
+
+/* Tooltip */
+.tip{position:fixed;background:var(--text);color:#fff;padding:9px 13px;border-radius:7px;
+  font-size:11px;font-family:'Nunito',sans-serif;line-height:1.5;pointer-events:none;z-index:1000;
+  max-width:240px;opacity:0;transition:opacity .12s;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.tip.vis{opacity:1}
+
+.back-link{display:inline-block;margin-bottom:16px;color:var(--accent);font-size:13px;font-weight:700;text-decoration:none}
+.back-link:hover{text-decoration:underline}
+
+@media print{
+  .months,.zoom-bar,.tbar,.tbtn{display:none!important}
+  .tcont{display:block!important}
+  .notes{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .bed-wrap{page-break-after:always;border:none;max-height:none}
+}
+@media(max-width:600px){.mbtn{padding:5px 8px;font-size:10px}header h1{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" class="back-link">&larr; Back to planner</a>
+<header>
+  <h1>Bed 1 &mdash; Alliums, Roots &amp; Leeks</h1>
+  <p class="sub">2.4m &times; 1.2m &middot; No-dig raised bed &middot; 2026</p>
+</header>
+<div class="months" id="mBar"></div>
+<div class="zoom-bar">
+  <button class="zbtn" id="zOut">&minus;</button>
+  <span class="zoom-label" id="zLbl">100%</span>
+  <button class="zbtn" id="zIn">+</button>
+  <button class="zbtn" id="zFit" style="font-size:12px;width:auto;padding:0 10px;border-radius:6px">Fit</button>
+</div>
+<div class="bed-wrap" id="bedWrap"></div>
+<div class="legend" id="leg"></div>
+<div class="notes">
+  <h2>Layout Notes &amp; Planting Guide</h2>
+  <div class="tbar" id="tBar"></div>
+  <div id="tConts"></div>
+</div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+// =====================================================================
+// CONSTANTS
+// =====================================================================
+const BW=1200, BH=2400, SC=0.5; // bed mm, scale: 1px=2mm
+const SW=BW*SC, SH=BH*SC; // svg bed size: 600x1200
+const M={t:55,r:95,b:55,l:55};
+const TW=SW+M.l+M.r, TH=SH+M.t+M.b;
+const MONTHS=['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'];
+const FM={Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October',Nov:'November'};
+let curM='Mar', zoom=1;
+
+function bx(mm){return M.l+mm*SC}
+function by(mm){return M.t+(BH-mm)*SC}
+
+// =====================================================================
+// CROP DATA
+// =====================================================================
+
+// GARLIC: 3 rows x 7 plants
+const garlic={color:'#A89076',rows:[]};
+for(let r=0;r<3;r++){
+  const ry=80+r*150;
+  const pts=[];
+  for(let p=0;p<7;p++) pts.push({x:150+p*150, y:ry});
+  garlic.rows.push({y:ry,pts});
+}
+
+// ONIONS: 3 rows x 10 plants
+const onion={color:'#C7956D',rows:[]};
+for(let r=0;r<3;r++){
+  const ry=1750+r*250;
+  const pts=[];
+  for(let p=0;p<10;p++) pts.push({x:150+p*100, y:ry});
+  onion.rows.push({y:ry,pts});
+}
+
+// CARROTS: 4 E-W rows
+const carrotSow=[
+  {id:'CS1',lab:'Sowing 1',y:860,sowM:'May',harvM:'Aug'},
+  {id:'CS2',lab:'Sowing 2',y:1060,sowM:'Jun',harvM:'Sep'},
+  {id:'CS3',lab:'Sowing 3',y:1260,sowM:'Jul',harvM:'Oct'},
+  {id:'CS4',lab:'Sowing 4',y:1460,sowM:'Aug',harvM:'Nov'},
+];
+const CRX1=150, CRX2=1050, CR_SP=50, CR_N=19;
+
+// LEEKS
+const leekB=[
+  {lab:'Batch 1',rows:[1750,2000],appM:'Jul',zone:'onion'},
+  {lab:'Batch 3',rows:[2250],appM:'Aug',zone:'onion'},
+  {lab:'Batch 4',rows:[80,230,380],appM:'Sep',zone:'garlic'},
+];
+const LK_N=7, LK_SP=150, LK_X1=150;
+
+// NASTURTIUMS: 4 corners
+const nast=[
+  {x:200,y:200,lab:'SW'},{x:1000,y:200,lab:'SE'},
+  {x:200,y:2200,lab:'NW'},{x:1000,y:2200,lab:'NE'}
+];
+
+// MARIGOLDS
+const mari=[
+  {x:75,y:960,lab:'W1'},{x:1125,y:960,lab:'E1'},
+  {x:75,y:1360,lab:'W2'},{x:1125,y:1360,lab:'E2'},
+  {x:600,y:760,lab:'C'},
+];
+
+// =====================================================================
+// STATE PER MONTH
+// =====================================================================
+function mi(m){return MONTHS.indexOf(m)}
+
+function getState(month){
+  const idx=mi(month);
+  const pts=[], rows=[], zones=[];
+
+  // GARLIC
+  const garlicGone = idx>=4;
+  if(!garlicGone){
+    const ph=idx<=1?'growing':idx<=2?'bulking':idx<=3?'maturing':'ready';
+    const r=idx<=1?5:idx<=2?9:idx<=3?12:10;
+    zones.push({id:'garlic',lab:'Garlic',yR:[0,460],col:'rgba(168,144,118,0.15)'});
+    garlic.rows.forEach(row=>row.pts.forEach(p=>
+      pts.push({x:p.x,y:p.y,r,col:garlic.color,lab:'Garlic (Germidour)',
+        inf:`Phase: ${ph}\nHarvest: July\n7 per row x 3 rows = 21`,z:'garlic'})
+    ));
+  }
+
+  // ONIONS
+  const onionRowPresent=[
+    idx<4,
+    idx<4,
+    idx<5,
+  ];
+  const anyOnion=onionRowPresent.some(Boolean);
+  if(anyOnion){
+    zones.push({id:'onion',lab:'Onion',yR:[1600,2400],col:'rgba(199,149,109,0.12)'});
+  }
+  const onPh=idx<=1?'establishing':idx<=3?'bulbing':idx<=4?'mature':'harvesting';
+  const onR=idx<=1?4:idx<=3?7:idx<=4?10:8;
+  onion.rows.forEach((row,ri)=>{
+    if(onionRowPresent[ri]){
+      row.pts.forEach(p=>
+        pts.push({x:p.x,y:p.y,r:onR,col:onion.color,lab:'Onion (Sturon)',
+          inf:`Phase: ${onPh}\n10 per row x 3 rows = 30\nHarvest: Jul-Aug`,z:'onion'})
+      );
+    }
+  });
+
+  // CARROTS
+  let anyCarrot=false;
+  carrotSow.forEach(cs=>{
+    const si=mi(cs.sowM), hi=mi(cs.harvM);
+    if(idx>=si && idx<=hi){
+      anyCarrot=true;
+      const wk=(idx-si)*4;
+      const ph=wk<=2?'germinating':wk<=6?'seedling':wk<=10?'growing':'ready';
+      const r=wk<=2?2:wk<=6?4:wk<=10?7:9;
+      rows.push({y:cs.y,col:'#E67E22',lab:`Carrot ${cs.lab}`,ph,r,
+        inf:`Sow: ${cs.sowM} · Harvest: ${cs.harvM}\nPhase: ${ph}\n19 seeds/row (thin to ~12)`});
+    }
+  });
+  if(anyCarrot) zones.push({id:'carrot',lab:'Carrots',yR:[760,1560],col:'rgba(230,126,34,0.07)'});
+
+  // LEEKS
+  leekB.forEach(lb=>{
+    const ai=mi(lb.appM);
+    if(idx>=ai){
+      const wk=(idx-ai)*4;
+      const ph=wk<=4?'transplanted':wk<=8?'establishing':'growing';
+      const r=wk<=4?5:wk<=8?7:9;
+      lb.rows.forEach(ry=>{
+        for(let p=0;p<LK_N;p++){
+          pts.push({x:LK_X1+p*LK_SP,y:ry,r,col:'#5B8C5A',
+            lab:`Leek ${lb.lab} (Musselburgh)`,
+            inf:`${lb.lab} · Transplanted: ${lb.appM}\nPhase: ${ph}\n7 per row, 15cm spacing`,
+            z:'leek'});
+        }
+      });
+    }
+  });
+
+  // NASTURTIUMS: May onwards
+  if(idx>=2){
+    const wk=(idx-2)*4;
+    const r=Math.min(wk<=4?10:wk<=8?16:20, 20);
+    const spr=wk<=4?80:wk<=8?200:350;
+    nast.forEach(n=>pts.push({x:n.x,y:n.y,r,col:'#E8A020',
+      lab:`Nasturtium ${n.lab}`,inf:`Planted May\nSprawl: ~${spr}mm\nAphid trap crop`,
+      z:'nast',spr}));
+  }
+
+  // MARIGOLDS: May onwards
+  if(idx>=2){
+    const wk=(idx-2)*4;
+    const r=wk<=4?6:10;
+    mari.forEach(m=>pts.push({x:m.x,y:m.y,r,col:'#F4C430',
+      lab:`Marigold ${m.lab} (Mango Tango)`,
+      inf:`Planted May\nScent deterrent + root exudates\nWorking radius: 30cm`,
+      z:'mari'}));
+  }
+
+  return {pts,rows,zones};
+}
+
+// =====================================================================
+// SVG RENDERING
+// =====================================================================
+function render(month){
+  const st=getState(month);
+  const ns='http://www.w3.org/2000/svg';
+  let s=`<svg xmlns="${ns}" viewBox="0 0 ${TW} ${TH}" width="${TW}" height="${TH}" font-family="Nunito,sans-serif">`;
+
+  s+=`<defs>
+    <pattern id="cp" patternUnits="userSpaceOnUse" width="10" height="10">
+      <rect width="10" height="10" fill="#C4A97D"/>
+      <circle cx="3" cy="4" r="1" fill="#B09570" opacity=".4"/>
+      <circle cx="8" cy="8" r=".7" fill="#A8875E" opacity=".3"/>
+    </pattern>
+    <filter id="sh"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".1"/></filter>
+  </defs>`;
+
+  s+=`<rect width="${TW}" height="${TH}" fill="#FAF6F1" rx="6"/>`;
+
+  const fp=5;
+  s+=`<rect x="${M.l-fp}" y="${M.t-fp}" width="${SW+fp*2}" height="${SH+fp*2}" rx="3" fill="#5C3F2E" filter="url(#sh)"/>`;
+  s+=`<rect x="${M.l-fp+1}" y="${M.t-fp+1}" width="${SW+fp*2-2}" height="${SH+fp*2-2}" rx="2" fill="#6B4E3D"/>`;
+
+  s+=`<rect x="${M.l}" y="${M.t}" width="${SW}" height="${SH}" fill="url(#cp)" rx="1"/>`;
+
+  st.zones.forEach(z=>{
+    const yt=by(z.yR[1]), yb=by(z.yR[0]), h=yb-yt;
+    s+=`<rect x="${M.l}" y="${yt}" width="${SW}" height="${h}" fill="${z.col}"/>`;
+    s+=`<text x="${M.l+SW+6}" y="${yt+h/2}" font-size="8.5" fill="#7A6355" dominant-baseline="middle" font-weight="700">${z.lab}</text>`;
+  });
+
+  st.pts.filter(p=>p.z==='nast'&&p.spr).forEach(p=>{
+    s+=`<circle cx="${bx(p.x)}" cy="${by(p.y)}" r="${p.spr*SC}" fill="rgba(232,160,32,.06)" stroke="rgba(232,160,32,.18)" stroke-width=".8" stroke-dasharray="3,2.5"/>`;
+  });
+
+  st.pts.filter(p=>p.z==='mari').forEach(p=>{
+    s+=`<circle cx="${bx(p.x)}" cy="${by(p.y)}" r="${300*SC}" fill="none" stroke="rgba(244,196,48,.18)" stroke-width=".8" stroke-dasharray="3,2.5"/>`;
+  });
+
+  st.rows.forEach(row=>{
+    const sy=by(row.y);
+    const dash=row.ph==='germinating'?'stroke-dasharray="3,3"':'';
+    s+=`<line x1="${bx(CRX1)}" y1="${sy}" x2="${bx(CRX2)}" y2="${sy}" stroke="${row.col}" stroke-width="1.5" ${dash} opacity=".5"/>`;
+    for(let i=0;i<CR_N;i++){
+      const px=bx(CRX1+i*CR_SP);
+      s+=`<circle cx="${px}" cy="${sy}" r="${Math.max(row.r*SC,2)}" fill="${row.col}" opacity=".7" class="dot" data-l="${esc(row.lab)}" data-i="${esc(row.inf)}"/>`;
+    }
+    s+=`<text x="${M.l-6}" y="${sy}" font-size="7.5" fill="${row.col}" text-anchor="end" dominant-baseline="middle" font-weight="700">${row.lab.replace('Carrot ','C')}</text>`;
+  });
+
+  st.pts.forEach(p=>{
+    const cx=bx(p.x),cy=by(p.y),r=Math.max(p.r*SC,2.5);
+    s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${p.col}" stroke="#fff" stroke-width=".8" opacity=".85" class="dot" data-l="${esc(p.lab)}" data-i="${esc(p.inf)}"/>`;
+  });
+
+  const rY=M.t+SH+7;
+  for(let x=0;x<=1200;x+=200){
+    const sx=bx(x);
+    s+=`<line x1="${sx}" y1="${rY}" x2="${sx}" y2="${rY+6}" stroke="#A08B7A" stroke-width=".8"/>`;
+    s+=`<text x="${sx}" y="${rY+15}" font-size="7" fill="#A08B7A" text-anchor="middle">${x/10}cm</text>`;
+  }
+  s+=`<line x1="${bx(0)}" y1="${rY+3}" x2="${bx(1200)}" y2="${rY+3}" stroke="#A08B7A" stroke-width=".4"/>`;
+
+  for(let y=0;y<=2400;y+=200){
+    const sy=by(y),rx=M.l-6;
+    s+=`<line x1="${rx-5}" y1="${sy}" x2="${rx}" y2="${sy}" stroke="#A08B7A" stroke-width=".8"/>`;
+    if(y%400===0) s+=`<text x="${rx-8}" y="${sy}" font-size="7" fill="#A08B7A" text-anchor="end" dominant-baseline="middle">${y/10}</text>`;
+  }
+
+  s+=`<g transform="translate(${M.l+SW/2},${M.t-26})">
+    <polygon points="0,-10 3.5,0 -3.5,0" fill="#3E2C23"/>
+    <text x="0" y="-14" font-size="9" fill="#3E2C23" text-anchor="middle" font-weight="800">N</text>
+  </g>`;
+
+  s+=`<g transform="translate(${M.l},${M.t+SH+34})">
+    <rect width="${500*SC}" height="2.5" fill="#3E2C23" rx="1"/>
+    <text x="${500*SC/2}" y="12" font-size="8" fill="#3E2C23" text-anchor="middle" font-weight="700">50cm</text>
+  </g>`;
+
+  s+=`<text x="${TW/2}" y="16" font-size="13" fill="#3E2C23" text-anchor="middle" font-weight="700" font-family="Lora,serif">${FM[month]} 2026</text>`;
+
+  s+=`</svg>`;
+  return s;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// =====================================================================
+// ZOOM
+// =====================================================================
+const zoomLevels=[0.5,0.65,0.8,1,1.2,1.5];
+let zIdx=3;
+
+function applyZoom(){
+  zoom=zoomLevels[zIdx];
+  const svg=document.querySelector('#bedWrap svg');
+  if(svg) svg.style.transform=`scale(${zoom})`;
+  if(svg) svg.style.transformOrigin='top center';
+  document.getElementById('zLbl').textContent=Math.round(zoom*100)+'%';
+}
+
+function fitZoom(){
+  const wrap=document.getElementById('bedWrap');
+  const ww=wrap.clientWidth-20;
+  const ideal=ww/TW;
+  let best=0;
+  zoomLevels.forEach((z,i)=>{if(z<=ideal+0.05)best=i});
+  zIdx=best;
+  applyZoom();
+}
+
+// =====================================================================
+// TAB CONTENT
+// =====================================================================
+function tabHTML(id){
+  if(id==='spatial') return `
+<h3>Zone Layout (south to north)</h3>
+<ul>
+  <li><strong>Garlic zone</strong> &mdash; y = 0&ndash;460mm. 3 rows &times; 7 plants = 21 total. 150mm in-row, rows at y = 80, 230, 380mm.</li>
+  <li><strong>Carrots zone</strong> &mdash; y = 860&ndash;1460mm. 4 succession E&ndash;W rows, 200mm apart. Rows run x = 150&ndash;1050mm (marigolds at edges).</li>
+  <li><strong>Onion zone</strong> &mdash; y = 1600&ndash;2400mm. 3 rows &times; 10 plants = 30 total. 100mm in-row, 250mm row spacing at y = 1750, 2000, 2250mm.</li>
+</ul>
+<h3>Leek succession (Musselburgh)</h3>
+<ul>
+  <li><strong>Batch 1 (Jul)</strong>: Transplant into onion rows 1 &amp; 2 (y=1750, 2000) as onions are pulled. 7 leeks per row at 150mm.</li>
+  <li><strong>Batch 3 (Aug)</strong>: Transplant into onion row 3 (y=2250) as last onions clear.</li>
+  <li><strong>Batch 4 (Sep)</strong>: Transplant into garlic zone (y=80, 230, 380). Garlic cleared July &mdash; zone rested 8+ weeks.</li>
+</ul>`;
+
+  if(id==='companion') return `
+<h3>Nasturtiums &mdash; 4 corners</h3>
+<ul>
+  <li>SW (200,200), SE (1000,200), NW (200,2200), NE (1000,2200). 200mm from frame.</li>
+  <li>Working radius ~60cm when flowering (Jul&ndash;Sep). Monitor NW/NE sprawl near leeks in Aug+.</li>
+</ul>
+<h3>Marigolds (Mango Tango) &mdash; 5 positions</h3>
+<ul>
+  <li>W1 (75,960), E1 (1125,960), W2 (75,1360), E2 (1125,1360), Centre (600,760).</li>
+  <li>Edge marigolds sit outside the carrot row span (carrots run x=150&ndash;1050). No overlap. 30cm scent deterrence covers all carrot rows.</li>
+</ul>`;
+
+  if(id==='calendar') return `
+<h3>Month-by-Month Actions</h3>
+<ul>
+  <li><strong>Mar</strong>: Garlic growing. Onions planted 20 Mar. Bed otherwise bare.</li>
+  <li><strong>Apr</strong>: Garlic bulking. Onions establishing.</li>
+  <li><strong>May</strong>: Sow Carrot Sowing 1 (11 May, y=860). Plant nasturtiums and marigolds from 18 May.</li>
+  <li><strong>Jun</strong>: Sow Carrot Sowing 2 (8 Jun, y=1060). Snap garlic scapes if they appear.</li>
+  <li><strong>Jul</strong>: <strong>Harvest garlic</strong>. Harvest Carrot Sowing 1. Sow Carrot Sowing 3 (6 Jul). Begin pulling onion rows 1 &amp; 2. <strong>Transplant Leek Batch 1</strong>.</li>
+  <li><strong>Aug</strong>: Pull remaining onions. Harvest Carrot Sowing 2. <strong>Transplant Leek Batch 3</strong>. Trim nasturtium sprawl.</li>
+  <li><strong>Sep</strong>: Harvest Carrot Sowing 3. <strong>Transplant Leek Batch 4</strong> into cleared garlic zone.</li>
+  <li><strong>Oct</strong>: Harvest final carrots. Leeks establishing. Nasturtiums die at first frost &mdash; clear.</li>
+  <li><strong>Nov</strong>: Leeks stand for winter harvest. Apply fresh compost across cleared zones.</li>
+</ul>`;
+
+  if(id==='guide') return `
+<h3>Planting Guide &mdash; Exact Positions</h3>
+<p>All measurements from the <strong>inner face</strong> of the timber frame. &ldquo;West&rdquo; = left when facing north.</p>
+
+<div class="pg-row">
+  <h4>Garlic (Germidour) &mdash; 3 rows &times; 7 plants = 21 total</h4>
+  <div class="pg-spec">Row 1: 8cm from south frame
+Row 2: 23cm from south frame
+Row 3: 38cm from south frame
+Each row: start 15cm from west, 7 cloves at 15cm intervals.
+Positions from west: 15, 30, 45, 60, 75, 90, 105cm</div>
+</div>
+
+<div class="pg-row">
+  <h4>Onion (Sturon) &mdash; 3 rows &times; 10 plants = 30 total (planted 20 Mar)</h4>
+  <div class="pg-spec">Row 1: 175cm from south frame
+Row 2: 200cm from south frame
+Row 3: 225cm from south frame
+Each row: start 15cm from west, 10 sets at 10cm intervals.
+Positions from west: 15, 25, 35, 45, 55, 65, 75, 85, 95, 105cm</div>
+</div>
+
+<div class="pg-row">
+  <h4>Carrot Sowing 1 &mdash; 11 May, y=86cm from south</h4>
+  <div class="pg-spec">Row at 86cm from south frame.
+19 seeds at 5cm intervals, from 15cm to 105cm from west.
+Pierce compost with dibber at each position for taproot channel.
+Thin to ~12 plants when established.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Carrot Sowing 2 &mdash; 8 Jun, y=106cm from south</h4>
+  <div class="pg-spec">Row at 106cm from south. Same x-positions as Sowing 1.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Carrot Sowing 3 &mdash; 6 Jul, y=126cm from south</h4>
+  <div class="pg-spec">Row at 126cm from south. Same x-positions as Sowing 1.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Leek Batches 1, 3, 4 (Musselburgh) &mdash; 7 plants per row</h4>
+  <div class="pg-spec">Batch 1 (Jul): rows at 175cm and 200cm from south (former onion rows 1 &amp; 2)
+Batch 3 (Aug): row at 225cm from south (former onion row 3)
+Batch 4 (Sep): rows at 8cm, 23cm, 38cm from south (former garlic rows)
+Each row: 7 leeks at 15cm, starting 15cm from west.
+Drop into holes left by pulled onion/garlic &mdash; no extra dibbing needed.</div>
+</div>
+
+<div class="pg-row">
+  <h4>Nasturtiums &mdash; 4 corner positions (plant from 18 May)</h4>
+  <div class="pg-spec">SW: 20cm from south, 20cm from west
+SE: 20cm from south, 100cm from west
+NW: 220cm from south, 20cm from west
+NE: 220cm from south, 100cm from west</div>
+</div>
+
+<div class="pg-row">
+  <h4>Marigolds (Mango Tango) &mdash; 5 positions (plant from 18 May)</h4>
+  <div class="pg-spec">W1: 96cm from south, 7.5cm from west (outside carrot row span)
+E1: 96cm from south, 112.5cm from west
+W2: 136cm from south, 7.5cm from west
+E2: 136cm from south, 112.5cm from west
+Centre: 76cm from south, 60cm from west</div>
+</div>`;
+
+  return '';
+}
+
+// =====================================================================
+// INIT
+// =====================================================================
+function init(){
+  const mb=document.getElementById('mBar');
+  MONTHS.forEach(m=>{
+    const b=document.createElement('button');
+    b.className='mbtn'+(m===curM?' on':'');
+    b.textContent=m;
+    b.onclick=()=>selM(m);
+    mb.appendChild(b);
+  });
+
+  document.getElementById('zIn').onclick=()=>{if(zIdx<zoomLevels.length-1){zIdx++;applyZoom()}};
+  document.getElementById('zOut').onclick=()=>{if(zIdx>0){zIdx--;applyZoom()}};
+  document.getElementById('zFit').onclick=fitZoom;
+
+  const ld=[
+    {c:'#A89076',l:'Garlic'},{c:'#C7956D',l:'Onion'},
+    {c:'#E67E22',l:'Carrot'},{c:'#5B8C5A',l:'Leek'},{c:'#E8A020',l:'Nasturtium'},{c:'#F4C430',l:'Marigold'}
+  ];
+  const lg=document.getElementById('leg');
+  ld.forEach(l=>{
+    const d=document.createElement('div');d.className='leg-item';
+    d.innerHTML=`<span class="leg-sw" style="background:${l.c}"></span>${l.l}`;
+    lg.appendChild(d);
+  });
+
+  const tabs=[
+    {id:'spatial',l:'Spatial Model'},{id:'companion',l:'Companions'},
+    {id:'calendar',l:'Calendar'},{id:'guide',l:'Planting Guide'}
+  ];
+  const tb=document.getElementById('tBar'), tc=document.getElementById('tConts');
+  tabs.forEach((t,i)=>{
+    const b=document.createElement('button');b.className='tbtn'+(i===0?' on':'');
+    b.textContent=t.l;b.onclick=()=>selT(t.id);tb.appendChild(b);
+    const d=document.createElement('div');d.className='tcont'+(i===0?' on':'');
+    d.id='t-'+t.id;d.innerHTML=tabHTML(t.id);tc.appendChild(d);
+  });
+
+  renderM();
+  setTimeout(fitZoom,100);
+}
+
+function selM(m){
+  curM=m;
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.toggle('on',b.textContent===m));
+  renderM();
+}
+
+function renderM(){
+  document.getElementById('bedWrap').innerHTML=render(curM);
+  applyZoom();
+  tips();
+}
+
+function selT(id){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.tcont').forEach(c=>c.classList.remove('on'));
+  document.getElementById('t-'+id).classList.add('on');
+  const map={spatial:'Spatial Model',companion:'Companions',calendar:'Calendar',guide:'Planting Guide'};
+  document.querySelectorAll('.tbtn').forEach(b=>{
+    if(b.textContent===map[id])b.classList.add('on');
+  });
+}
+
+function tips(){
+  const tip=document.getElementById('tip');
+  document.querySelectorAll('.dot').forEach(d=>{
+    d.style.cursor='pointer';
+    d.addEventListener('mouseenter',e=>{
+      const l=e.target.getAttribute('data-l'),i=e.target.getAttribute('data-i');
+      if(i){tip.innerHTML=`<strong>${l}</strong><br>${i.replace(/\n/g,'<br>')}`;tip.classList.add('vis')}
+    });
+    d.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-12)+'px'});
+    d.addEventListener('mouseleave',()=>tip.classList.remove('vis'));
+    d.addEventListener('touchstart',e=>{
+      const l=e.target.getAttribute('data-l'),i=e.target.getAttribute('data-i');
+      if(i){
+        const r=e.target.getBoundingClientRect();
+        tip.innerHTML=`<strong>${l}</strong><br>${i.replace(/\n/g,'<br>')}`;
+        tip.style.left=(r.left+20)+'px';tip.style.top=(r.top-60)+'px';
+        tip.classList.add('vis');
+        setTimeout(()=>tip.classList.remove('vis'),3000);
+      }
+    },{passive:true});
+  });
+}
+
+init();
+</script>
+</body>
+</html>

@@ -21,6 +21,10 @@ This is a **zero-dependency, pure HTML/CSS/JavaScript** project. There is no bui
 | `manifest.json` | PWA manifest (app name, icons, theme colour, display mode) |
 | `sw.js` | Service worker — caches all assets for offline use (cache name: `allotment-2026-v7`) |
 | `archive-plan-2026.html` | Read-only archive of the original February 2026 season plan, before the May 2026 re-sync |
+| `bed1-layout.html` | Interactive SVG layout for Bed 1 (Alliums, Roots & Leeks) — month-by-month plant positions with zoom, tooltips, and planting guide |
+| `bed2-layout.html` | Interactive SVG layout for Bed 2 (Potatoes, Beetroot & Roots) — shows earthing-up ridges growing over the season |
+| `bed3-layout.html` | Interactive SVG layout for Bed 3 (Brassicas & Shallots) — shows shallot chequerboard, cauliflower and PSB positions with netting indicators |
+| `bed4-layout.html` | Interactive SVG layout for Bed 4 (Tomatoes, Leafy Greens & Herbs) — shows tomato shading footprint and succession lettuce rows |
 | `icon-192.png` | Home screen icon (192x192) |
 | `icon-512.png` | Splash screen icon (512x512) |
 | `gantt-data.md` | Raw Gantt data (all crops, dates, activities) for import into MS Project or similar |
@@ -205,6 +209,7 @@ GitHub Pages serves directly from the `main` branch root. No build step required
 
 - **All content is hardcoded HTML** — there is no data layer, no JSON data file, no templating.
 - When adding a crop task to the calendar, add it to all relevant sections: the monthly card (`#calendar`), the bed layout (`#beds`), the succession table (`#succession`), the progress tracker (`#progress`), the growing guide (`#guide`), and potentially the advice section (`#advice`). Also update `gantt-data.md`.
+- The **bed layout files** (`bed1-layout.html` through `bed4-layout.html`) are standalone interactive SVG diagrams. They each have their own hardcoded crop positions in JavaScript constants at the top of their `<script>`. If plant positions, varieties, or dates change materially, update the relevant bed layout file's JS constants too. Each file has a `← Back to planner` link to `index.html`.
 - The `#progress` section contains a "Completed Sowings" table and "Upcoming Actions" table — update these to reflect actual vs planned dates.
 - The `#guide` section uses `<details class="checklist-details">` expandable cards with `<input type="checkbox">` items — one card per crop.
 - The `#checklist` section is a week-by-week interactive checkbox list for windowsill sowing tasks.
